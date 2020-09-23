@@ -1,4 +1,4 @@
-package com.grigoriy0.budgetfy;
+package com.grigoriy0.budgetfy.accountdetails;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -10,6 +10,9 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.grigoriy0.budgetfy.Category;
+import com.grigoriy0.budgetfy.R;
 
 import java.util.Arrays;
 

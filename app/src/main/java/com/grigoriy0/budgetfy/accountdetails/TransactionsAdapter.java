@@ -1,4 +1,4 @@
-package com.grigoriy0.budgetfy;
+package com.grigoriy0.budgetfy.accountdetails;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -10,6 +10,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.grigoriy0.budgetfy.R;
 
 public class TransactionsAdapter extends ListAdapter<Transaction, TransactionsAdapter.ViewHolder> {
     private static final class DiffCallback extends DiffUtil.ItemCallback<Transaction> {

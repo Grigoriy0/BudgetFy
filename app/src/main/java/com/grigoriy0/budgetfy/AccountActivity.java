@@ -6,6 +6,8 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
+import com.grigoriy0.budgetfy.accountdetails.TransactionsFragment;
+
 public class AccountActivity extends AppCompatActivity {
 
     @Override
@@ -13,15 +15,16 @@ public class AccountActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_account);
         if (savedInstanceState == null) {
-            openAccountFragment();
+            openTransactionFragment();
         }
     }
 
-    private void openAccountFragment() {
-        final Fragment homeFragment = new TransactionsFragment();
+    private void openTransactionFragment() { // show scene with transactions
+        final Fragment detailsFragment = new TransactionsFragment();
+
         getSupportFragmentManager()
                 .beginTransaction()
-                .replace(R.id.accountActivity, homeFragment)
+                .replace(R.id.accountActivity, detailsFragment)
                 .commit();
     }
 }

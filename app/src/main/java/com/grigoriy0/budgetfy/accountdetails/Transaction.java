@@ -1,4 +1,6 @@
-package com.grigoriy0.budgetfy;
+package com.grigoriy0.budgetfy.accountdetails;
+
+import com.grigoriy0.budgetfy.Category;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
