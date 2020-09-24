@@ -11,24 +11,22 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
-public class AccountAdapter extends RecyclerView.Adapter<AccountAdapter.AccountViewHolder> {
+public class ViewPagerAdapter extends RecyclerView.Adapter<ViewPagerAdapter.AccountViewHolder> {
 
     private List<Account> accounts;
 
-    public AccountAdapter(List<Account> accounts) {
+    public ViewPagerAdapter(List<Account> accounts) {
         this.accounts = accounts;
     }
 
     @NonNull
     @Override
     public AccountViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new AccountAdapter.AccountViewHolder(
-                LayoutInflater.from(parent.getContext()).inflate(
-                        R.layout.fragment_account_item,
-                        parent,
-                        false
-                )
-        );
+        View view = LayoutInflater.from(parent.getContext()).inflate(
+                R.layout.fragment_transaction_item,
+                parent,
+                false);
+        return new AccountViewHolder(view);
     }
 
     @Override

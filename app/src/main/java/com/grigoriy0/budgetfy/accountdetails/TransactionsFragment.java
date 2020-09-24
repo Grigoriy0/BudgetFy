@@ -11,15 +11,17 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.grigoriy0.budgetfy.Category;
 import com.grigoriy0.budgetfy.R;
 
-import java.util.Arrays;
+import java.util.List;
 
 public class TransactionsFragment extends Fragment {
     private TransactionsAdapter adapter;
+    private List<Transaction> transactions;
 
-    public TransactionsFragment(){}
+    public TransactionsFragment(List<Transaction> transactions) {
+        this.transactions = transactions;
+    }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
@@ -34,15 +36,7 @@ public class TransactionsFragment extends Fragment {
         adapter = new TransactionsAdapter();
         transactionsRecyclerView.setAdapter(adapter);
         transactionsRecyclerView.setLayoutManager(new LinearLayoutManager(parentView.getContext()));
-        adapter.submitList(Arrays.asList(new Transaction(-12.67f, Category.CAFE),
-                new Transaction(-5.50f, Category.BARBER),
-                new Transaction(-0.65f, Category.TRANSPORT),
-                new Transaction(-5.50f, Category.UNIVERSITY),
-                new Transaction(-0.65f, Category.FOOD),
-                new Transaction(-5.50f, Category.RENT),
-                new Transaction(-0.65f, Category.TRANSPORT),
-                new Transaction(-5.50f, Category.MISCELLANEOUS),
-                new Transaction(-0.65f, Category.PHONE)));
+        adapter.submitList(transactions);
         return parentView;
     }
 }

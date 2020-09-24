@@ -6,7 +6,7 @@
     android:background="@color/colorAccent"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:onClick="onClick">
+    android:onClick="showAccountDetails">
 
     <EditText
         android:id="@+id/accountName"
