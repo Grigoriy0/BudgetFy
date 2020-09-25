@@ -26,7 +26,7 @@ public class ViewPagerAdapter extends RecyclerView.Adapter<ViewPagerAdapter.Page
     @NonNull
     @Override
     public PagerVH onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new PagerVH(LayoutInflater.from(parent.getContext()).inflate(R.layout.fragment_account_item, parent, false));
+        return new PagerVH(LayoutInflater.from(parent.getContext()).inflate(R.layout.account_item, parent, false));
     }
 
     @Override

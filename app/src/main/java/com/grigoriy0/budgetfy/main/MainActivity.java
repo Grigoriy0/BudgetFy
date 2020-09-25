@@ -4,7 +4,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.viewpager.widget.ViewPager;
+import androidx.viewpager2.widget.CompositePageTransformer;
+import androidx.viewpager2.widget.MarginPageTransformer;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.grigoriy0.budgetfy.Account;
@@ -41,5 +45,16 @@ public class MainActivity extends AppCompatActivity {
         accountsViewPager = findViewById(R.id.accountsViewPager);
         adapter = new ViewPagerAdapter(accounts, accountsViewPager);
         accountsViewPager.setAdapter(adapter);
+
+        CompositePageTransformer transformer = new CompositePageTransformer();
+        transformer.addTransformer(new MarginPageTransformer(40));
+        transformer.addTransformer(new ViewPager2.PageTransformer() {
+            @Override
+            public void transformPage(@NonNull View page, float position) {
+                float r = 1 - Math.abs(position);
+                page.setScaleY(0.85f + r * 0.15f);
+            }
+        });
+        accountsViewPager.setPageTransformer(transformer);
     }
 }

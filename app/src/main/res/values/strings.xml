@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">BudgetFy</string>
+    <string name="increase">Increase</string>
+    <string name="loss">Loss</string>
 </resources>
