@@ -1,17 +1,14 @@
 package com.grigoriy0.budgetfy.main;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-import androidx.viewpager2.widget.ViewPager2;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.viewpager2.widget.ViewPager2;
+
 import com.grigoriy0.budgetfy.Account;
 import com.grigoriy0.budgetfy.AccountActivity;
-import com.grigoriy0.budgetfy.AccountFragment;
-import com.grigoriy0.budgetfy.ViewPagerAdapter;
 import com.grigoriy0.budgetfy.R;
 
 import java.util.Arrays;
@@ -42,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void openAccountsViewPager() {
         accountsViewPager = findViewById(R.id.accountsViewPager);
-        adapter = new ViewPagerAdapter(accounts);
+        adapter = new ViewPagerAdapter(accounts, accountsViewPager);
         accountsViewPager.setAdapter(adapter);
     }
 }
