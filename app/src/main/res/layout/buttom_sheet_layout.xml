@@ -16,43 +16,37 @@
         android:padding="15dp"
         android:textAlignment="center"
         />
-    <RadioGroup
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        >
-        <LinearLayout
-            android:layout_width="wrap_content"
+        android:orientation="horizontal">
+        <RadioGroup
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
             >
             <RadioButton
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Transport"
+                android:text="@string/transport"
                 />
             <RadioButton
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Food"
-                />
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            >
-            <RadioButton
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="University"
+                android:text="@string/food"
                 />
             <RadioButton
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Rent"
+                android:text="@string/university"
                 />
-        </LinearLayout>
-    </RadioGroup>
+            <RadioButton
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/rent"
+                />
+        </RadioGroup>
+    </LinearLayout>
+
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -74,6 +68,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@android:string/cancel" />
+            android:text="@string/cancel" />
     </LinearLayout>
 </LinearLayout>

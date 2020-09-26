@@ -3,5 +3,10 @@
     <string name="increase">Increase</string>
     <string name="loss">Loss</string>
     <string name="apply">Apply</string>
+    <string name="cancel">Cancel</string>
     <string name="add_transaction">Add transaction</string>
+    <string name="transport">Transport</string>
+    <string name="food">Food</string>
+    <string name="university">University</string>
+    <string name="rent">Rent</string>
 </resources>
