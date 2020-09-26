@@ -2,4 +2,6 @@
     <string name="app_name">BudgetFy</string>
     <string name="increase">Increase</string>
     <string name="loss">Loss</string>
+    <string name="apply">Apply</string>
+    <string name="add_transaction">Add transaction</string>
 </resources>

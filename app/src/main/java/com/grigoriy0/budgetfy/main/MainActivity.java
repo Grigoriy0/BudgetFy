@@ -2,7 +2,9 @@ package com.grigoriy0.budgetfy.main;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -11,8 +13,9 @@ import androidx.viewpager2.widget.MarginPageTransformer;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.getbase.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.grigoriy0.budgetfy.Account;
-import com.grigoriy0.budgetfy.AccountActivity;
+import com.grigoriy0.budgetfy.accountdetails.AccountActivity;
 import com.grigoriy0.budgetfy.R;
 
 import java.util.Arrays;
@@ -39,13 +42,13 @@ public class MainActivity extends AppCompatActivity {
         lossActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                openAddTransactionDialog(v);
             }
         });
         increaseActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                openAddTransactionDialog(v);
             }
         });
 
@@ -75,7 +78,16 @@ public class MainActivity extends AppCompatActivity {
         accountsViewPager.setPageTransformer(transformer);
     }
 
-    public void clickAdd(View view) {
-        // TODO
+    private void openAddTransactionDialog(View button) {
+        BottomSheetDialog dialog = new BottomSheetDialog(
+                MainActivity.this,R.style.BottomSheetDialogTheme);
+        View bottomSheetView = LayoutInflater.from(getApplicationContext())
+                .inflate(
+                        R.layout.buttom_sheet_layout,
+                        (LinearLayout)findViewById(R.id.bottomSheetContainer),
+                                false
+                );
+        dialog.setContentView(bottomSheetView);
+        dialog.show();
     }
 }

@@ -1,4 +1,4 @@
-package com.grigoriy0.budgetfy;
+package com.grigoriy0.budgetfy.accountdetails;
 
 import android.os.Bundle;
 
@@ -6,8 +6,8 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
-import com.grigoriy0.budgetfy.accountdetails.Transaction;
-import com.grigoriy0.budgetfy.accountdetails.TransactionsFragment;
+import com.grigoriy0.budgetfy.Category;
+import com.grigoriy0.budgetfy.R;
 
 import java.util.Arrays;
 import java.util.List;
