@@ -6,11 +6,11 @@ import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.viewpager.widget.ViewPager;
 import androidx.viewpager2.widget.CompositePageTransformer;
 import androidx.viewpager2.widget.MarginPageTransformer;
 import androidx.viewpager2.widget.ViewPager2;
 
+import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.grigoriy0.budgetfy.Account;
 import com.grigoriy0.budgetfy.AccountActivity;
 import com.grigoriy0.budgetfy.R;
@@ -22,6 +22,8 @@ public class MainActivity extends AppCompatActivity {
     private ViewPagerAdapter adapter;
     private ViewPager2 accountsViewPager;
     private List<Account> accounts;
+    private FloatingActionButton lossActionButton;
+    private FloatingActionButton increaseActionButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +33,21 @@ public class MainActivity extends AppCompatActivity {
                 new Account("Visa", 400, 293, Account.Type.CREDIT_CARD),
                 new Account("Mastercard", 190, 0.54f, Account.Type.CREDIT_CARD),
                 new Account("Cache", 50, 23.51f, Account.Type.WALLET));
+
+        lossActionButton = findViewById(R.id.fab_loss_action);
+        increaseActionButton = findViewById(R.id.fab_increase_action);
+        lossActionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+        increaseActionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
 
         if (savedInstanceState == null)
             openAccountsViewPager();
@@ -56,5 +73,9 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         accountsViewPager.setPageTransformer(transformer);
+    }
+
+    public void clickAdd(View view) {
+        // TODO
     }
 }

@@ -7,4 +7,11 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="fab">
+<!--        <item name="background">@drawable/fab_lable_background</item>-->
+        <item name="android:textColor">@color/black</item>
+
+    </style>
+
+    <color name="black">#DD000000</color>
 </resources>

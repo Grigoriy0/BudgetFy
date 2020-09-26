@@ -15,33 +15,39 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.31" />
+        app:layout_constraintVertical_bias="0.22000003" />
 
-    <LinearLayout
-        android:id="@+id/buttonsLayout"
-        android:layout_width="409dp"
-        android:layout_height="288dp"
-        android:layout_marginTop="1dp"
-        android:orientation="horizontal"
+    <com.getbase.floatingactionbutton.FloatingActionsMenu
+        android:id="@+id/floatingActionButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/accountsViewPager">
-
-        <Button
-            android:id="@+id/increaseButton"
+        app:fab_addButtonColorNormal="@color/colorPrimaryDark"
+        app:fab_addButtonColorPressed="@color/colorPrimary"
+        app:fab_addButtonPlusIconColor="@color/white"
+        app:fab_labelStyle="@style/fab"
+        app:srcCompat="@android:drawable/ic_menu_add">
+        <com.getbase.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab_loss_action"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_gravity="bottom"
-            android:text="@string/increase" />
-
-        <Button
-            android:id="@+id/removeButton"
+            app:fab_colorNormal="@color/colorAccentDark"
+            app:fab_colorPressed="@color/colorAccent"
+            app:fab_size="mini"
+            app:fab_icon="@drawable/ic_add_24"
+            app:fab_title="Loss"
+            />
+        <com.getbase.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab_increase_action"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_gravity="bottom"
-            android:text="@string/loss" />
-    </LinearLayout>
+            app:fab_colorNormal="@color/colorAccentDark"
+            app:fab_colorPressed="@color/colorAccent"
+            app:fab_size="mini"
+            app:fab_icon="@drawable/ic_add_24"
+            app:fab_title="Increase"
+            />
+    </com.getbase.floatingactionbutton.FloatingActionsMenu>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
