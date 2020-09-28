@@ -1,5 +1,7 @@
 package com.grigoriy0.budgetfy;
 
+import androidx.room.TypeConverter;
+
 public enum Category {
     TRANSPORT,
     UNIVERSITY,

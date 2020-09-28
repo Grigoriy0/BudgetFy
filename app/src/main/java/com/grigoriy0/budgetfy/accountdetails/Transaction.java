@@ -1,21 +1,38 @@
 package com.grigoriy0.budgetfy.accountdetails;
 
+import androidx.room.Entity;
+import androidx.room.ForeignKey;
+import androidx.room.PrimaryKey;
+import androidx.room.TypeConverter;
+import androidx.room.TypeConverters;
+
+import com.grigoriy0.budgetfy.Account;
 import com.grigoriy0.budgetfy.Category;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Objects;
-import java.util.UUID;
 
+@Entity(tableName = "transaction_table", foreignKeys = @ForeignKey(
+        entity = Account.class,
+        parentColumns = "id",
+        childColumns = "accountId"
+))
+@TypeConverters({Transaction.DateConverter.class, Transaction.CategoryConverter.class})
 public class Transaction {
 
-    private final UUID id;
+    @PrimaryKey(autoGenerate = true)
+    private int id;
 
-    private final float sum;
+    private int accountId;
 
-    private final Date date;
+    private float sum;
 
-    private final Category category;
+    @TypeConverters({DateConverter.class})
+    private Date date;
+
+    @TypeConverters({CategoryConverter.class})
+    private Category category;
 
     private boolean loss;
 
@@ -23,14 +40,8 @@ public class Transaction {
         return loss;
     }
 
-    @Override
-    public String toString() {
-        return "Transaction{" +
-                "id=" + id +
-                ", sum=" + sum +
-                ", date=" + date +
-                ", category=" + getCategory() +
-                '}';
+    public int getAccountId() {
+        return accountId;
     }
 
     public float getSum() {
@@ -41,6 +52,18 @@ public class Transaction {
         return date;
     }
 
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
+    public void setAccountId(int accountId) {
+        this.accountId = accountId;
+    }
+
+    public void setLoss(boolean loss) {
+        this.loss = loss;
+    }
+
     public String getDateString() {
         return (new SimpleDateFormat("dd.MM.yyyy")).format(date);
     }
@@ -49,8 +72,20 @@ public class Transaction {
         return category;
     }
 
-    public UUID getId() {
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getId() {
         return id;
+    }
+
+    public Transaction(float sum, Category category, int accountId) {
+        this.sum = sum;
+        this.accountId = accountId;
+        this.category = category;
+        this.date = new Date(System.currentTimeMillis());
+        this.loss = category.isLoss();
     }
 
     @Override
@@ -65,15 +100,69 @@ public class Transaction {
     }
 
     @Override
+    public String toString() {
+        return "Transaction{" +
+                "id=" + id +
+                ", sum=" + sum +
+                ", date=" + date +
+                ", category=" + getCategory() +
+                '}';
+    }
+
+    @Override
     public int hashCode() {
         return Objects.hash(id, sum, date, category);
     }
 
-    public Transaction(float sum, Category category) {
-        id = UUID.randomUUID();
-        this.sum = sum;
-        this.category = category;
-        this.date = new Date(System.currentTimeMillis());
-        this.loss = category.isLoss();
+
+    public static class DateConverter {
+        @TypeConverter
+        public static Date toDate(Long timestamp) {
+            return timestamp == null ? null : new Date(timestamp);
+        }
+
+        @TypeConverter
+        public static long toTimestamp(Date date) {
+            return date == null ? null : date.getTime();
+        }
+    }
+
+    public static class CategoryConverter {
+        @TypeConverter
+        public static Category toCategory(String category) {
+            if (category == null)
+                return null;
+            switch (category) {
+                case "TRANSPORT":
+                    return Category.TRANSPORT;
+                case "UNIVERSITY":
+                    return Category.UNIVERSITY;
+                case "FOOD":
+                    return Category.FOOD;
+                case "CAFE":
+                    return Category.CAFE;
+                case "PHONE":
+                    return Category.PHONE;
+                case "BARBER":
+                    return Category.BARBER;
+                case "RENT":
+                    return Category.RENT;
+                case "MISCELLANEOUS":
+                    return Category.MISCELLANEOUS;
+                case "SCHOLARSHIP":
+                    return Category.SCHOLARSHIP;
+                case "PARENTS":
+                    return Category.PARENTS;
+                case "GIFT":
+                    return Category.GIFT;
+                default:
+                    return null;
+            }
+        }
+
+        @TypeConverter
+        public static String toString(Category category) {
+            return category == null ? null : category.toString();
+        }
     }
 }
