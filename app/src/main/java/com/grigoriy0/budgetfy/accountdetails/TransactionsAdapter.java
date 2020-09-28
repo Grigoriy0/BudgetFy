@@ -57,7 +57,7 @@ public class TransactionsAdapter extends ListAdapter<Transaction, TransactionsAd
                 parent.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
         final View view = layoutInflater.inflate(
-                R.layout.fragment_transaction_item,
+                R.layout.transaction_item,
                 parent,
                 false);
         return new ViewHolder(view);

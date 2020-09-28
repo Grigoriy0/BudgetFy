@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/add_account_action"
+        android:title="@string/add_account">
+        <menu>
+            <item android:id="@+id/add_wallet_action"
+                android:title="@string/wallet"/>
+            <item android:id="@+id/add_credit_card_action"
+                android:title="@string/credit_card"/>
+        </menu>
+    </item>
+</menu>

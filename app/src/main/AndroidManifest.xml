@@ -18,6 +18,8 @@
         </activity>
         <activity android:name=".accountdetails.AccountActivity">
         </activity>
+        <activity android:name=".AccountCreator">
+        </activity>
     </application>
 
 </manifest>
