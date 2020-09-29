@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.LiveData;
 import androidx.viewpager2.widget.CompositePageTransformer;
 import androidx.viewpager2.widget.MarginPageTransformer;
 import androidx.viewpager2.widget.ViewPager2;
@@ -20,6 +21,7 @@ import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.grigoriy0.budgetfy.Account;
 import com.grigoriy0.budgetfy.AccountCreator;
+import com.grigoriy0.budgetfy.AccountRepository;
 import com.grigoriy0.budgetfy.AppDatabase;
 import com.grigoriy0.budgetfy.accountdetails.AccountActivity;
 import com.grigoriy0.budgetfy.R;
@@ -29,9 +31,10 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
     private ViewPagerAdapter adapter;
     private ViewPager2 accountsViewPager;
-    private List<Account> accounts;
+    private LiveData<List<Account>> accounts;
     private FloatingActionButton lossActionButton;
     private FloatingActionButton increaseActionButton;
+    private AccountRepository accountRepository;
 
     private int accountIndex;
 
@@ -39,12 +42,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_activity);
-        AppDatabase db = AppDatabase.getInstance(getApplicationContext());
-        accounts = db.getAccountDao().getAllAccounts().getValue();
-//        accounts = Arrays.asList(
-//                new Account(1, "Visa", 400, 293, Account.Type.CREDIT_CARD),
-//                new Account(2, "Mastercard", 190, 0.54f, Account.Type.CREDIT_CARD),
-//                new Account(3, "Cache", 50, 23.51f, Account.Type.WALLET));
         lossActionButton = findViewById(R.id.fab_loss_action);
         increaseActionButton = findViewById(R.id.fab_increase_action);
         lossActionButton.setOnClickListener(new View.OnClickListener() {
@@ -59,10 +56,15 @@ public class MainActivity extends AppCompatActivity {
                 openAddTransactionDialog(v);
             }
         });
+        if (savedInstanceState == null) {
+            AppDatabase db = AppDatabase.getInstance(getApplicationContext());
+            accounts = db.getAccountDao().getAllAccounts();
+            accountRepository = AccountRepository.getInstance(getApplication());
 
-        accountIndex = -1;
-        if (savedInstanceState == null && accounts != null && accounts.size() != 0)
-            openAccountsViewPager();
+            accountIndex = -1;
+            if (accounts.getValue() == null || accounts.getValue().size() != 0)
+                openAccountsViewPager();
+        }
     }
 
     public void showAccountDetails(View view) {
@@ -73,7 +75,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void openAccountsViewPager() {
         accountsViewPager = findViewById(R.id.accountsViewPager);
-        adapter = new ViewPagerAdapter(accounts, accountsViewPager);
+        adapter = new ViewPagerAdapter(accounts.getValue(), accountsViewPager);
         accountsViewPager.setAdapter(adapter);
 
         CompositePageTransformer transformer = new CompositePageTransformer();
@@ -117,6 +119,9 @@ public class MainActivity extends AppCompatActivity {
                 break;
             case R.id.add_wallet_action:
                 openAddAccountActivity("WALLET");
+                break;
+            case R.id.remove_account_action:
+                // TODO
                 break;
             default:
                 break;

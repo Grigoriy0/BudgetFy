@@ -12,6 +12,7 @@ import androidx.viewpager2.widget.ViewPager2;
 import com.grigoriy0.budgetfy.Account;
 import com.grigoriy0.budgetfy.R;
 
+import java.util.LinkedList;
 import java.util.List;
 
 public class ViewPagerAdapter extends RecyclerView.Adapter<ViewPagerAdapter.PagerVH> {
@@ -19,6 +20,9 @@ public class ViewPagerAdapter extends RecyclerView.Adapter<ViewPagerAdapter.Page
     private ViewPager2 pager2;
 
     ViewPagerAdapter(List<Account> accounts, ViewPager2 viewPager2) {
+        if (accounts == null){
+            accounts = new LinkedList<>();
+        }
         this.accounts = accounts;
         this.pager2 = viewPager2;
     }

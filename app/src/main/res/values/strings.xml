@@ -16,4 +16,5 @@
     <string name="rub">руб.</string>
     <string name="save">Save</string>
     <string name="cancel">Cancel</string>
+    <string name="remove_account">Remove account</string>
 </resources>

@@ -9,4 +9,6 @@
                 android:title="@string/credit_card"/>
         </menu>
     </item>
+    <item android:id="@+id/remove_account_action"
+        android:title="@string/remove_account"/>
 </menu>

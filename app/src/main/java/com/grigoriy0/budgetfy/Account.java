@@ -54,7 +54,7 @@ public class Account {
     }
 
     public void setType(String type) {
-        if (!type.equals("CREDIT_CARD") && !type.equals("WALLET"))
+        if (type == null || (!type.equals("CREDIT_CARD") && !type.equals("WALLET")))
             throw new IllegalArgumentException("Only CREDIT_CARD or WALLET, not \"" + type + "\"");
         this.type = type;
     }

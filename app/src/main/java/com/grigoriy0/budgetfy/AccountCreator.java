@@ -5,15 +5,8 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.lifecycle.LifecycleOwner;
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.Observer;
-
-import java.util.List;
 
 public class AccountCreator extends Activity {
     private Account account;
@@ -29,11 +22,6 @@ public class AccountCreator extends Activity {
         account = new Account(0, "", 0, 0, "");
 
         account.setType(getIntent().getStringExtra("type"));
-//        try {
-//            Thread.sleep(10000);
-//        } catch (InterruptedException e) {
-//            e.printStackTrace();
-//        }
     }
 
     @SuppressLint("ShowToast")
@@ -51,9 +39,8 @@ public class AccountCreator extends Activity {
         account.setStartValue(value);
         account.setCurrentValue(value);
         account.setName(name);
-        // Add this account to account_table
-        AppDatabase db = AppDatabase.getInstance(getApplicationContext());
-        db.getAccountDao().insertAll(account);
+        AccountRepository ar = AccountRepository.getInstance(getApplication());
+        ar.addAccount(account); // here error
         finish();
     }
 

@@ -15,10 +15,10 @@ public interface AccountDAO {
     void insertAll(Account... accounts);
 
     @Delete
-    void delete(LiveData<Account> account);
+    void delete(Account account);
 
     @Update
-    void update(LiveData<Account> account);
+    void update(Account account);
 
     @Query("SELECT * FROM account_table")
     LiveData<List<Account>> getAllAccounts();
