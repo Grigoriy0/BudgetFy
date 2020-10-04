@@ -1,4 +1,4 @@
-package com.grigoriy0.budgetfy;
+package com.grigoriy0.budgetfy.main;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -12,6 +12,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import com.grigoriy0.budgetfy.R;
 
 public class AddAccountActivity extends AppCompatActivity {
     public static final String EXTRA_NAME =

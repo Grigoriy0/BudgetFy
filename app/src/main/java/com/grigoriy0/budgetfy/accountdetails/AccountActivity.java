@@ -12,6 +12,8 @@ import com.grigoriy0.budgetfy.R;
 import java.util.List;
 
 public class AccountActivity extends AppCompatActivity {
+    public static final String EXTRA_ACCOUNT =
+            "com.grigoriy0.budgetfy.accountdetails.EXTRA_ACCOUNT";
 
     private List<Transaction> transactions;
     private int account;
@@ -22,20 +24,10 @@ public class AccountActivity extends AppCompatActivity {
         setContentView(R.layout.account_activity);
 
         if (savedInstanceState != null) {
-            account = savedInstanceState.getInt("accountId");
+            account = savedInstanceState.getInt("EXTRA_ACCOUNT");
             AppDatabase db = AppDatabase.getInstance(getApplicationContext());
             transactions = db.getTransactionDao().getByAccountId(account);
-
-    //        transactions = Arrays.asList(new Transaction(-12.67f, Category.CAFE, 1),
-    //                new Transaction(-5.50f, Category.BARBER, 1),
-    //                new Transaction(-0.65f, Category.TRANSPORT, 1),
-    //                new Transaction(-5.50f, Category.UNIVERSITY, 1),
-    //                new Transaction(-0.65f, Category.FOOD, 1),
-    //                new Transaction(-5.50f, Category.RENT, 1),
-    //                new Transaction(-0.65f, Category.TRANSPORT, 1),
-    //                new Transaction(-5.50f, Category.MISCELLANEOUS, 1),
-    //                new Transaction(-0.65f, Category.PHONE, 1));
-
+//            setTitle(); // TODO set account name
             showTransactions();
         }
     }

@@ -3,6 +3,7 @@ package com.grigoriy0.budgetfy.main;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -52,15 +53,26 @@ public class ViewPagerAdapter extends RecyclerView.Adapter<ViewPagerAdapter.Page
 
     static class PagerVH extends RecyclerView.ViewHolder {
         private TextView accountName;
+        private TextView currentValue;
+        private ImageView imageView;
 
         PagerVH(View view) {
             super(view);
             accountName = view.findViewById(R.id.accountName);
+            currentValue = view.findViewById(R.id.currentValue);
+            imageView = view.findViewById(R.id.categoryImage);
         }
 
         public final void onBind(Account account) {
             accountName.setText(account.getName());
+            currentValue.setText(account.getCurrentValue().toString() + " BYN");
+            if (account.getType().equals(Account.Type.WALLET))
+                imageView.setImageResource(R.drawable.ic_wallet_90);
+            else
+                imageView.setImageResource(R.drawable.ic_credit_card_90);
         }
     }
+
+
 
 }

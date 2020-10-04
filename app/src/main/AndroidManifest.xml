@@ -9,7 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".AddAccountActivity"
+        <activity android:name=".main.AddAccountActivity"
             android:parentActivityName=".main.MainActivity"/>
         <activity android:name=".main.MainActivity"
             android:launchMode="singleTop">

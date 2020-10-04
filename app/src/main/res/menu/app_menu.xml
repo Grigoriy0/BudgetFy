@@ -1,14 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:id="@+id/add_account_action"
+    <item
+        android:id="@+id/add_account_action"
         android:title="@string/add_account">
         <menu>
-            <item android:id="@+id/add_wallet_action"
-                android:title="@string/wallet"/>
-            <item android:id="@+id/add_credit_card_action"
-                android:title="@string/credit_card"/>
+            <item
+                android:id="@+id/add_wallet_action"
+                android:title="@string/wallet" />
+            <item
+                android:id="@+id/add_credit_card_action"
+                android:title="@string/credit_card" />
         </menu>
     </item>
-    <item android:id="@+id/remove_account_action"
-        android:title="@string/remove_account"/>
+    <item
+        android:id="@+id/rename_account_action"
+        android:title="@string/rename_account" />
+    <item
+        android:id="@+id/remove_account_action"
+        android:title="@string/remove_account" />
 </menu>

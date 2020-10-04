@@ -20,11 +20,12 @@
 
     <TextView
         android:id="@+id/currentValue"
-        android:layout_width="105dp"
-        android:layout_height="wrap_content"
+        android:layout_width="185dp"
+        android:layout_height="40dp"
         android:layout_alignBottom="@id/categoryImage"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="115dp"
         android:layout_marginEnd="22dp"
-        android:layout_marginBottom="-1dp"
         android:layout_toStartOf="@+id/categoryImage"
         android:text=""
         android:textSize="30sp"
@@ -36,6 +37,5 @@
         android:layout_height="90dp"
         android:layout_alignParentEnd="true"
         android:layout_marginEnd="0dp"
-        app:srcCompat="@drawable/ic_credit_card_90"
         tools:ignore="ContentDescription" />
 </RelativeLayout>

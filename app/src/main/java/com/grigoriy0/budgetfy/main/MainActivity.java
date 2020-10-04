@@ -1,6 +1,7 @@
 package com.grigoriy0.budgetfy.main;
 
 import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -8,11 +9,14 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
@@ -24,7 +28,6 @@ import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.grigoriy0.budgetfy.Account;
 import com.grigoriy0.budgetfy.AccountViewModel;
-import com.grigoriy0.budgetfy.AddAccountActivity;
 import com.grigoriy0.budgetfy.accountdetails.AccountActivity;
 import com.grigoriy0.budgetfy.R;
 
@@ -53,9 +56,7 @@ public class MainActivity extends AppCompatActivity {
             accountViewModel.getAllAccounts().observe(this, new Observer<List<Account>>() {
                 @Override
                 public void onChanged(List<Account> accounts) {
-                    // update RecyclerView
                     adapter.setAccounts(accounts);
-                    Toast.makeText(MainActivity.this, "onChanged", Toast.LENGTH_LONG).show();
                 }
             });
             accounts = accountViewModel.getAllAccounts();
@@ -66,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void showAccountDetails(View view) {
         Intent intent = new Intent(this, AccountActivity.class);
-        intent.putExtra("accountId", accountIndex);
+        intent.putExtra(AccountActivity.EXTRA_ACCOUNT, accountIndex);
         startActivity(intent);
     }
 
@@ -118,12 +119,47 @@ public class MainActivity extends AppCompatActivity {
                 openAddAccountActivity("WALLET");
                 break;
             case R.id.remove_account_action:
-                // TODO
+                openRemoveAccountDialog();
                 break;
+            case R.id.rename_account_action:
+                openRenameAccountDialog();
             default:
                 break;
         }
         return true;
+    }
+
+    private void openRemoveAccountDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+        View view = LayoutInflater.from(MainActivity.this).inflate(
+                R.layout.delete_account_dialog,
+                (ConstraintLayout)findViewById(R.id.layoutDialogContainer));
+        builder.setView(view);
+        ((TextView)findViewById(R.id.titleDialog)).setText("Removing account");
+        ((TextView)findViewById(R.id.messageDialog)).setText(
+                "Do you really want to delete account?\nThis remains that all transactions also will be deleted");
+        final AlertDialog dialog = builder.create();
+        view.findViewById(R.id.yesDialogButton).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                accountViewModel.delete(accounts.getValue().get(accountIndex));
+                Toast.makeText(MainActivity.this, "Account was deleted", Toast.LENGTH_LONG).show();
+                // TODO delete account
+            }
+        });
+        view.findViewById(R.id.noDialogButton).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+        if (dialog.getWindow() != null)
+            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(0));
+        dialog.show();
+    }
+
+    private void openRenameAccountDialog() {
+
     }
 
     private void openAddAccountActivity(String type) {
@@ -141,9 +177,6 @@ public class MainActivity extends AppCompatActivity {
             Float startValue = data.getFloatExtra(AddAccountActivity.EXTRA_START, 0);
             Account account = new Account(0, name, startValue, startValue, type);
             accountViewModel.insert(account);
-//
-//            adapter.setAccounts(accounts.getValue());
-//            adapter.notifyDataSetChanged();
             Toast.makeText(getApplicationContext(), "Account " + account.getName() + " added", Toast.LENGTH_LONG).show();
         }
     }

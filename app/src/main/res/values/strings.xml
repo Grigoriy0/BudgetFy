@@ -17,4 +17,7 @@
     <string name="save">Save</string>
     <string name="cancel">Cancel</string>
     <string name="remove_account">Remove account</string>
+    <string name="rename_account">Rename account</string>
+    <string name="no">No</string>
+    <string name="yes">Yes</string>
 </resources>
