@@ -1,5 +1,6 @@
 package com.grigoriy0.budgetfy.main;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -135,16 +136,15 @@ public class MainActivity extends AppCompatActivity {
                 R.layout.delete_account_dialog,
                 (ConstraintLayout)findViewById(R.id.layoutDialogContainer));
         builder.setView(view);
-        ((TextView)findViewById(R.id.titleDialog)).setText("Removing account");
-        ((TextView)findViewById(R.id.messageDialog)).setText(
-                "Do you really want to delete account?\nThis remains that all transactions also will be deleted");
+        ((TextView) view.findViewById(R.id.titleDialog)).setText(R.string.account_removing_title);
+        ((TextView) view.findViewById(R.id.messageDialog)).setText(R.string.account_removing_text);
         final AlertDialog dialog = builder.create();
         view.findViewById(R.id.yesDialogButton).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 accountViewModel.delete(accounts.getValue().get(accountIndex));
                 Toast.makeText(MainActivity.this, "Account was deleted", Toast.LENGTH_LONG).show();
-                // TODO delete account
+                dialog.dismiss();
             }
         });
         view.findViewById(R.id.noDialogButton).setOnClickListener(new View.OnClickListener() {

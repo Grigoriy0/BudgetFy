@@ -20,4 +20,6 @@
     <string name="rename_account">Rename account</string>
     <string name="no">No</string>
     <string name="yes">Yes</string>
+    <string name="account_removing_title">Account removing</string>
+    <string name="account_removing_text">Do you really want to delete account?\nThis remains that all transactions also will be deleted</string>
 </resources>
