@@ -1,6 +1,7 @@
 package com.grigoriy0.budgetfy;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -8,6 +9,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -30,8 +32,9 @@ public class AddAccountActivity extends AppCompatActivity {
         accountName = findViewById(R.id.accountNameEditText);
 
         type = getIntent().getStringExtra(EXTRA_TYPE);
-        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_close);
         setTitle("Add " + type.toLowerCase());
+        if (getSupportActionBar() != null)
+            getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_close);
     }
 
     @Override
@@ -45,16 +48,22 @@ public class AddAccountActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.save_account:
-                saveAccount();
+                saveAccount(null);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
     }
 
-    private void saveAccount() {
+    public void saveAccount(@Nullable View v) {
         String name = accountName.getText().toString();
-        float start = Float.parseFloat(startValue.getText().toString());
+        float start = 0;
+        try{
+            start = Float.parseFloat(startValue.getText().toString());
+        } catch (NumberFormatException e){
+            Toast.makeText(this, "ERROR", Toast.LENGTH_SHORT).show();
+            return;
+        }
         if (name.trim().isEmpty() || start < 0.0f) {
             Toast.makeText(this, "ERROR", Toast.LENGTH_SHORT).show();
             return;
@@ -64,6 +73,10 @@ public class AddAccountActivity extends AppCompatActivity {
         data.putExtra(EXTRA_TYPE, type);
         data.putExtra(EXTRA_START, start);
         setResult(RESULT_OK, data);
+        finish();
+    }
+
+    public void finish(View view) {
         finish();
     }
 }

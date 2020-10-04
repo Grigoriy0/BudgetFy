@@ -128,7 +128,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void openAddAccountActivity(String type) {
         addAccountIntent = new Intent(this, AddAccountActivity.class);
-        addAccountIntent.putExtra("type", type);
+        addAccountIntent.putExtra(AddAccountActivity.EXTRA_TYPE, type);
         startActivityForResult(addAccountIntent, 1);
     }
 
