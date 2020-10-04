@@ -15,6 +15,7 @@
         android:layout_alignParentTop="true"
         android:text=""
         tools:text="Credit Card"
+        android:ellipsize="end"
         android:textSize="30sp" />
 
     <TextView

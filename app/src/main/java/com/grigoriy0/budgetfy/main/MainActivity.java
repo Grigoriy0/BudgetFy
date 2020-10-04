@@ -11,8 +11,11 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.viewpager2.widget.CompositePageTransformer;
 import androidx.viewpager2.widget.MarginPageTransformer;
 import androidx.viewpager2.widget.ViewPager2;
@@ -20,21 +23,21 @@ import androidx.viewpager2.widget.ViewPager2;
 import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.grigoriy0.budgetfy.Account;
-import com.grigoriy0.budgetfy.AccountCreator;
-import com.grigoriy0.budgetfy.AccountRepository;
-import com.grigoriy0.budgetfy.AppDatabase;
+import com.grigoriy0.budgetfy.AccountViewModel;
+import com.grigoriy0.budgetfy.AddAccountActivity;
 import com.grigoriy0.budgetfy.accountdetails.AccountActivity;
 import com.grigoriy0.budgetfy.R;
 
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
+    private AccountViewModel accountViewModel;
     private ViewPagerAdapter adapter;
     private ViewPager2 accountsViewPager;
     private LiveData<List<Account>> accounts;
     private FloatingActionButton lossActionButton;
     private FloatingActionButton increaseActionButton;
-    private AccountRepository accountRepository;
+    private Intent addAccountIntent;
 
     private int accountIndex;
 
@@ -44,27 +47,21 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.main_activity);
         lossActionButton = findViewById(R.id.fab_loss_action);
         increaseActionButton = findViewById(R.id.fab_increase_action);
-        lossActionButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openAddTransactionDialog(v);
-            }
-        });
-        increaseActionButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openAddTransactionDialog(v);
-            }
-        });
-        if (savedInstanceState == null) {
-            AppDatabase db = AppDatabase.getInstance(getApplicationContext());
-            accounts = db.getAccountDao().getAllAccounts();
-            accountRepository = AccountRepository.getInstance(getApplication());
 
-            accountIndex = -1;
-            if (accounts.getValue() == null || accounts.getValue().size() != 0)
-                openAccountsViewPager();
+        if (savedInstanceState == null) {
+            accountViewModel = ViewModelProviders.of(this).get(AccountViewModel.class);
+            accountViewModel.getAllAccounts().observe(this, new Observer<List<Account>>() {
+                @Override
+                public void onChanged(List<Account> accounts) {
+                    // update RecyclerView
+                    adapter.setAccounts(accounts);
+                    Toast.makeText(MainActivity.this, "onChanged", Toast.LENGTH_LONG).show();
+                }
+            });
+            accounts = accountViewModel.getAllAccounts();
+            accountIndex = 0;
         }
+        openAccountsViewPager();
     }
 
     public void showAccountDetails(View view) {
@@ -91,7 +88,7 @@ public class MainActivity extends AppCompatActivity {
         accountIndex = 0;
     }
 
-    private void openAddTransactionDialog(View button) {
+    public void openAddTransactionDialog(View button) {
         BottomSheetDialog dialog = new BottomSheetDialog(
                 MainActivity.this, R.style.BottomSheetDialogTheme);
         View bottomSheetView = LayoutInflater.from(getApplicationContext())
@@ -130,8 +127,24 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void openAddAccountActivity(String type) {
-        Intent intent = new Intent(this, AccountCreator.class);
-        intent.putExtra("type", type);
-        startActivity(intent);
+        addAccountIntent = new Intent(this, AddAccountActivity.class);
+        addAccountIntent.putExtra("type", type);
+        startActivityForResult(addAccountIntent, 1);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 1 && resultCode == RESULT_OK) {
+            String name = data.getStringExtra(AddAccountActivity.EXTRA_NAME);
+            String type = data.getStringExtra(AddAccountActivity.EXTRA_TYPE);
+            Float startValue = data.getFloatExtra(AddAccountActivity.EXTRA_START, 0);
+            Account account = new Account(0, name, startValue, startValue, type);
+            accountViewModel.insert(account);
+//
+//            adapter.setAccounts(accounts.getValue());
+//            adapter.notifyDataSetChanged();
+            Toast.makeText(getApplicationContext(), "Account " + account.getName() + " added", Toast.LENGTH_LONG).show();
+        }
     }
 }

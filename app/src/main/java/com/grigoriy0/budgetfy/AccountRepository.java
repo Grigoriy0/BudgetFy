@@ -4,16 +4,15 @@ import android.app.Application;
 import android.os.AsyncTask;
 
 import androidx.annotation.NonNull;
-import androidx.core.app.NotificationCompat;
 import androidx.lifecycle.LiveData;
 
 import java.util.List;
 
 public class AccountRepository {
-    private LiveData<List<Account>> accounts;
     AccountDAO accountDAO;
+    private LiveData<List<Account>> accounts;
 
-    private AccountRepository(@NonNull Application app) {
+    public AccountRepository(@NonNull Application app) {
         AppDatabase db = AppDatabase.getInstance(app.getApplicationContext());
         accountDAO = db.getAccountDao();
         accounts = accountDAO.getAllAccounts();
@@ -24,20 +23,12 @@ public class AccountRepository {
     }
 
     public void addAccount(Account account) {
-        new AddAccount().doInBackground(account);
+        new AddAccount().execute(account);
     }
 
     public void deleteAccount(Account account) {
-        new DeleteAccount().doInBackground(account);
+        new DeleteAccount().execute(account);
     }
-
-    public static AccountRepository getInstance(@NonNull Application app) {
-        if (instance == null)
-            instance = new AccountRepository(app);
-        return instance;
-    }
-
-    private static AccountRepository instance;
 
     private class AddAccount extends AsyncTask<Account, Void, Void> {
         @Override

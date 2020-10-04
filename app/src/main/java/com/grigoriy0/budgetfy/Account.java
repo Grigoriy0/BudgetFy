@@ -3,8 +3,10 @@ package com.grigoriy0.budgetfy;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import java.io.Serializable;
+
 @Entity(tableName = "account_table")
-public class Account {
+public class Account implements Serializable {
     public static abstract class Type {
         public static final String WALLET = "WALLET";
         public static final String CREDIT_CARD = "CREDIT_CARD";

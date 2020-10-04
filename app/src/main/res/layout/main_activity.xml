@@ -15,7 +15,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.22000003" />
+        app:layout_constraintVertical_bias="0.22"/>
 
     <com.getbase.floatingactionbutton.FloatingActionsMenu
         android:id="@+id/floatingActionButton"
@@ -32,6 +32,7 @@
             android:id="@+id/fab_loss_action"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:onClick="openAddTransactionDialog"
             app:fab_colorNormal="@color/colorAccentDark"
             app:fab_colorPressed="@color/colorAccent"
             app:fab_size="mini"
@@ -42,6 +43,7 @@
             android:id="@+id/fab_increase_action"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:onClick="openAddTransactionDialog"
             app:fab_colorNormal="@color/colorAccentDark"
             app:fab_colorPressed="@color/colorAccent"
             app:fab_size="mini"

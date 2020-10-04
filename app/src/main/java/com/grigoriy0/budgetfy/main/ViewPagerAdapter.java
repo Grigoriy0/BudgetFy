@@ -40,7 +40,14 @@ public class ViewPagerAdapter extends RecyclerView.Adapter<ViewPagerAdapter.Page
 
     @Override
     public int getItemCount() {
+        if (accounts == null)
+            return 0;
         return accounts.size();
+    }
+
+    public void setAccounts(List<Account> accounts) {
+        this.accounts = accounts;
+        notifyDataSetChanged();
     }
 
     static class PagerVH extends RecyclerView.ViewHolder {
