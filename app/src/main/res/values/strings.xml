@@ -22,4 +22,6 @@
     <string name="yes">Yes</string>
     <string name="account_removing_title">Account removing</string>
     <string name="account_removing_text">Do you really want to delete account?\nThis remains that all transactions also will be deleted</string>
+    <string name="rename_account_name">Rename account name</string>
+    <string name="rename_account_name_text">Type new account name</string>
 </resources>

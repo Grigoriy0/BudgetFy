@@ -1,6 +1,5 @@
 package com.grigoriy0.budgetfy.main;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -29,8 +28,8 @@ import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.grigoriy0.budgetfy.Account;
 import com.grigoriy0.budgetfy.AccountViewModel;
-import com.grigoriy0.budgetfy.accountdetails.AccountActivity;
 import com.grigoriy0.budgetfy.R;
+import com.grigoriy0.budgetfy.accountdetails.AccountActivity;
 
 import java.util.List;
 
@@ -87,6 +86,13 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         accountsViewPager.setPageTransformer(transformer);
+        accountsViewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
+            @Override
+            public void onPageSelected(int position) {
+                super.onPageSelected(position);
+                accountIndex = position;
+            }
+        });
         accountIndex = 0;
     }
 
@@ -131,10 +137,15 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void openRemoveAccountDialog() {
+        if (accountViewModel.getAllAccounts().getValue() == null ||
+                accountViewModel.getAllAccounts().getValue().size() == 0) {
+            Toast.makeText(MainActivity.this, "Nothing to delete", Toast.LENGTH_SHORT).show();
+            return;
+        }
         AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
         View view = LayoutInflater.from(MainActivity.this).inflate(
                 R.layout.delete_account_dialog,
-                (ConstraintLayout)findViewById(R.id.layoutDialogContainer));
+                (ConstraintLayout) findViewById(R.id.layoutDeleteDialogContainer));
         builder.setView(view);
         ((TextView) view.findViewById(R.id.titleDialog)).setText(R.string.account_removing_title);
         ((TextView) view.findViewById(R.id.messageDialog)).setText(R.string.account_removing_text);
@@ -159,7 +170,43 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void openRenameAccountDialog() {
-
+        if (accountViewModel.getAllAccounts().getValue() == null ||
+                accountViewModel.getAllAccounts().getValue().size() == 0) {
+            Toast.makeText(MainActivity.this, "Create an account first", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+        final View view = LayoutInflater.from(MainActivity.this).inflate(
+                R.layout.update_account_dialog,
+                (ConstraintLayout) findViewById(R.id.layoutUpdateDialogContainer));
+        builder.setView(view);
+        final AlertDialog dialog = builder.create();
+        ((TextView) view.findViewById(R.id.titleDialog)).setText(R.string.rename_account_name);
+        ((TextView) view.findViewById(R.id.message)).setText(R.string.rename_account_name_text);
+        ((TextView) view.findViewById(R.id.inputField)).setText(accounts.getValue().get(accountIndex).getName());
+        view.findViewById(R.id.yesRenameButton).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String name = ((TextView) view.findViewById(R.id.inputField)).getText().toString();
+                if (name.trim().isEmpty()) {
+                    Toast.makeText(MainActivity.this, "ERROR", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                Account account = accounts.getValue().get(accountIndex);
+                account.setName(name);
+                accountViewModel.update(account);
+                dialog.dismiss();
+            }
+        });
+        view.findViewById(R.id.noRenameButton).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+        if (dialog.getWindow() != null)
+            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(0));
+        dialog.show();
     }
 
     private void openAddAccountActivity(String type) {
@@ -174,10 +221,10 @@ public class MainActivity extends AppCompatActivity {
         if (requestCode == 1 && resultCode == RESULT_OK) {
             String name = data.getStringExtra(AddAccountActivity.EXTRA_NAME);
             String type = data.getStringExtra(AddAccountActivity.EXTRA_TYPE);
-            Float startValue = data.getFloatExtra(AddAccountActivity.EXTRA_START, 0);
+            float startValue = data.getFloatExtra(AddAccountActivity.EXTRA_START, 0);
             Account account = new Account(0, name, startValue, startValue, type);
             accountViewModel.insert(account);
-            Toast.makeText(getApplicationContext(), "Account " + account.getName() + " added", Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(), "Account " + account.getName() + " added", Toast.LENGTH_SHORT).show();
         }
     }
 }

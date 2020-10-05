@@ -1,55 +1,69 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_margin="20dp"
-    android:id="@+id/layoutDeleteDialogContainer">
+    android:id="@+id/layoutUpdateDialogContainer"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="20dp">
+
     <LinearLayout
-        android:id="@+id/layoutDialog"
+        android:id="@+id/titleLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/dialog_background"
-        app:layout_constraintTop_toTopOf="parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        app:layout_constraintTop_toTopOf="parent">
+
         <TextView
             android:id="@+id/titleDialog"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="10dp"
             android:textSize="18sp"
-            app:layout_constraintTop_toTopOf="parent"/>
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/messageDialog"
+            android:id="@+id/message"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="10dp"
             android:textSize="14sp"
-            app:layout_constraintBottom_toBottomOf="parent" />
+            tools:text="@string/rename_account_name_text"
+            android:textColor="@color/black"
+            app:layout_constraintTop_toTopOf="@id/titleDialog" />
+
+        <EditText
+            android:id="@+id/inputField"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/account_name"
+            android:padding="10dp"
+            android:textSize="14sp"
+            android:inputType="text"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:autofillHints="" />
 
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:gravity="center"
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:gravity="center"
-        app:layout_constraintTop_toBottomOf="@id/layoutDialog">
+        app:layout_constraintTop_toBottomOf="@id/titleLayout">
 
         <Button
-            android:id="@+id/yesDialogButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/yes" />
-
-        <Button
-            android:id="@+id/noDialogButton"
+            android:id="@+id/noRenameButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/no" />
 
+        <Button
+            android:id="@+id/yesRenameButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/yes" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

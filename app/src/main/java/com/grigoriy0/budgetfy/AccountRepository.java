@@ -30,10 +30,22 @@ public class AccountRepository {
         new DeleteAccount().execute(account);
     }
 
+    public void updateAccount(Account account) {
+        new UpdateAccount().execute(account);
+    }
+
     private class AddAccount extends AsyncTask<Account, Void, Void> {
         @Override
         protected Void doInBackground(Account... accounts) {
             accountDAO.insertAll(accounts);
+            return null;
+        }
+    }
+
+    private class UpdateAccount extends AsyncTask<Account, Void, Void> {
+        @Override
+        protected Void doInBackground(Account... accounts) {
+            accountDAO.update(accounts[0]);
             return null;
         }
     }

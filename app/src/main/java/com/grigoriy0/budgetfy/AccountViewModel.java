@@ -26,6 +26,10 @@ public class AccountViewModel extends AndroidViewModel {
         accountRepository.deleteAccount(account);
     }
 
+    public void update(Account account) {
+        accountRepository.updateAccount(account);
+    }
+
     public LiveData<List<Account>> getAllAccounts() {
         return allAccounts;
     }
