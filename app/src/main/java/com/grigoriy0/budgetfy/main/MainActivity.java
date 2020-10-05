@@ -8,6 +8,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -96,16 +97,60 @@ public class MainActivity extends AppCompatActivity {
         accountIndex = 0;
     }
 
-    public void openAddTransactionDialog(View button) {
-        BottomSheetDialog dialog = new BottomSheetDialog(
+    public void openAddLossTransactionDialog(View button) {
+        final BottomSheetDialog dialog = new BottomSheetDialog(
                 MainActivity.this, R.style.BottomSheetDialogTheme);
         View bottomSheetView = LayoutInflater.from(getApplicationContext())
                 .inflate(
-                        R.layout.buttom_sheet_layout,
-                        (LinearLayout) findViewById(R.id.bottomSheetContainer),
+                        R.layout.activity_add_loss,
+                        (LinearLayout) findViewById(R.id.lossContainer),
                         false
                 );
         dialog.setContentView(bottomSheetView);
+        bottomSheetView.findViewById(R.id.applyLossButton).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // TODO check and add loss transaction
+                Toast.makeText(MainActivity.this, "Loss added", Toast.LENGTH_SHORT).show();
+                dialog.dismiss();
+            }
+        });
+        bottomSheetView.findViewById(R.id.cancelLossButton).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+        if (dialog.getWindow() != null)
+            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(0));
+        dialog.show();
+    }
+
+    public void openAddIncreaseTransactionDialog(View button) {
+        final BottomSheetDialog dialog = new BottomSheetDialog(
+                MainActivity.this, R.style.BottomSheetDialogTheme);
+        View bottomSheetView = LayoutInflater.from(getApplicationContext())
+                .inflate(R.layout.activity_add_increase,
+                        (LinearLayout) findViewById(R.id.increaseContainer),
+                        false
+                );
+        dialog.setContentView(bottomSheetView);
+        bottomSheetView.findViewById(R.id.applyIncreaseButton).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(MainActivity.this, "Increase added", Toast.LENGTH_SHORT).show();
+                // TODO check and add loss transaction
+                dialog.dismiss();
+            }
+        });
+        bottomSheetView.findViewById(R.id.cancelIncreaseButton).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+        if (dialog.getWindow() != null)
+            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(0));
         dialog.show();
     }
 
@@ -147,8 +192,6 @@ public class MainActivity extends AppCompatActivity {
                 R.layout.delete_account_dialog,
                 (ConstraintLayout) findViewById(R.id.layoutDeleteDialogContainer));
         builder.setView(view);
-        ((TextView) view.findViewById(R.id.titleDialog)).setText(R.string.account_removing_title);
-        ((TextView) view.findViewById(R.id.messageDialog)).setText(R.string.account_removing_text);
         final AlertDialog dialog = builder.create();
         view.findViewById(R.id.yesDialogButton).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -181,8 +224,6 @@ public class MainActivity extends AppCompatActivity {
                 (ConstraintLayout) findViewById(R.id.layoutUpdateDialogContainer));
         builder.setView(view);
         final AlertDialog dialog = builder.create();
-        ((TextView) view.findViewById(R.id.titleDialog)).setText(R.string.rename_account_name);
-        ((TextView) view.findViewById(R.id.message)).setText(R.string.rename_account_name_text);
         ((TextView) view.findViewById(R.id.inputField)).setText(accounts.getValue().get(accountIndex).getName());
         view.findViewById(R.id.yesRenameButton).setOnClickListener(new View.OnClickListener() {
             @Override

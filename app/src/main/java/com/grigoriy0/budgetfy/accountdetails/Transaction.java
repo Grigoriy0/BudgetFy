@@ -36,6 +36,16 @@ public class Transaction {
 
     private boolean loss;
 
+    private String comment;
+
+    public String getComment() {
+        return comment;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
+    }
+
     public boolean isLoss() {
         return loss;
     }
@@ -148,9 +158,9 @@ public class Transaction {
                 case "RENT":
                     return Category.RENT;
                 case "MISCELLANEOUS":
-                    return Category.MISCELLANEOUS;
+                    return Category.OTHER;
                 case "SCHOLARSHIP":
-                    return Category.SCHOLARSHIP;
+                    return Category.STIPEND;
                 case "PARENTS":
                     return Category.PARENTS;
                 case "GIFT":

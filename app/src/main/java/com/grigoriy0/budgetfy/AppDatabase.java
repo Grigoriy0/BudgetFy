@@ -1,6 +1,5 @@
 package com.grigoriy0.budgetfy;
 
-import android.content.AsyncQueryHandler;
 import android.content.Context;
 import android.os.AsyncTask;
 
@@ -11,6 +10,7 @@ import androidx.room.RoomDatabase;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
 import com.grigoriy0.budgetfy.accountdetails.Transaction;
+import com.grigoriy0.budgetfy.accountdetails.TransactionDAO;
 
 @Database(entities = {Account.class, Transaction.class}, version = 1, exportSchema = false)
 public abstract class AppDatabase extends RoomDatabase {

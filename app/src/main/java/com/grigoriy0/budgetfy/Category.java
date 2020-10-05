@@ -1,7 +1,5 @@
 package com.grigoriy0.budgetfy;
 
-import androidx.room.TypeConverter;
-
 public enum Category {
     TRANSPORT,
     UNIVERSITY,
@@ -10,18 +8,20 @@ public enum Category {
     PHONE,
     BARBER,
     RENT,
-    MISCELLANEOUS,
+    OTHER,
 
 
-    SCHOLARSHIP,
+    STIPEND,
     PARENTS,
-    GIFT;
+    GIFT,
+    SALARY;
 
     public boolean isLoss() {
         final Category category = this;
         return category != PARENTS &&
-                category != SCHOLARSHIP &&
-                category != GIFT;
+                category != STIPEND &&
+                category != GIFT &&
+                category != SALARY;
     }
 
     @Override
