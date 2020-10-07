@@ -18,14 +18,12 @@ import java.util.List;
 
 public class ViewPagerAdapter extends RecyclerView.Adapter<ViewPagerAdapter.PagerVH> {
     private List<Account> accounts;
-    private ViewPager2 pager2;
 
-    ViewPagerAdapter(List<Account> accounts, ViewPager2 viewPager2) {
+    ViewPagerAdapter(List<Account> accounts) {
         if (accounts == null){
             accounts = new LinkedList<>();
         }
         this.accounts = accounts;
-        this.pager2 = viewPager2;
     }
 
     @NonNull
@@ -72,7 +70,4 @@ public class ViewPagerAdapter extends RecyclerView.Adapter<ViewPagerAdapter.Page
                 imageView.setImageResource(R.drawable.ic_credit_card_90);
         }
     }
-
-
-
 }

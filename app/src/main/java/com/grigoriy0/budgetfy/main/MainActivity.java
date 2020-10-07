@@ -8,8 +8,9 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -29,28 +30,27 @@ import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.grigoriy0.budgetfy.Account;
 import com.grigoriy0.budgetfy.AccountViewModel;
+import com.grigoriy0.budgetfy.Category;
 import com.grigoriy0.budgetfy.R;
 import com.grigoriy0.budgetfy.accountdetails.AccountActivity;
+import com.grigoriy0.budgetfy.accountdetails.Transaction;
+import com.grigoriy0.budgetfy.accountdetails.TransactionRepository;
+import com.grigoriy0.budgetfy.accountdetails.TransactionViewModel;
 
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     private AccountViewModel accountViewModel;
     private ViewPagerAdapter adapter;
-    private ViewPager2 accountsViewPager;
     private LiveData<List<Account>> accounts;
-    private FloatingActionButton lossActionButton;
-    private FloatingActionButton increaseActionButton;
-    private Intent addAccountIntent;
-
     private int accountIndex;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_activity);
-        lossActionButton = findViewById(R.id.fab_loss_action);
-        increaseActionButton = findViewById(R.id.fab_increase_action);
+        FloatingActionButton lossActionButton = findViewById(R.id.fab_loss_action);
+        FloatingActionButton increaseActionButton = findViewById(R.id.fab_increase_action);
 
         if (savedInstanceState == null) {
             accountViewModel = ViewModelProviders.of(this).get(AccountViewModel.class);
@@ -68,13 +68,13 @@ public class MainActivity extends AppCompatActivity {
 
     public void showAccountDetails(View view) {
         Intent intent = new Intent(this, AccountActivity.class);
-        intent.putExtra(AccountActivity.EXTRA_ACCOUNT, accountIndex);
+        intent.putExtra(AccountActivity.EXTRA_ACCOUNT, accountIndex + 1);
         startActivity(intent);
     }
 
     private void openAccountsViewPager() {
-        accountsViewPager = findViewById(R.id.accountsViewPager);
-        adapter = new ViewPagerAdapter(accounts.getValue(), accountsViewPager);
+        ViewPager2 accountsViewPager = findViewById(R.id.accountsViewPager);
+        adapter = new ViewPagerAdapter(accounts.getValue());
         accountsViewPager.setAdapter(adapter);
 
         CompositePageTransformer transformer = new CompositePageTransformer();
@@ -100,17 +100,27 @@ public class MainActivity extends AppCompatActivity {
     public void openAddLossTransactionDialog(View button) {
         final BottomSheetDialog dialog = new BottomSheetDialog(
                 MainActivity.this, R.style.BottomSheetDialogTheme);
-        View bottomSheetView = LayoutInflater.from(getApplicationContext())
+        final View bottomSheetView = LayoutInflater.from(getApplicationContext())
                 .inflate(
                         R.layout.activity_add_loss,
                         (LinearLayout) findViewById(R.id.lossContainer),
                         false
                 );
         dialog.setContentView(bottomSheetView);
+        final TextView commentView = bottomSheetView.findViewById(R.id.commentEditLoss);
+        final TextView sumView = bottomSheetView.findViewById(R.id.valueEditLoss);
+        final RadioGroup radioGroup = bottomSheetView.findViewById(R.id.radioGroupLoss);
+
         bottomSheetView.findViewById(R.id.applyLossButton).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // TODO check and add loss transaction
+                String comment = commentView.getText().toString();
+                String category = ((RadioButton) bottomSheetView.findViewById(
+                        radioGroup.getCheckedRadioButtonId())).getText().toString().toUpperCase();
+                float sum = Float.parseFloat(sumView.getText().toString());
+                Transaction transaction = new Transaction(sum, Category.valueOf(category), comment, accountIndex + 1);
+                TransactionRepository tr = new TransactionRepository(getApplication(), accountIndex + 1);
+                tr.addTransaction(transaction);
                 Toast.makeText(MainActivity.this, "Loss added", Toast.LENGTH_SHORT).show();
                 dialog.dismiss();
             }
@@ -251,7 +261,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void openAddAccountActivity(String type) {
-        addAccountIntent = new Intent(this, AddAccountActivity.class);
+        Intent addAccountIntent = new Intent(this, AddAccountActivity.class);
         addAccountIntent.putExtra(AddAccountActivity.EXTRA_TYPE, type);
         startActivityForResult(addAccountIntent, 1);
     }

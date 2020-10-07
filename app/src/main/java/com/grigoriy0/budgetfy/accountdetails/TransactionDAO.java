@@ -1,5 +1,6 @@
 package com.grigoriy0.budgetfy.accountdetails;
 
+import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
@@ -16,12 +17,12 @@ public interface TransactionDAO {
     @Delete
     void delete(Transaction account);
 
+    @Query("DELETE FROM transaction_table WHERE accountId=:id")
+    void deleteById(int id);
+
     @Update
     void update(Transaction account);
 
-    @Query("SELECT * FROM transaction_table")
-    List<Transaction> getAllTransactions();
-
-    @Query("SELECT * FROM transaction_table WHERE accountId LIKE :id")
-    List<Transaction> getByAccountId(int id);
+    @Query("SELECT * FROM transaction_table WHERE accountId=:id")
+    LiveData<List<Transaction>> getByAccountId(int id);
 }

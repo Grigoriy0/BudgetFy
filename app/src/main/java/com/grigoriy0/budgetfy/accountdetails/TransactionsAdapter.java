@@ -13,6 +13,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.grigoriy0.budgetfy.R;
 
+import java.util.List;
+
 public class TransactionsAdapter extends ListAdapter<Transaction, TransactionsAdapter.ViewHolder> {
     private static final class DiffCallback extends DiffUtil.ItemCallback<Transaction> {
 
@@ -24,25 +26,6 @@ public class TransactionsAdapter extends ListAdapter<Transaction, TransactionsAd
         @Override
         public boolean areContentsTheSame(@NonNull Transaction oldItem, @NonNull Transaction newItem) {
             return oldItem.equals(newItem);
-        }
-    }
-
-    static class ViewHolder extends RecyclerView.ViewHolder {
-        private final TextView sumView;
-        private final TextView categoryView;
-        private final TextView dateView;
-
-        public ViewHolder(@NonNull View itemView) {
-            super(itemView);
-            sumView = itemView.findViewById(R.id.sumView);
-            categoryView = itemView.findViewById(R.id.categoryImage);
-            dateView = itemView.findViewById(R.id.dateView);
-        }
-
-        public final void onBind(Transaction transaction) {
-            sumView.setText(String.valueOf(transaction.getSum()));
-            categoryView.setText(transaction.getCategory().toString());
-            dateView.setText(transaction.getDateString());
         }
     }
 
@@ -66,5 +49,29 @@ public class TransactionsAdapter extends ListAdapter<Transaction, TransactionsAd
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         holder.onBind(getCurrentList().get(position));
+    }
+
+    public void setTransactions(List<Transaction> transactions) {
+        submitList(transactions);
+        notifyDataSetChanged();
+    }
+
+    static class ViewHolder extends RecyclerView.ViewHolder {
+        private final TextView sumView;
+        private final TextView categoryView;
+        private final TextView dateView;
+
+        public ViewHolder(@NonNull View itemView) {
+            super(itemView);
+            sumView = itemView.findViewById(R.id.sumView);
+            categoryView = itemView.findViewById(R.id.categoryImage);
+            dateView = itemView.findViewById(R.id.dateView);
+        }
+
+        public final void onBind(Transaction transaction) {
+            sumView.setText(String.valueOf(transaction.getSum()));
+            categoryView.setText(transaction.getCategory().toString());
+            dateView.setText(transaction.getDateString());
+        }
     }
 }

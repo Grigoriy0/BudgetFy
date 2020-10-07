@@ -90,12 +90,13 @@ public class Transaction {
         return id;
     }
 
-    public Transaction(float sum, Category category, int accountId) {
+    public Transaction(float sum, Category category, String comment, int accountId) {
         this.sum = sum;
         this.accountId = accountId;
         this.category = category;
         this.date = new Date(System.currentTimeMillis());
         this.loss = category.isLoss();
+        this.comment = comment;
     }
 
     @Override

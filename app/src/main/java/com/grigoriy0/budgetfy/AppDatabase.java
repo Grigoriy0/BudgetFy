@@ -32,7 +32,7 @@ public abstract class AppDatabase extends RoomDatabase {
         if (instance == null)
             instance = Room.databaseBuilder(context.getApplicationContext(),
                     AppDatabase.class,
-                    "budgetfy_db")
+                    "com.grigoriy0.budgetfy_db")
                     .fallbackToDestructiveMigration()
                     .addCallback(roomCallback)
                     .build();

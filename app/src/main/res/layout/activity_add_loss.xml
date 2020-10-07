@@ -84,7 +84,7 @@
                 android:contentDescription="@string/app_name"/>
 
             <EditText
-                android:id="@+id/commentEditField"
+                android:id="@+id/commentEditLoss"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="30dp"
@@ -93,7 +93,7 @@
                 android:inputType="text" />
 
             <EditText
-                android:id="@+id/valueEditField"
+                android:id="@+id/valueEditLoss"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="30dp"
