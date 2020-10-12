@@ -34,7 +34,6 @@ public class TransactionsFragment extends Fragment {
             @Override
             public void onChanged(List<Transaction> transactions) {
                 adapter.setTransactions(transactions);
-                Toast.makeText(getContext(), "transaction_table changed", Toast.LENGTH_SHORT).show();
             }
         });
         adapter = new TransactionsAdapter();

@@ -7,7 +7,6 @@ import androidx.room.TypeConverter;
 import androidx.room.TypeConverters;
 
 import com.grigoriy0.budgetfy.Account;
-import com.grigoriy0.budgetfy.Category;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -143,28 +142,28 @@ public class Transaction {
         public static Category toCategory(String category) {
             if (category == null)
                 return null;
-            switch (category) {
-                case "TRANSPORT":
+            switch (category.toString()) {
+                case "Transport":
                     return Category.TRANSPORT;
-                case "UNIVERSITY":
+                case "University":
                     return Category.UNIVERSITY;
-                case "FOOD":
+                case "Food":
                     return Category.FOOD;
-                case "CAFE":
+                case "Cafe":
                     return Category.CAFE;
-                case "PHONE":
+                case "Phone":
                     return Category.PHONE;
-                case "BARBER":
+                case "Barber":
                     return Category.BARBER;
-                case "RENT":
+                case "Rent":
                     return Category.RENT;
-                case "MISCELLANEOUS":
+                case "Other":
                     return Category.OTHER;
-                case "SCHOLARSHIP":
+                case "Stipend":
                     return Category.STIPEND;
-                case "PARENTS":
+                case "Parents":
                     return Category.PARENTS;
-                case "GIFT":
+                case "Gift":
                     return Category.GIFT;
                 default:
                     return null;

@@ -26,16 +26,14 @@ import androidx.viewpager2.widget.CompositePageTransformer;
 import androidx.viewpager2.widget.MarginPageTransformer;
 import androidx.viewpager2.widget.ViewPager2;
 
-import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.grigoriy0.budgetfy.Account;
 import com.grigoriy0.budgetfy.AccountViewModel;
-import com.grigoriy0.budgetfy.Category;
+import com.grigoriy0.budgetfy.accountdetails.Category;
 import com.grigoriy0.budgetfy.R;
 import com.grigoriy0.budgetfy.accountdetails.AccountActivity;
 import com.grigoriy0.budgetfy.accountdetails.Transaction;
 import com.grigoriy0.budgetfy.accountdetails.TransactionRepository;
-import com.grigoriy0.budgetfy.accountdetails.TransactionViewModel;
 
 import java.util.List;
 
@@ -49,8 +47,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_activity);
-        FloatingActionButton lossActionButton = findViewById(R.id.fab_loss_action);
-        FloatingActionButton increaseActionButton = findViewById(R.id.fab_increase_action);
+        findViewById(R.id.fab_loss_action);
+        findViewById(R.id.fab_increase_action);
 
         if (savedInstanceState == null) {
             accountViewModel = ViewModelProviders.of(this).get(AccountViewModel.class);
@@ -116,9 +114,9 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String comment = commentView.getText().toString();
                 String category = ((RadioButton) bottomSheetView.findViewById(
-                        radioGroup.getCheckedRadioButtonId())).getText().toString().toUpperCase();
+                        radioGroup.getCheckedRadioButtonId())).getText().toString();
                 float sum = Float.parseFloat(sumView.getText().toString());
-                Transaction transaction = new Transaction(sum, Category.valueOf(category), comment, accountIndex + 1);
+                Transaction transaction = new Transaction(sum, Category.fromString(category), comment, accountIndex + 1);
                 TransactionRepository tr = new TransactionRepository(getApplication(), accountIndex + 1);
                 tr.addTransaction(transaction);
                 Toast.makeText(MainActivity.this, "Loss added", Toast.LENGTH_SHORT).show();
@@ -139,17 +137,27 @@ public class MainActivity extends AppCompatActivity {
     public void openAddIncreaseTransactionDialog(View button) {
         final BottomSheetDialog dialog = new BottomSheetDialog(
                 MainActivity.this, R.style.BottomSheetDialogTheme);
-        View bottomSheetView = LayoutInflater.from(getApplicationContext())
+        final View bottomSheetView = LayoutInflater.from(getApplicationContext())
                 .inflate(R.layout.activity_add_increase,
                         (LinearLayout) findViewById(R.id.increaseContainer),
                         false
                 );
         dialog.setContentView(bottomSheetView);
+        final TextView commentView = bottomSheetView.findViewById(R.id.commentEditIncrease);
+        final TextView sumView = bottomSheetView.findViewById(R.id.valueEditIncrease);
+        final RadioGroup radioGroup = bottomSheetView.findViewById(R.id.radioGroupIncrease);
+
         bottomSheetView.findViewById(R.id.applyIncreaseButton).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                String comment = commentView.getText().toString();
+                float sum = Float.parseFloat(sumView.getText().toString());
+                String category = ((RadioButton) bottomSheetView.findViewById(
+                        radioGroup.getCheckedRadioButtonId())).getText().toString();
+                Transaction transaction = new Transaction(sum, Category.fromString(category), comment, accountIndex + 1);
+                TransactionRepository tr = new TransactionRepository(getApplication(), accountIndex + 1);
+                tr.addTransaction(transaction);
                 Toast.makeText(MainActivity.this, "Increase added", Toast.LENGTH_SHORT).show();
-                // TODO check and add loss transaction
                 dialog.dismiss();
             }
         });
