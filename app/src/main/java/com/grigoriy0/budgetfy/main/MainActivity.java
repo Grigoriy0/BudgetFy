@@ -71,9 +71,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void openAccountsViewPager() {
-        ViewPager2 accountsViewPager = findViewById(R.id.accountsViewPager);
+        ViewPager2 accountsViewPage = findViewById(R.id.accountsViewPager);
         adapter = new ViewPagerAdapter(accounts.getValue());
-        accountsViewPager.setAdapter(adapter);
+        accountsViewPage.setAdapter(adapter);
 
         CompositePageTransformer transformer = new CompositePageTransformer();
         transformer.addTransformer(new MarginPageTransformer(40));
@@ -84,8 +84,8 @@ public class MainActivity extends AppCompatActivity {
                 page.setScaleY(0.85f + r * 0.15f);
             }
         });
-        accountsViewPager.setPageTransformer(transformer);
-        accountsViewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
+        accountsViewPage.setPageTransformer(transformer);
+        accountsViewPage.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
             @Override
             public void onPageSelected(int position) {
                 super.onPageSelected(position);
@@ -189,17 +189,17 @@ public class MainActivity extends AppCompatActivity {
                 openAddAccountActivity("WALLET");
                 break;
             case R.id.remove_account_action:
-                openRemoveAccountDialog();
+                openRemoveAccountDialog(null);
                 break;
             case R.id.rename_account_action:
-                openRenameAccountDialog();
+                openRenameAccountDialog(null);
             default:
                 break;
         }
         return true;
     }
 
-    private void openRemoveAccountDialog() {
+    public void openRemoveAccountDialog(View _) {
         if (accountViewModel.getAllAccounts().getValue() == null ||
                 accountViewModel.getAllAccounts().getValue().size() == 0) {
             Toast.makeText(MainActivity.this, "Nothing to delete", Toast.LENGTH_SHORT).show();
@@ -210,8 +210,10 @@ public class MainActivity extends AppCompatActivity {
                 R.layout.delete_account_dialog,
                 (ConstraintLayout) findViewById(R.id.layoutDeleteDialogContainer));
         builder.setView(view);
+        String title = String.format("Delete %s ?", accountViewModel.getAllAccounts().getValue().get(accountIndex).getName());
+        ((TextView) view.findViewById(R.id.titleDelete)).setText(title);
         final AlertDialog dialog = builder.create();
-        view.findViewById(R.id.yesDialogButton).setOnClickListener(new View.OnClickListener() {
+        view.findViewById(R.id.yesDeleteButton).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 accountViewModel.delete(accounts.getValue().get(accountIndex));
@@ -219,7 +221,7 @@ public class MainActivity extends AppCompatActivity {
                 dialog.dismiss();
             }
         });
-        view.findViewById(R.id.noDialogButton).setOnClickListener(new View.OnClickListener() {
+        view.findViewById(R.id.noDeleteButton).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 dialog.dismiss();
@@ -230,7 +232,7 @@ public class MainActivity extends AppCompatActivity {
         dialog.show();
     }
 
-    private void openRenameAccountDialog() {
+    public void openRenameAccountDialog(View _) {
         if (accountViewModel.getAllAccounts().getValue() == null ||
                 accountViewModel.getAllAccounts().getValue().size() == 0) {
             Toast.makeText(MainActivity.this, "Create an account first", Toast.LENGTH_SHORT).show();
@@ -241,6 +243,9 @@ public class MainActivity extends AppCompatActivity {
                 R.layout.update_account_dialog,
                 (ConstraintLayout) findViewById(R.id.layoutUpdateDialogContainer));
         builder.setView(view);
+        String title = String.format("Rename %s ?", accountViewModel.getAllAccounts().getValue().get(accountIndex).getName());
+        ((TextView) view.findViewById(R.id.titleRename)).setText(title);
+
         final AlertDialog dialog = builder.create();
         ((TextView) view.findViewById(R.id.inputField)).setText(accounts.getValue().get(accountIndex).getName());
         view.findViewById(R.id.yesRenameButton).setOnClickListener(new View.OnClickListener() {
@@ -248,7 +253,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String name = ((TextView) view.findViewById(R.id.inputField)).getText().toString();
                 if (name.trim().isEmpty()) {
-                    Toast.makeText(MainActivity.this, "ERROR", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.this, "Type non-empty string", Toast.LENGTH_SHORT).show();
                     return;
                 }
                 Account account = accounts.getValue().get(accountIndex);

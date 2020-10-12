@@ -16,7 +16,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
-            android:id="@+id/titleDialog"
+            android:id="@+id/titleRename"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="10dp"
@@ -32,7 +32,7 @@
             android:textSize="14sp"
             tools:text="@string/rename_account_name_text"
             android:textColor="@color/black"
-            app:layout_constraintTop_toTopOf="@id/titleDialog" />
+            app:layout_constraintTop_toTopOf="@id/titleRename" />
 
         <EditText
             android:id="@+id/inputField"

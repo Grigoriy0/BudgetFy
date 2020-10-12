@@ -6,6 +6,31 @@
     android:layout_height="match_parent"
     tools:context=".main.MainActivity">
 
+    <LinearLayout
+        android:id="@+id/menuLayout"
+        android:layout_width="100dp"
+        android:layout_height="40dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/accountsViewPager"
+        app:layout_constraintTop_toBottomOf="@+id/accountsViewPager"
+        app:layout_constraintVertical_bias="0.0">
+
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:contentDescription="@string/app_name"
+            android:onClick="openRenameAccountDialog"
+            android:src="@drawable/ic_edit_24" />
+
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:contentDescription="@string/app_name"
+            android:onClick="openRemoveAccountDialog"
+            android:src="@drawable/ic_delete_24" />
+    </LinearLayout>
+
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/accountsViewPager"
         android:layout_width="300dp"
@@ -15,19 +40,23 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.22"/>
+        app:layout_constraintVertical_bias="0.22">
+
+    </androidx.viewpager2.widget.ViewPager2>
+
 
     <com.getbase.floatingactionbutton.FloatingActionsMenu
         android:id="@+id/floatingActionButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         app:fab_addButtonColorNormal="@color/colorPrimaryDark"
         app:fab_addButtonColorPressed="@color/colorPrimary"
         app:fab_addButtonPlusIconColor="@color/white"
         app:fab_labelStyle="@style/fab"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@android:drawable/ic_menu_add">
+
         <com.getbase.floatingactionbutton.FloatingActionButton
             android:id="@+id/fab_loss_action"
             android:layout_width="wrap_content"
@@ -35,10 +64,10 @@
             android:onClick="openAddLossTransactionDialog"
             app:fab_colorNormal="@color/colorAccentDark"
             app:fab_colorPressed="@color/colorAccent"
-            app:fab_size="mini"
             app:fab_icon="@drawable/ic_add_24"
-            app:fab_title="Loss"
-            />
+            app:fab_size="mini"
+            app:fab_title="Loss" />
+
         <com.getbase.floatingactionbutton.FloatingActionButton
             android:id="@+id/fab_increase_action"
             android:layout_width="wrap_content"
@@ -46,10 +75,9 @@
             android:onClick="openAddIncreaseTransactionDialog"
             app:fab_colorNormal="@color/colorAccentDark"
             app:fab_colorPressed="@color/colorAccent"
-            app:fab_size="mini"
             app:fab_icon="@drawable/ic_add_24"
-            app:fab_title="Increase"
-            />
+            app:fab_size="mini"
+            app:fab_title="Increase" />
     </com.getbase.floatingactionbutton.FloatingActionsMenu>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

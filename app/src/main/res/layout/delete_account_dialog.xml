@@ -13,7 +13,7 @@
         app:layout_constraintTop_toTopOf="parent"
         android:orientation="vertical">
         <TextView
-            android:id="@+id/titleDialog"
+            android:id="@+id/titleDelete"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="10dp"
@@ -42,16 +42,16 @@
         app:layout_constraintTop_toBottomOf="@id/layoutDialog">
 
         <Button
-            android:id="@+id/yesDialogButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/yes" />
-
-        <Button
-            android:id="@+id/noDialogButton"
+            android:id="@+id/noDeleteButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/no" />
+
+        <Button
+            android:id="@+id/yesDeleteButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/yes" />
 
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
