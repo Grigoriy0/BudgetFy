@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -60,18 +61,24 @@ public class TransactionsAdapter extends ListAdapter<Transaction, TransactionsAd
         private final TextView sumView;
         private final TextView categoryView;
         private final TextView dateView;
+        private final ImageView imageView;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             sumView = itemView.findViewById(R.id.sumView);
             categoryView = itemView.findViewById(R.id.categoryImage);
             dateView = itemView.findViewById(R.id.dateView);
+            imageView = itemView.findViewById(R.id.transactionImageView);
         }
 
         public final void onBind(Transaction transaction) {
             sumView.setText(String.valueOf(transaction.getSum()));
             categoryView.setText(transaction.getCategory().toString());
             dateView.setText(transaction.getDateString());
+            if (transaction.isLoss())
+                imageView.setImageResource(R.drawable.ic_down_90);
+            else
+                imageView.setImageResource(R.drawable.ic_up_90);
         }
     }
 }
