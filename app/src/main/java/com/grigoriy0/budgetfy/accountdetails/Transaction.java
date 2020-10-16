@@ -37,6 +37,16 @@ public class Transaction {
 
     private String comment;
 
+    public Transaction(Transaction other) {
+        id = other.id;
+        accountId = other.accountId;
+        sum = other.sum;
+        date = DateConverter.toDate(DateConverter.toTimestamp(other.date));
+        category = other.category;
+        loss = other.loss;
+        comment = other.comment;
+    }
+
     public String getComment() {
         return comment;
     }

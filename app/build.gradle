@@ -43,4 +43,6 @@ dependencies {
     annotationProcessor 'androidx.room:room-compiler:2.2.5'
     // Lifecycle
     implementation 'android.arch.lifecycle:extensions:1.1.1'
+    // RecyclerViewSwipeDecorator
+    implementation 'it.xabaras.android:recyclerview-swipedecorator:1.2.3'
 }
