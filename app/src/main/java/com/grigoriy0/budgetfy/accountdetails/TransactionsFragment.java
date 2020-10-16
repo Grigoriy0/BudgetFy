@@ -1,12 +1,10 @@
 package com.grigoriy0.budgetfy.accountdetails;
 
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -77,7 +75,7 @@ public class TransactionsFragment extends Fragment {
             } catch (Exception ignored) {}
             viewModel.delete(deletedTransaction);
             adapter.notifyItemRemoved(position);
-            String msg = String.format("%s(%.2f) deleted", deletedTransaction.getComment(), deletedTransaction.getSum());
+            String msg = String.format("%s(%l) deleted", deletedTransaction.getComment(), deletedTransaction.getSum());
             Snackbar.make(recyclerView, msg, Snackbar.LENGTH_LONG)
             .setAction("Undo", new View.OnClickListener() {
                 @Override

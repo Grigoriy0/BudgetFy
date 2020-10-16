@@ -25,7 +25,7 @@ public class Transaction {
 
     private int accountId;
 
-    private float sum;
+    private long sum;
 
     @TypeConverters({DateConverter.class})
     private Date date;
@@ -63,7 +63,7 @@ public class Transaction {
         return accountId;
     }
 
-    public float getSum() {
+    public long getSum() {
         return sum;
     }
 
@@ -99,7 +99,7 @@ public class Transaction {
         return id;
     }
 
-    public Transaction(float sum, Category category, String comment, int accountId) {
+    public Transaction(long sum, Category category, String comment, int accountId) {
         this.sum = sum;
         this.accountId = accountId;
         this.category = category;
