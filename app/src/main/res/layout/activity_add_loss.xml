@@ -101,7 +101,7 @@
                 android:ems="10"
                 android:gravity="end"
                 android:hint="@string/loss_value"
-                android:inputType="number" />
+                android:inputType="text" />
         </LinearLayout>
 
     </LinearLayout>

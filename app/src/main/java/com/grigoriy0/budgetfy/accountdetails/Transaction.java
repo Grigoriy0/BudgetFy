@@ -101,7 +101,6 @@ public class Transaction {
         return Objects.hash(id, sum, date, category);
     }
 
-
     public static class DateConverter {
         @TypeConverter
         public static Date toDate(Long timestamp) {

@@ -33,7 +33,6 @@ public abstract class AppDatabase extends RoomDatabase {
 
     public abstract TransactionDAO getTransactionDao();
 
-
     public synchronized static AppDatabase getInstance(Context context) {
         if (instance == null)
             instance = Room.databaseBuilder(context.getApplicationContext(),
@@ -47,9 +46,11 @@ public abstract class AppDatabase extends RoomDatabase {
 
     private static class PopulateDBAsyncTask extends AsyncTask<Void, Void, Void> {
         private AccountDAO accountDAO;
+
         private PopulateDBAsyncTask(AppDatabase db) {
             accountDAO = db.getAccountDao();
         }
+
         @Override
         protected Void doInBackground(Void... voids) {
             accountDAO.insertAll(new Account(UUID.randomUUID(), "Cache", 0, Account.Type.WALLET));

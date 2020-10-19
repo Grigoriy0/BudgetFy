@@ -73,18 +73,17 @@ public class TransactionsFragment extends Fragment {
             final int position = viewHolder.getAdapterPosition();
             try {
                 deletedTransaction = new Transaction(viewModel.getAccountTransactions().getValue().get(position));
-            } catch (Exception ignored) {}
+            } catch (Exception ignored) {
+            }
             viewModel.delete(deletedTransaction);
-            adapter.notifyItemRemoved(position);
-            String msg = String.format("%s(%l) deleted", deletedTransaction.comment, deletedTransaction.sum);
+            String msg = String.format("%s(%d) deleted", deletedTransaction.comment, deletedTransaction.sum);
             Snackbar.make(recyclerView, msg, Snackbar.LENGTH_LONG)
-            .setAction("Undo", new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    viewModel.insert(deletedTransaction);
-                    adapter.notifyItemInserted(position);
-                }
-            }).show();
+                    .setAction("Undo", new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            viewModel.insert(deletedTransaction);
+                        }
+                    }).show();
         }
 
         @Override

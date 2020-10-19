@@ -119,6 +119,9 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String comment = commentView.getText().toString();
+                if (bottomSheetView.findViewById(radioGroup.getCheckedRadioButtonId()) == null) {
+                    return;
+                }
                 String category = ((RadioButton) bottomSheetView.findViewById(
                         radioGroup.getCheckedRadioButtonId())).getText().toString();
                 long sum;
@@ -171,6 +174,9 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String comment = commentView.getText().toString();
+                if (bottomSheetView.findViewById(radioGroup.getCheckedRadioButtonId()) == null) {
+                    return;
+                }
                 String category = ((RadioButton) bottomSheetView.findViewById(
                         radioGroup.getCheckedRadioButtonId())).getText().toString();
                 long sum;
@@ -270,10 +276,14 @@ public class MainActivity extends AppCompatActivity {
         final Account accountToRename = accounts.getValue().get(accountIndex);
         final View view = LayoutInflater.from(MainActivity.this).inflate(
                 R.layout.update_account_dialog,
-                (ConstraintLayout) findViewById(R.id.layoutUpdateDialogContainer));
+                (LinearLayout) findViewById(R.id.layoutUpdateDialogContainer));
         builder.setView(view);
         String title = String.format("Rename %s ?", accountToRename.name);
         ((TextView) view.findViewById(R.id.titleRename)).setText(title);
+        if (accountToRename.type.equals(Account.Type.CREDIT_CARD))
+            ((RadioButton) view.findViewById(R.id.creditCardRadioRefactorAccount)).setChecked(true);
+        else
+            ((RadioButton) view.findViewById(R.id.walletRadioRefactorAccount)).setChecked(true);
 
         final AlertDialog dialog = builder.create();
         ((TextView) view.findViewById(R.id.inputField)).setText(accountToRename.name);
@@ -286,6 +296,8 @@ public class MainActivity extends AppCompatActivity {
                     return;
                 }
                 accountToRename.name = name;
+                accountToRename.type = ((RadioButton) view.findViewById(R.id.walletRadioRefactorAccount)).isChecked() ?
+                        Account.Type.WALLET : Account.Type.CREDIT_CARD;
                 accountViewModel.update(accountToRename);
                 dialog.dismiss();
             }

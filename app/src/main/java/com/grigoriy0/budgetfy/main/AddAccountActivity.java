@@ -60,9 +60,9 @@ public class AddAccountActivity extends AppCompatActivity {
     public void saveAccount(@Nullable View v) {
         String name = accountName.getText().toString();
         float start = 0;
-        try{
+        try {
             start = Float.parseFloat(startValue.getText().toString());
-        } catch (NumberFormatException e){
+        } catch (NumberFormatException e) {
             Toast.makeText(this, "ERROR", Toast.LENGTH_SHORT).show();
             return;
         }

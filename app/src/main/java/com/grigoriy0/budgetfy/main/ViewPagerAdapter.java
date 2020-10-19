@@ -20,7 +20,7 @@ public class ViewPagerAdapter extends RecyclerView.Adapter<ViewPagerAdapter.Page
     private List<Account> accounts;
 
     ViewPagerAdapter(List<Account> accounts) {
-        if (accounts == null){
+        if (accounts == null) {
             accounts = new LinkedList<>();
         }
         this.accounts = accounts;
