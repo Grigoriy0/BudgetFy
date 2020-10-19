@@ -97,6 +97,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void openAddLossTransactionDialog(View button) {
+        if (accounts.getValue() == null || accounts.getValue().size() == 0) {
+            Toast.makeText(MainActivity.this, "Add account first", Toast.LENGTH_SHORT).show();
+            return;
+        }
         final BottomSheetDialog dialog = new BottomSheetDialog(
                 MainActivity.this, R.style.BottomSheetDialogTheme);
         final View bottomSheetView = LayoutInflater.from(getApplicationContext())
@@ -145,6 +149,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void openAddIncreaseTransactionDialog(View button) {
+        if (accounts.getValue() == null || accounts.getValue().size() == 0) {
+            Toast.makeText(MainActivity.this, "Add account first", Toast.LENGTH_SHORT).show();
+            return;
+        }
         final BottomSheetDialog dialog = new BottomSheetDialog(
                 MainActivity.this, R.style.BottomSheetDialogTheme);
         final View bottomSheetView = LayoutInflater.from(getApplicationContext())
