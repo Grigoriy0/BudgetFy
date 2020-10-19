@@ -12,20 +12,18 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.grigoriy0.budgetfy.R;
 
+import java.util.UUID;
+
 public class AccountActivity extends AppCompatActivity {
     public static final String EXTRA_ACCOUNT =
             "com.grigoriy0.budgetfy.accountdetails.EXTRA_ACCOUNT";
-    private int accountId;
+    private UUID accountId;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.account_activity);
-        accountId = getIntent().getIntExtra(EXTRA_ACCOUNT, -1);
-        if (accountId == -1) {
-            Toast.makeText(getApplicationContext(), "ERROR Extra not transferred", Toast.LENGTH_LONG).show();
-            return;
-        }
+        accountId = UUID.fromString(getIntent().getStringExtra(EXTRA_ACCOUNT));
         showTransactions();
     }
 

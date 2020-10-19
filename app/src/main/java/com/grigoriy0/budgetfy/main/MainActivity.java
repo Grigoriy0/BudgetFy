@@ -37,6 +37,7 @@ import com.grigoriy0.budgetfy.accountdetails.Transaction;
 import com.grigoriy0.budgetfy.accountdetails.TransactionRepository;
 
 import java.util.List;
+import java.util.UUID;
 
 public class MainActivity extends AppCompatActivity {
     private AccountViewModel accountViewModel;
@@ -66,8 +67,8 @@ public class MainActivity extends AppCompatActivity {
 
     public void showAccountDetails(View view) {
         Intent intent = new Intent(this, AccountActivity.class);
-        int id = accounts.getValue().get(accountIndex).getId();
-        intent.putExtra(AccountActivity.EXTRA_ACCOUNT, id);
+        UUID id = accounts.getValue().get(accountIndex).id;
+        intent.putExtra(AccountActivity.EXTRA_ACCOUNT, id.toString());
         startActivity(intent);
     }
 
@@ -125,8 +126,9 @@ public class MainActivity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "Type correct value", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                Transaction transaction = new Transaction(sum, Category.fromString(category), comment, 1);
-                int id = accounts.getValue().get(accountIndex).getId();
+                Transaction transaction = new Transaction(sum, Category.fromString(category), comment, UUID.randomUUID());
+                UUID id = accounts.getValue().get(accountIndex).id;
+
                 TransactionRepository tr = new TransactionRepository(getApplication(), id);
                 tr.addTransaction(transaction);
                 Toast.makeText(MainActivity.this, "Loss added", Toast.LENGTH_SHORT).show();
@@ -172,8 +174,8 @@ public class MainActivity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "Type correct value", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                Transaction transaction = new Transaction(sum, Category.fromString(category), comment, 1);
-                int id = accounts.getValue().get(accountIndex).getId();
+                Transaction transaction = new Transaction(sum, Category.fromString(category), comment, UUID.randomUUID());
+                UUID id = accounts.getValue().get(accountIndex).id;
                 TransactionRepository tr = new TransactionRepository(getApplication(), id);
                 tr.addTransaction(transaction);
                 Toast.makeText(MainActivity.this, "Increase added", Toast.LENGTH_SHORT).show();
@@ -229,7 +231,7 @@ public class MainActivity extends AppCompatActivity {
                 (ConstraintLayout) findViewById(R.id.layoutDeleteDialogContainer));
         builder.setView(view);
         final Account accountToDelete = accounts.getValue().get(accountIndex);
-        String title = String.format("Delete %s ?", accountToDelete.getName());
+        String title = String.format("Delete %s ?", accountToDelete.name);
         ((TextView) view.findViewById(R.id.titleDelete)).setText(title);
         final AlertDialog dialog = builder.create();
         view.findViewById(R.id.yesDeleteButton).setOnClickListener(new View.OnClickListener() {
@@ -262,11 +264,11 @@ public class MainActivity extends AppCompatActivity {
                 R.layout.update_account_dialog,
                 (ConstraintLayout) findViewById(R.id.layoutUpdateDialogContainer));
         builder.setView(view);
-        String title = String.format("Rename %s ?", accountToRename.getName());
+        String title = String.format("Rename %s ?", accountToRename.name);
         ((TextView) view.findViewById(R.id.titleRename)).setText(title);
 
         final AlertDialog dialog = builder.create();
-        ((TextView) view.findViewById(R.id.inputField)).setText(accountToRename.getName());
+        ((TextView) view.findViewById(R.id.inputField)).setText(accountToRename.name);
         view.findViewById(R.id.yesRenameButton).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -275,7 +277,7 @@ public class MainActivity extends AppCompatActivity {
                     Toast.makeText(MainActivity.this, "Type non-empty string", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                accountToRename.setName(name);
+                accountToRename.name = name;
                 accountViewModel.update(accountToRename);
                 dialog.dismiss();
             }
@@ -304,9 +306,9 @@ public class MainActivity extends AppCompatActivity {
             String name = data.getStringExtra(AddAccountActivity.EXTRA_NAME);
             String type = data.getStringExtra(AddAccountActivity.EXTRA_TYPE);
             float startValue = data.getFloatExtra(AddAccountActivity.EXTRA_START, 0);
-            Account account = new Account(0, name, startValue, startValue, type);
+            Account account = new Account(UUID.randomUUID(), name, startValue, type);
             accountViewModel.insert(account);
-            Toast.makeText(getApplicationContext(), "Account " + account.getName() + " added", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), "Account " + account.name + " added", Toast.LENGTH_SHORT).show();
         }
     }
 }
