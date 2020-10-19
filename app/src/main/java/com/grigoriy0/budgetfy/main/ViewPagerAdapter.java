@@ -62,9 +62,9 @@ public class ViewPagerAdapter extends RecyclerView.Adapter<ViewPagerAdapter.Page
         }
 
         public final void onBind(Account account) {
-            accountName.setText(account.getName());
-            currentValue.setText(account.getCurrentValue().toString() + " BYN");
-            if (account.getType().equals(Account.Type.WALLET))
+            accountName.setText(account.name);
+            currentValue.setText(account.currentValue.toString() + " BYN");
+            if (account.type.equals(Account.Type.WALLET))
                 imageView.setImageResource(R.drawable.ic_wallet_90);
             else
                 imageView.setImageResource(R.drawable.ic_credit_card_90);

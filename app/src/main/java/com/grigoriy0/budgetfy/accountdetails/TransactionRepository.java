@@ -9,20 +9,21 @@ import androidx.lifecycle.LiveData;
 import com.grigoriy0.budgetfy.AppDatabase;
 
 import java.util.List;
+import java.util.UUID;
 
 public class TransactionRepository {
     private TransactionDAO transactionDAO;
     private LiveData<List<Transaction>> transactions;
-    private int accountId;
+    private UUID accountId;
 
-    public TransactionRepository(@NonNull Application app, int accountId) {
+    public TransactionRepository(@NonNull Application app, UUID accountId) {
         AppDatabase db = AppDatabase.getInstance(app.getApplicationContext());
         transactionDAO = db.getTransactionDao();
         transactions = transactionDAO.getByAccountId(accountId);
         this.accountId = accountId;
     }
 
-    public int getAccountId() {
+    public UUID getAccountId() {
         return accountId;
     }
 
@@ -72,10 +73,10 @@ public class TransactionRepository {
         }
     }
 
-    private class DeleteAllTransactionTask extends AsyncTask<Integer, Void, Void> {
+    private class DeleteAllTransactionTask extends AsyncTask<UUID, Void, Void> {
         @Override
-        protected Void doInBackground(Integer... id) {
-            transactionDAO.deleteById(Integer.parseInt(id[0].toString()));
+        protected Void doInBackground(UUID... id) {
+            transactionDAO.deleteById(id[0]);
             return null;
         }
     }

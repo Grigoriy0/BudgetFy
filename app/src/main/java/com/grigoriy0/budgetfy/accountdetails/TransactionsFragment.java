@@ -20,6 +20,7 @@ import com.google.android.material.snackbar.Snackbar;
 import com.grigoriy0.budgetfy.R;
 
 import java.util.List;
+import java.util.UUID;
 
 import it.xabaras.android.recyclerview.swipedecorator.RecyclerViewSwipeDecorator;
 
@@ -27,7 +28,7 @@ public class TransactionsFragment extends Fragment {
     private TransactionsAdapter adapter;
     private TransactionViewModel viewModel;
     private RecyclerView recyclerView;
-    private int accountId;
+    private UUID accountId;
 
     @Nullable
     @Override
@@ -51,7 +52,7 @@ public class TransactionsFragment extends Fragment {
         return parentView;
     }
 
-    public TransactionsFragment(int accountId) {
+    public TransactionsFragment(UUID accountId) {
         this.accountId = accountId;
     }
 

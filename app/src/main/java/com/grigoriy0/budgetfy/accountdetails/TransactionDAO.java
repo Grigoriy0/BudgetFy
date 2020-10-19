@@ -8,6 +8,7 @@ import androidx.room.Query;
 import androidx.room.Update;
 
 import java.util.List;
+import java.util.UUID;
 
 @Dao
 public interface TransactionDAO {
@@ -18,11 +19,11 @@ public interface TransactionDAO {
     void delete(Transaction account);
 
     @Query("DELETE FROM transaction_table WHERE accountId=:id")
-    void deleteById(int id);
+    void deleteById(UUID id);
 
     @Update
     void update(Transaction account);
 
     @Query("SELECT * FROM transaction_table WHERE accountId=:id")
-    LiveData<List<Transaction>> getByAccountId(int id);
+    LiveData<List<Transaction>> getByAccountId(UUID id);
 }

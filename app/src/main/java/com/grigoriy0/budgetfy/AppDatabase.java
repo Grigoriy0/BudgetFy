@@ -7,12 +7,16 @@ import androidx.annotation.NonNull;
 import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
+import androidx.room.TypeConverters;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
 import com.grigoriy0.budgetfy.accountdetails.Transaction;
 import com.grigoriy0.budgetfy.accountdetails.TransactionDAO;
 
+import java.util.UUID;
+
 @Database(entities = {Account.class, Transaction.class}, version = 1, exportSchema = false)
+@TypeConverters({Account.UUIDConverter.class, Transaction.DateConverter.class, Transaction.CategoryConverter.class})
 public abstract class AppDatabase extends RoomDatabase {
     private static AppDatabase instance;
     private static RoomDatabase.Callback roomCallback = new RoomDatabase.Callback() {
@@ -46,7 +50,7 @@ public abstract class AppDatabase extends RoomDatabase {
         }
         @Override
         protected Void doInBackground(Void... voids) {
-            accountDAO.insertAll(new Account(1, "Cache", 0, 0, Account.Type.WALLET));
+            accountDAO.insertAll(new Account(UUID.randomUUID(), "Cache", 0, Account.Type.WALLET));
             return null;
         }
     }

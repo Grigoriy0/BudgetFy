@@ -1,9 +1,13 @@
 package com.grigoriy0.budgetfy;
 
+import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
+import androidx.room.TypeConverter;
+import androidx.room.TypeConverters;
 
 import java.io.Serializable;
+import java.util.UUID;
 
 @Entity(tableName = "account_table")
 public class Account implements Serializable {
@@ -12,64 +16,35 @@ public class Account implements Serializable {
         public static final String CREDIT_CARD = "CREDIT_CARD";
     }
 
-    @PrimaryKey(autoGenerate = true)
-    private int id;
+    @NonNull
+    @PrimaryKey
+    @TypeConverters({UUIDConverter.class})
+    public UUID id;
 
-    private Float startValue;
+    public Float startValue;
 
-    private Float currentValue;
+    public Float currentValue;
 
-    private String name;
+    public String name;
 
-    private String type; // WALLET or CREDIT_CARD
+    public String type; // WALLET or CREDIT_CARD
 
-    public Account(int id, String name, float startValue, float currentValue, String type) {
+    public Account(UUID id, String name, float startValue, String type) {
         this.id = id;
-        this.startValue = startValue;
+        this.currentValue = this.startValue = startValue;
         this.name = name;
-        this.currentValue = currentValue;
         this.type = type;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
+    public static class UUIDConverter {
+        @TypeConverter
+        public static UUID toUUID(String string) {
+            return UUID.fromString(string);
+        }
 
-    public int getId() {
-        return id;
-    }
-
-    public void setStartValue(Float startValue) {
-        this.startValue = startValue;
-    }
-
-    public Float getStartValue() {
-        return startValue;
-    }
-
-    public void setCurrentValue(float currentValue) {
-        this.currentValue = currentValue;
-    }
-
-    public Float getCurrentValue() {
-        return currentValue;
-    }
-
-    public void setType(String type) {
-        if (type == null || (!type.equals("CREDIT_CARD") && !type.equals("WALLET")))
-            throw new IllegalArgumentException("Only CREDIT_CARD or WALLET, not \"" + type + "\"");
-        this.type = type;
-    }
-
-    public String getType() {
-            return type;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getName() {
-        return name;
+        @TypeConverter
+        public static String toString(UUID uuid) {
+            return uuid.toString();
+        }
     }
 }

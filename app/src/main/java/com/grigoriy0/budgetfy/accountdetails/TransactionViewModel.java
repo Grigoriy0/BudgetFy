@@ -6,7 +6,10 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
+import com.grigoriy0.budgetfy.Account;
+
 import java.util.List;
+import java.util.UUID;
 
 public class TransactionViewModel extends AndroidViewModel {
     private TransactionRepository repository;
@@ -16,7 +19,7 @@ public class TransactionViewModel extends AndroidViewModel {
         super(application);
     }
 
-    public void init(int accountId) {
+    public void init(UUID accountId) {
         repository = new TransactionRepository(getApplication(), accountId);
         accountTransactions = repository.getTransactions();
     }

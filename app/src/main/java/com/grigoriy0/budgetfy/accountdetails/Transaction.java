@@ -1,5 +1,6 @@
 package com.grigoriy0.budgetfy.accountdetails;
 
+import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
@@ -11,19 +12,22 @@ import com.grigoriy0.budgetfy.Account;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Objects;
+import java.util.UUID;
 
 @Entity(tableName = "transaction_table", foreignKeys = @ForeignKey(
         entity = Account.class,
         parentColumns = "id",
         childColumns = "accountId"
 ))
-@TypeConverters({Transaction.DateConverter.class, Transaction.CategoryConverter.class})
+@TypeConverters({Transaction.DateConverter.class, Transaction.CategoryConverter.class, Account.UUIDConverter.class})
 public class Transaction {
 
     @PrimaryKey(autoGenerate = true)
     private int id;
 
-    private int accountId;
+    @NonNull
+    @TypeConverters({Account.UUIDConverter.class})
+    private UUID accountId;
 
     private long sum;
 
@@ -59,7 +63,7 @@ public class Transaction {
         return loss;
     }
 
-    public int getAccountId() {
+    public UUID getAccountId() {
         return accountId;
     }
 
@@ -75,7 +79,7 @@ public class Transaction {
         this.date = date;
     }
 
-    public void setAccountId(int accountId) {
+    public void setAccountId(UUID accountId) {
         this.accountId = accountId;
     }
 
@@ -99,7 +103,7 @@ public class Transaction {
         return id;
     }
 
-    public Transaction(long sum, Category category, String comment, int accountId) {
+    public Transaction(long sum, Category category, String comment, UUID accountId) {
         this.sum = sum;
         this.accountId = accountId;
         this.category = category;
