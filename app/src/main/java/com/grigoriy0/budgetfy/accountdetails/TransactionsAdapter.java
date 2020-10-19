@@ -72,11 +72,11 @@ public class TransactionsAdapter extends ListAdapter<Transaction, TransactionsAd
         }
 
         public final void onBind(Transaction transaction) {
-            String sum = String.valueOf(Float.valueOf(transaction.getSum()) / 10);
+            String sum = String.valueOf((float) transaction.sum / 10);
             sumView.setText(sum);
             categoryView.setText(transaction.getCategory().toString());
             dateView.setText(transaction.getDateString());
-            if (transaction.isLoss())
+            if (transaction.loss)
                 imageView.setImageResource(R.drawable.ic_down_90);
             else
                 imageView.setImageResource(R.drawable.ic_up_90);

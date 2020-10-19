@@ -32,7 +32,7 @@ public class TransactionRepository {
     }
 
     public void addTransaction(Transaction transaction) {
-        transaction.setAccountId(accountId);
+        transaction.accountId = accountId;
         new AddTransactionTask().execute(transaction);
     }
 
@@ -45,7 +45,7 @@ public class TransactionRepository {
     }
 
     public void updateTransaction(Transaction transaction) {
-        transaction.setAccountId(accountId);
+        transaction.accountId = accountId;
         new UpdateTransactionTask().execute(transaction);
     }
 

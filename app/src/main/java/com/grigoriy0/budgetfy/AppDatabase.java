@@ -15,9 +15,11 @@ import com.grigoriy0.budgetfy.accountdetails.TransactionDAO;
 
 import java.util.UUID;
 
-@Database(entities = {Account.class, Transaction.class}, version = 1, exportSchema = false)
+@Database(entities = {Account.class, Transaction.class}, version = AppDatabase.DATABASE_VERSION, exportSchema = false)
 @TypeConverters({Account.UUIDConverter.class, Transaction.DateConverter.class, Transaction.CategoryConverter.class})
 public abstract class AppDatabase extends RoomDatabase {
+    public static final String DATABASE_NAME = "com.grigoriy0.budgetfy_db";
+    public static final int DATABASE_VERSION = 1;
     private static AppDatabase instance;
     private static RoomDatabase.Callback roomCallback = new RoomDatabase.Callback() {
         @Override
@@ -36,7 +38,7 @@ public abstract class AppDatabase extends RoomDatabase {
         if (instance == null)
             instance = Room.databaseBuilder(context.getApplicationContext(),
                     AppDatabase.class,
-                    "com.grigoriy0.budgetfy_db")
+                    DATABASE_NAME)
                     .fallbackToDestructiveMigration()
                     .addCallback(roomCallback)
                     .build();

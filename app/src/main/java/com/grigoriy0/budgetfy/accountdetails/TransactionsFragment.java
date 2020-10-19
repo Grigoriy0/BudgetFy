@@ -76,7 +76,7 @@ public class TransactionsFragment extends Fragment {
             } catch (Exception ignored) {}
             viewModel.delete(deletedTransaction);
             adapter.notifyItemRemoved(position);
-            String msg = String.format("%s(%l) deleted", deletedTransaction.getComment(), deletedTransaction.getSum());
+            String msg = String.format("%s(%l) deleted", deletedTransaction.comment, deletedTransaction.sum);
             Snackbar.make(recyclerView, msg, Snackbar.LENGTH_LONG)
             .setAction("Undo", new View.OnClickListener() {
                 @Override
