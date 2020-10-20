@@ -17,6 +17,7 @@ import com.grigoriy0.budgetfy.R;
 import java.util.List;
 
 public class TransactionsAdapter extends ListAdapter<Transaction, TransactionsAdapter.ViewHolder> {
+    private final TransactionsFragment fragment;
     private static final class DiffCallback extends DiffUtil.ItemCallback<Transaction> {
 
         @Override
@@ -30,8 +31,9 @@ public class TransactionsAdapter extends ListAdapter<Transaction, TransactionsAd
         }
     }
 
-    protected TransactionsAdapter() {
+    protected TransactionsAdapter(TransactionsFragment fragment) {
         super(new DiffCallback());
+        this.fragment = fragment;
     }
 
     @NonNull
@@ -44,6 +46,7 @@ public class TransactionsAdapter extends ListAdapter<Transaction, TransactionsAd
                 R.layout.transaction_item,
                 parent,
                 false);
+        view.setOnClickListener(fragment.transactionItemListener);
         return new ViewHolder(view);
     }
 

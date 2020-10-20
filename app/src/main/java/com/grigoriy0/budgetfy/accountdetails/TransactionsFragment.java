@@ -5,6 +5,10 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -28,7 +32,7 @@ public class TransactionsFragment extends Fragment {
     private TransactionsAdapter adapter;
     private TransactionViewModel viewModel;
     private RecyclerView recyclerView;
-    private UUID accountId;
+    private final UUID accountId;
 
     @Nullable
     @Override
@@ -43,7 +47,7 @@ public class TransactionsFragment extends Fragment {
                 adapter.setTransactions(transactions);
             }
         });
-        adapter = new TransactionsAdapter();
+        adapter = new TransactionsAdapter(this);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(parentView.getContext()));
 
@@ -99,4 +103,10 @@ public class TransactionsFragment extends Fragment {
     };
 
     Transaction deletedTransaction = null;
+    View.OnClickListener transactionItemListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View transactionView) {
+            Toast.makeText(getContext(), "Yes", Toast.LENGTH_SHORT).show();
+        }
+    };
 }
