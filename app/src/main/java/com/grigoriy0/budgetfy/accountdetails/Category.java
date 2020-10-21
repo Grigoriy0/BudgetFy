@@ -1,5 +1,7 @@
 package com.grigoriy0.budgetfy.accountdetails;
 
+import com.grigoriy0.budgetfy.R;
+
 public enum Category {
     TRANSPORT("Transport"),
     UNIVERSITY("University"),
@@ -25,6 +27,35 @@ public enum Category {
         return category != STIPEND &&
                 category != GIFT &&
                 category != SALARY;
+    }
+
+    public int getIconResId() {
+        switch (type) {
+            case "Transport":
+                return R.drawable.ic_transport_90;
+            case "University":
+                return R.drawable.ic_salary_90; // TODO add later
+            case "Food":
+                return R.drawable.ic_food_90;
+            case "Cafe":
+                return R.drawable.ic_cafe_90;
+            case "Phone":
+                return R.drawable.ic_phone_90;
+            case "Barber":
+                return R.drawable.ic_barber_90;
+            case "Rent":
+                return R.drawable.ic_rent_90;
+            case "Other":
+                return R.drawable.ic_food_90; // TODO add later
+            case "Stipend":
+                return R.drawable.ic_salary_90; // TODO add later
+            case "Gift":
+                return R.drawable.ic_gift_90;
+            case "Salary":
+                return R.drawable.ic_salary_90;
+            default:
+                return R.drawable.ic_food_90;
+        }
     }
 
     @Override

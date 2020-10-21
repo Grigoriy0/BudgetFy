@@ -35,12 +35,6 @@
                 android:text="@string/stipend" />
 
             <RadioButton
-                android:id="@+id/parentRadio"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/parents" />
-
-            <RadioButton
                 android:id="@+id/salaryRadio"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

@@ -127,8 +127,7 @@ public class MainActivity extends AppCompatActivity {
                         radioGroup.getCheckedRadioButtonId())).getText().toString();
                 long sum;
                 try {
-                    float value = Float.parseFloat(sumView.getText().toString());
-                    value *= 10;
+                    float value = Float.parseFloat(sumView.getText().toString()) * 100;
                     sum = (long) value;
                 } catch (NumberFormatException ex) {
                     Toast.makeText(getApplicationContext(), "Type correct value", Toast.LENGTH_SHORT).show();
@@ -184,8 +183,7 @@ public class MainActivity extends AppCompatActivity {
                         radioGroup.getCheckedRadioButtonId())).getText().toString();
                 long sum;
                 try {
-                    float value = Float.parseFloat(sumView.getText().toString());
-                    value *= 10;
+                    float value = Float.parseFloat(sumView.getText().toString()) * 100;
                     sum = (long) value;
                 } catch (NumberFormatException ex) {
                     Toast.makeText(getApplicationContext(), "Type correct value", Toast.LENGTH_SHORT).show();

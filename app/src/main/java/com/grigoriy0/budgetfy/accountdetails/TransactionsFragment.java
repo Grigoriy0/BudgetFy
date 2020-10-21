@@ -1,12 +1,13 @@
 package com.grigoriy0.budgetfy.accountdetails;
 
+import android.app.AlertDialog;
 import android.graphics.Canvas;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,11 +24,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.snackbar.Snackbar;
 import com.grigoriy0.budgetfy.R;
 
-import org.w3c.dom.Text;
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -121,19 +119,58 @@ public class TransactionsFragment extends Fragment {
             String comment = ((TextView) transactionView.findViewById(R.id.transactionCommentTextView)).getText().toString();
             Date date;
             try {
-                date = (new SimpleDateFormat("dd.MM.yyyy")).parse(
+                date = (Transaction.DATE_FORMAT).parse(
                         ((TextView) transactionView.findViewById(R.id.dateTextView)).getText().toString());
             } catch (ParseException e) {
                 date = Calendar.getInstance().getTime();
             }
 
-            Transaction transaction = new Transaction(sum, category, comment, accountId);
+            final Transaction transaction = new Transaction(sum, category, comment, accountId);
             transaction.id = id;
             transaction.date = date;
             transaction.loss = category.isLoss();
+            AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+            View view = LayoutInflater.from(getContext()).inflate(
+                    R.layout.transaction_details_dialog,
+                    (LinearLayout) getView().findViewById(R.id.transactionDetailsContainer));
+            builder.setView(view);
 
+            final TextView commentView = view.findViewById(R.id.commentRefactorTransaction);
+            final TextView dateView = view.findViewById(R.id.dateRefactorTransaction);
+            ImageView imageView = view.findViewById(R.id.imageViewRefactorTransaction);
+            final TextView categoryTextView = view.findViewById(R.id.categoryRefactorTextView);
+            final TextView sumTextView = view.findViewById(R.id.sumRefactorTransaction);
 
-            viewModel.update(transaction);
+            commentView.setText(comment);
+            dateView.setText(Transaction.DATE_FORMAT.format(date));
+            imageView.setBackgroundResource(category.getIconResId());
+            categoryTextView.setText(category.toString());
+            sumTextView.setText(String.format("%.2f", ((float) transaction.sum) / 100));
+            final AlertDialog dialog = builder.create();
+            view.findViewById(R.id.okButtonRefactorTransaction).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Transaction newTransaction = new Transaction(transaction);
+                    newTransaction.category = Category.fromString(categoryTextView.getText().toString());
+                    newTransaction.comment = commentView.getText().toString();
+                    try {
+                        newTransaction.date = Transaction.DATE_FORMAT.parse(dateView.getText().toString());
+                        newTransaction.sum = (long) (Float.parseFloat(sumTextView.getText().toString()) * 100);
+                    } catch (ParseException ignored) {
+                        Toast.makeText(getContext(), "Cannot change data", Toast.LENGTH_SHORT).show();
+                    }
+                    catch (NumberFormatException ignored) {}
+                    viewModel.update(newTransaction);
+                    dialog.dismiss();
+                }
+            });
+            view.findViewById(R.id.cancelButtonRefactorTransaction).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    dialog.dismiss();
+                }
+            });
+            dialog.show();
         }
     };
 }

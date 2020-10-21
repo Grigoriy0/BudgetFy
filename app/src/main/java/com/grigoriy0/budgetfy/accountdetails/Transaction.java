@@ -26,6 +26,8 @@ import java.util.UUID;
 @TypeConverters({Transaction.DateConverter.class, Transaction.CategoryConverter.class, Account.UUIDConverter.class})
 public class Transaction {
 
+    public static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("dd.MM.yyyy");
+
     @NonNull
     @PrimaryKey
     @TypeConverters({Account.UUIDConverter.class})
@@ -68,7 +70,7 @@ public class Transaction {
     }
 
     public String getDateString() {
-        return (new SimpleDateFormat("dd.MM.yyyy")).format(date);
+        return DATE_FORMAT.format(date);
     }
 
     @Override

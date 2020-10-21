@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/transactionDetailsContainer"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/dialog_background"
@@ -15,7 +16,7 @@
         android:gravity="end">
 
         <TextView
-            android:id="@+id/categoryTextView"
+            android:id="@+id/categoryRefactorTextView"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -29,6 +30,16 @@
             android:layout_height="90dp"
             android:contentDescription="@string/app_name" />
     </LinearLayout>
+
+    <EditText
+        android:id="@+id/sumRefactorTransaction"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:inputType="text"
+        android:textAlignment="viewStart"
+        android:textSize="18sp"
+        tools:text="value" />
 
     <EditText
         android:id="@+id/commentRefactorTransaction"
