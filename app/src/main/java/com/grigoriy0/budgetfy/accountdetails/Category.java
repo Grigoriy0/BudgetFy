@@ -11,7 +11,6 @@ public enum Category {
     OTHER("Other"),
 
     STIPEND("Stipend"),
-    PARENTS("Parents"),
     GIFT("Gift"),
     SALARY("Salary");
 
@@ -23,8 +22,7 @@ public enum Category {
 
     public boolean isLoss() {
         final Category category = this;
-        return category != PARENTS &&
-                category != STIPEND &&
+        return category != STIPEND &&
                 category != GIFT &&
                 category != SALARY;
     }

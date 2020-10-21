@@ -133,8 +133,6 @@ public class Transaction {
                     return Category.OTHER;
                 case "Stipend":
                     return Category.STIPEND;
-                case "Parents":
-                    return Category.PARENTS;
                 case "Gift":
                     return Category.GIFT;
                 default:
