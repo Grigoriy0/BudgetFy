@@ -71,10 +71,6 @@ public class Transaction {
         return (new SimpleDateFormat("dd.MM.yyyy")).format(date);
     }
 
-    public Category getCategory() {
-        return category;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -92,7 +88,7 @@ public class Transaction {
                 "id=" + id +
                 ", sum=" + sum +
                 ", date=" + date +
-                ", category=" + getCategory() +
+                ", category=" + category +
                 '}';
     }
 

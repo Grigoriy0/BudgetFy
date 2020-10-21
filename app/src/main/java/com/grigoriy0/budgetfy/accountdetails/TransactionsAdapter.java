@@ -65,24 +65,30 @@ public class TransactionsAdapter extends ListAdapter<Transaction, TransactionsAd
         private final TextView categoryView;
         private final TextView dateView;
         private final ImageView imageView;
+        private final TextView idTextView;
+        private final TextView commentTextView;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            sumView = itemView.findViewById(R.id.sumView);
-            categoryView = itemView.findViewById(R.id.categoryImage);
-            dateView = itemView.findViewById(R.id.dateView);
+            sumView = itemView.findViewById(R.id.sumTextView);
+            categoryView = itemView.findViewById(R.id.categoryTextView);
+            dateView = itemView.findViewById(R.id.dateTextView);
             imageView = itemView.findViewById(R.id.transactionImageView);
+            idTextView = itemView.findViewById(R.id.transactionIdTextView);
+            commentTextView = itemView.findViewById(R.id.transactionCommentTextView);
         }
 
         public final void onBind(Transaction transaction) {
-            String sum = String.valueOf((float) transaction.sum / 10);
+            String sum = String.valueOf((float) transaction.sum / 100);
             sumView.setText(sum);
-            categoryView.setText(transaction.getCategory().toString());
+            categoryView.setText(transaction.category.toString());
             dateView.setText(transaction.getDateString());
             if (transaction.loss)
                 imageView.setImageResource(R.drawable.ic_down_90);
             else
                 imageView.setImageResource(R.drawable.ic_up_90);
+            idTextView.setText(String.valueOf(transaction.id));
+            commentTextView.setText(transaction.comment);
         }
     }
 }

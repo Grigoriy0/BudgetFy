@@ -3,14 +3,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/text"
-    android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/white"
+    android:layout_marginLeft="10dp"
     android:layout_marginTop="5dp"
-    android:layout_marginBottom="5dp"
     android:layout_marginRight="10dp"
-    android:layout_marginLeft="10dp">
+    android:layout_marginBottom="5dp"
+    android:background="@color/white"
+    android:orientation="horizontal">
 
 
     <LinearLayout
@@ -20,40 +20,56 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/categoryImage"
+            android:id="@+id/categoryTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text=""
-            tools:text="categoryView"
-            android:textSize="16sp" />
+            android:textSize="16sp"
+            tools:text="categoryView" />
 
         <TextView
-            android:id="@+id/sumView"
+            android:id="@+id/sumTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text=""
-            tools:text="sumView"
-            android:textSize="24sp" />
+            android:textSize="24sp"
+            tools:text="sumView" />
 
         <TextView
-            android:id="@+id/dateView"
+            android:id="@+id/dateTextView"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:text=""
-            tools:text="11.11.11"
             android:textAlignment="viewEnd"
             android:textColor="@color/gray_9F"
-            android:textSize="16sp" />
+            android:textSize="16sp"
+            tools:text="11.11.11" />
 
     </LinearLayout>
 
+
+    <TextView
+        android:id="@+id/transactionIdTextView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:text=""
+        android:textSize="0sp"
+        android:visibility="invisible" />
+
+    <TextView
+        android:id="@+id/transactionCommentTextView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:text=""
+        android:textSize="0sp"
+        android:visibility="invisible" />
 
     <ImageView
         android:id="@+id/transactionImageView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:srcCompat="@android:drawable/btn_star_big_on"
         android:scaleType="fitEnd"
-        tools:ignore="ContentDescription"/>
+        app:srcCompat="@android:drawable/btn_star_big_on"
+        tools:ignore="ContentDescription" />
 
 </LinearLayout>

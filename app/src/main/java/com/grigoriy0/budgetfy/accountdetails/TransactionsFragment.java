@@ -23,6 +23,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.snackbar.Snackbar;
 import com.grigoriy0.budgetfy.R;
 
+import org.w3c.dom.Text;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -106,7 +113,27 @@ public class TransactionsFragment extends Fragment {
     View.OnClickListener transactionItemListener = new View.OnClickListener() {
         @Override
         public void onClick(View transactionView) {
-            Toast.makeText(getContext(), "Yes", Toast.LENGTH_SHORT).show();
+            UUID id = UUID.fromString(
+                    ((TextView) transactionView.findViewById(R.id.transactionIdTextView)
+                    ).getText().toString());
+            long sum = (long) (Float.parseFloat(((TextView) transactionView.findViewById(R.id.sumTextView)).getText().toString()) * 100);
+            Category category = Category.fromString(((TextView) transactionView.findViewById(R.id.categoryTextView)).getText().toString());
+            String comment = ((TextView) transactionView.findViewById(R.id.transactionCommentTextView)).getText().toString();
+            Date date;
+            try {
+                date = (new SimpleDateFormat("dd.MM.yyyy")).parse(
+                        ((TextView) transactionView.findViewById(R.id.dateTextView)).getText().toString());
+            } catch (ParseException e) {
+                date = Calendar.getInstance().getTime();
+            }
+
+            Transaction transaction = new Transaction(sum, category, comment, accountId);
+            transaction.id = id;
+            transaction.date = date;
+            transaction.loss = category.isLoss();
+
+
+            viewModel.update(transaction);
         }
     };
 }

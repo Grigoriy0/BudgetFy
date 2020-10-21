@@ -36,6 +36,7 @@ import com.grigoriy0.budgetfy.accountdetails.Category;
 import com.grigoriy0.budgetfy.accountdetails.Transaction;
 import com.grigoriy0.budgetfy.accountdetails.TransactionRepository;
 
+import java.util.Calendar;
 import java.util.List;
 import java.util.UUID;
 
@@ -133,10 +134,12 @@ public class MainActivity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "Type correct value", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                Transaction transaction = new Transaction(sum, Category.fromString(category), comment, UUID.randomUUID());
-                UUID id = accounts.getValue().get(accountIndex).id;
+                Transaction transaction = new Transaction(sum, Category.fromString(category), comment, accounts.getValue().get(accountIndex).id);
+                transaction.id = UUID.randomUUID();
+                transaction.loss = transaction.category.isLoss();
+                transaction.date = Calendar.getInstance().getTime();
 
-                TransactionRepository tr = new TransactionRepository(getApplication(), id);
+                TransactionRepository tr = new TransactionRepository(getApplication(), accounts.getValue().get(accountIndex).id);
                 tr.addTransaction(transaction);
                 Toast.makeText(MainActivity.this, "Loss added", Toast.LENGTH_SHORT).show();
                 dialog.dismiss();
@@ -188,9 +191,12 @@ public class MainActivity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "Type correct value", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                Transaction transaction = new Transaction(sum, Category.fromString(category), comment, UUID.randomUUID());
-                UUID id = accounts.getValue().get(accountIndex).id;
-                TransactionRepository tr = new TransactionRepository(getApplication(), id);
+                Transaction transaction = new Transaction(sum, Category.fromString(category), comment, accounts.getValue().get(accountIndex).id);
+                transaction.id = UUID.randomUUID();
+                transaction.loss = transaction.category.isLoss();
+                transaction.date = Calendar.getInstance().getTime();
+
+                TransactionRepository tr = new TransactionRepository(getApplication(), accounts.getValue().get(accountIndex).id);
                 tr.addTransaction(transaction);
                 Toast.makeText(MainActivity.this, "Increase added", Toast.LENGTH_SHORT).show();
                 dialog.dismiss();
