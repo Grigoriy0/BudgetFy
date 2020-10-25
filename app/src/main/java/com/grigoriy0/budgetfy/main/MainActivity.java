@@ -104,58 +104,6 @@ public class MainActivity extends AppCompatActivity {
             return;
         }
         new AddTransactionHelper(accounts.getValue().get(accountIndex).id, this, true);
-//        final BottomSheetDialog dialog = new BottomSheetDialog(
-//                MainActivity.this, R.style.BottomSheetDialogTheme);
-//        final View bottomSheetView = LayoutInflater.from(getApplicationContext())
-//                .inflate(
-//                        R.layout.activity_add_loss,
-//                        (LinearLayout) findViewById(R.id.lossContainer),
-//                        false
-//                );
-//        dialog.setContentView(bottomSheetView);
-//        final TextView commentView = bottomSheetView.findViewById(R.id.commentEditLoss);
-//        final TextView sumView = bottomSheetView.findViewById(R.id.valueEditLoss);
-//        final RadioGroup radioGroup = bottomSheetView.findViewById(R.id.radioGroupLoss);
-//
-//        bottomSheetView.findViewById(R.id.applyLossButton).setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                String comment = commentView.getText().toString();
-//                if (bottomSheetView.findViewById(radioGroup.getCheckedRadioButtonId()) == null) {
-//                    return;
-//                }
-//                String category = ((RadioButton) bottomSheetView.findViewById(
-//                        radioGroup.getCheckedRadioButtonId())).getText().toString();
-//                long sum;
-//                try {
-//                    float value = Float.parseFloat(sumView.getText().toString()) * 100;
-//                    if (value < 0)
-//                        value = -value;
-//                    sum = (long) value;
-//                } catch (NumberFormatException ex) {
-//                    Toast.makeText(getApplicationContext(), "Type correct value", Toast.LENGTH_SHORT).show();
-//                    return;
-//                }
-//                Transaction transaction = new Transaction(sum, Category.fromString(category), comment, accounts.getValue().get(accountIndex).id);
-//                transaction.id = UUID.randomUUID();
-//                transaction.loss = transaction.category.isLoss();
-//                transaction.date = Calendar.getInstance().getTime();
-//
-//                TransactionRepository tr = new TransactionRepository(getApplication(), accounts.getValue().get(accountIndex).id);
-//                tr.addTransaction(transaction);
-//                Toast.makeText(MainActivity.this, "Loss added", Toast.LENGTH_SHORT).show();
-//                dialog.dismiss();
-//            }
-//        });
-//        bottomSheetView.findViewById(R.id.cancelLossButton).setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                dialog.dismiss();
-//            }
-//        });
-//        if (dialog.getWindow() != null)
-//            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(0));
-//        dialog.show();
     }
 
     public void openAddIncreaseTransactionDialog(View button) {
@@ -164,55 +112,6 @@ public class MainActivity extends AppCompatActivity {
             return;
         }
         new AddTransactionHelper(accounts.getValue().get(accountIndex).id, this, false);
-//        final BottomSheetDialog dialog = new BottomSheetDialog(
-//                MainActivity.this, R.style.BottomSheetDialogTheme);
-//        final View bottomSheetView = LayoutInflater.from(getApplicationContext())
-//                .inflate(R.layout.activity_add_increase,
-//                        (LinearLayout) findViewById(R.id.increaseContainer),
-//                        false
-//                );
-//        dialog.setContentView(bottomSheetView);
-//        final TextView commentView = bottomSheetView.findViewById(R.id.commentEditIncrease);
-//        final TextView sumView = bottomSheetView.findViewById(R.id.valueEditIncrease);
-//        final RadioGroup radioGroup = bottomSheetView.findViewById(R.id.radioGroupIncrease);
-//
-//        bottomSheetView.findViewById(R.id.applyIncreaseButton).setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                String comment = commentView.getText().toString();
-//                if (bottomSheetView.findViewById(radioGroup.getCheckedRadioButtonId()) == null) {
-//                    return;
-//                }
-//                String category = ((RadioButton) bottomSheetView.findViewById(
-//                        radioGroup.getCheckedRadioButtonId())).getText().toString();
-//                long sum;
-//                try {
-//                    float value = Float.parseFloat(sumView.getText().toString()) * 100;
-//                    if (value < 0)
-//                        value = -value;
-//                    sum = (long) value;
-//                } catch (NumberFormatException ex) {
-//                    Toast.makeText(getApplicationContext(), "Type correct value", Toast.LENGTH_SHORT).show();
-//                    return;
-//                }
-//                Transaction transaction = new Transaction(sum, Category.fromString(category), comment, accounts.getValue().get(accountIndex).id);
-//                transaction.id = UUID.randomUUID();
-//                transaction.loss = transaction.category.isLoss();
-//                transaction.date = Calendar.getInstance().getTime();
-//
-//                TransactionRepository tr = new TransactionRepository(getApplication(), accounts.getValue().get(accountIndex).id);
-//                tr.addTransaction(transaction);
-//                Toast.makeText(MainActivity.this, "Increase added", Toast.LENGTH_SHORT).show();
-//                dialog.dismiss();
-//            }
-//        });
-//        bottomSheetView.findViewById(R.id.cancelIncreaseButton).setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                dialog.dismiss();
-//            }
-//        });
-
     }
 
     @Override
@@ -338,5 +237,9 @@ public class MainActivity extends AppCompatActivity {
             accountViewModel.insert(account);
             Toast.makeText(getApplicationContext(), "Account " + account.name + " added", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    private void createPieChart(){
+        // TODO
     }
 }
