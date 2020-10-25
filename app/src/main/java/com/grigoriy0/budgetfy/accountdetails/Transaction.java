@@ -49,7 +49,7 @@ public class Transaction {
 
     public String comment;
 
-    public Transaction(Transaction other) {
+    public Transaction(@NonNull Transaction other) {
         id = other.id;
         accountId = other.accountId;
         sum = other.sum;
@@ -59,7 +59,7 @@ public class Transaction {
         comment = other.comment;
     }
 
-    public Transaction(long sum, Category category, String comment, UUID accountId) {
+    public Transaction(long sum, @NonNull Category category, String comment, @NonNull UUID accountId) {
         this.sum = sum;
         this.accountId = accountId;
         this.category = category;
@@ -131,14 +131,15 @@ public class Transaction {
                     return Category.BARBER;
                 case "Rent":
                     return Category.RENT;
-                case "Other":
-                    return Category.OTHER;
                 case "Stipend":
                     return Category.STIPEND;
                 case "Gift":
                     return Category.GIFT;
+                case "Salary":
+                    return Category.SALARY;
+                case "Other":
                 default:
-                    return null;
+                    return Category.OTHER;
             }
         }
 

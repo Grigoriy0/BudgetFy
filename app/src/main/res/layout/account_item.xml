@@ -11,10 +11,13 @@
         android:id="@+id/accountName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:paddingTop="15dp"
+        android:paddingStart="15dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:text=""
         tools:text="Credit Card"
+        android:textStyle="bold"
         android:ellipsize="end"
         android:textSize="30sp" />
 

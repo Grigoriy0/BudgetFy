@@ -64,15 +64,35 @@ public enum Category {
     }
 
     public static Category fromString(String string) {
-        for (Category cat : Category.values()) {
-            if (cat.type.equals(string))
-                return cat;
+//        for (Category cat : Category.values()) {
+//            if (cat.type.equals(string))
+//                return cat;
+//        }
+//        return null;
+        switch (string) {
+            case "Transport":
+                return TRANSPORT;
+            case "University":
+                return UNIVERSITY; // TODO add later
+            case "Food":
+                return FOOD;
+            case "Cafe":
+                return CAFE;
+            case "Phone":
+                return PHONE;
+            case "Barber":
+                return BARBER;
+            case "Rent":
+                return RENT;
+            case "Stipend":
+                return STIPEND;
+            case "Gift":
+                return GIFT;
+            case "Salary":
+                return SALARY;
+            case "Other":
+            default:
+                return OTHER;
         }
-        try {
-            Thread.sleep(3000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        return null;
     }
 }

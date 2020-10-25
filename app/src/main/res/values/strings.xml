@@ -30,8 +30,9 @@
     <string name="stipend">Stipend</string>
     <string name="barber">Barber</string>
     <string name="loss_value">loss value</string>
-    <string name="gifts">Gifts</string>
+    <string name="gift">Gift</string>
     <string name="account_renaming_title">Account refactoring</string>
     <string name="salary">Salary</string>
     <string name="OK">OK</string>
+    <string name="phone">Phone</string>
 </resources>

@@ -39,6 +39,7 @@
         android:inputType="text"
         android:textAlignment="viewStart"
         android:textSize="18sp"
+        android:maxLength="@integer/value_len_max"
         tools:text="value" />
 
     <EditText
@@ -49,6 +50,7 @@
         android:hint="@string/comment"
         android:inputType="text"
         android:textAlignment="viewStart"
+        android:maxLength="@integer/comment_len_max"
         android:textSize="18sp"
         tools:text="tram" />
 
