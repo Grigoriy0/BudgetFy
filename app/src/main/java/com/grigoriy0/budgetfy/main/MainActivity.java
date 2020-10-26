@@ -36,6 +36,7 @@ import com.grigoriy0.budgetfy.accountdetails.Category;
 import com.grigoriy0.budgetfy.accountdetails.Transaction;
 import com.grigoriy0.budgetfy.accountdetails.TransactionRepository;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.UUID;
@@ -64,6 +65,8 @@ public class MainActivity extends AppCompatActivity {
             accounts = accountViewModel.getAllAccounts();
         }
         openAccountsViewPager();
+        float[] list = new float[]{3f, 52f, 10f, 7f, 21f, 3f, 0f, 4f};
+        new PieChartCreator(list, true, findViewById(R.id.pieChart));
     }
 
     public void showAccountDetails(View view) {
@@ -239,7 +242,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void createPieChart(){
-        // TODO
+    private void createPieChart() {
+
     }
 }

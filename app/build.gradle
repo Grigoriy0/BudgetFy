@@ -21,6 +21,9 @@ android {
         }
     }
 }
+repositories {
+    maven { url 'https://jitpack.io' }
+}
 
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
@@ -45,4 +48,6 @@ dependencies {
     implementation 'android.arch.lifecycle:extensions:1.1.1'
     // RecyclerViewSwipeDecorator
     implementation 'it.xabaras.android:recyclerview-swipedecorator:1.2.3'
+    // PieChart and other charts
+    implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
 }
