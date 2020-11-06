@@ -3,7 +3,6 @@ package com.grigoriy0.budgetfy.main;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -11,7 +10,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,17 +25,14 @@ import androidx.viewpager2.widget.CompositePageTransformer;
 import androidx.viewpager2.widget.MarginPageTransformer;
 import androidx.viewpager2.widget.ViewPager2;
 
-import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.grigoriy0.budgetfy.Account;
 import com.grigoriy0.budgetfy.AccountViewModel;
 import com.grigoriy0.budgetfy.R;
 import com.grigoriy0.budgetfy.accountdetails.AccountActivity;
-import com.grigoriy0.budgetfy.accountdetails.Category;
 import com.grigoriy0.budgetfy.accountdetails.Transaction;
 import com.grigoriy0.budgetfy.accountdetails.TransactionRepository;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 import java.util.UUID;
 
@@ -46,6 +41,9 @@ public class MainActivity extends AppCompatActivity {
     private ViewPagerAdapter adapter;
     private LiveData<List<Account>> accounts;
     private int accountIndex;
+    private PieChartManager pieChartManager;
+    private List<TransactionRepository> repositories;
+    private TransactionRepository currentAccTransRepo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,19 +52,29 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.fab_loss_action);
         findViewById(R.id.fab_increase_action);
 
-        if (savedInstanceState == null) {
-            accountViewModel = ViewModelProviders.of(this).get(AccountViewModel.class);
-            accountViewModel.getAllAccounts().observe(this, new Observer<List<Account>>() {
-                @Override
-                public void onChanged(List<Account> accounts) {
-                    adapter.setAccounts(accounts);
-                }
-            });
-            accounts = accountViewModel.getAllAccounts();
-        }
+        accountViewModel = ViewModelProviders.of(this).get(AccountViewModel.class);
+        accountViewModel.getAllAccounts().observe(this, new Observer<List<Account>>() {
+            @Override
+            public void onChanged(List<Account> accounts) {
+                adapter.setAccounts(accounts);
+            }
+        });
+        accounts = accountViewModel.getAllAccounts();
         openAccountsViewPager();
-        float[] list = new float[]{3f, 52f, 10f, 7f, 21f, 3f, 0f, 4f};
-        new PieChartCreator(list, true, findViewById(R.id.pieChart));
+        createPieChart();
+//        if (accounts.getValue() != null && accounts.getValue().size() != 0) {
+//            accountIndex = 0;
+//            try {
+//                currentAccTransRepo = new TransactionRepository(getApplication(), accounts.getValue().get(accountIndex).id);
+//            }catch (Exception unused){
+//                Toast.makeText(getApplicationContext(), "ERRRRR", Toast.LENGTH_LONG).show();
+//                return;
+//            }
+//            pieChartManager = new PieChartManager(true, findViewById(R.id.pieChart));
+//            pieChartManager.update(currentAccTransRepo.getTransactions().getValue());
+//            Toast.makeText(getApplicationContext(), "UPDATED", Toast.LENGTH_LONG).show();
+//        }
+//        else Toast.makeText(getApplicationContext(), "EMPTY", Toast.LENGTH_LONG).show();
     }
 
     public void showAccountDetails(View view) {
@@ -81,7 +89,7 @@ public class MainActivity extends AppCompatActivity {
         adapter = new ViewPagerAdapter(accounts.getValue());
         accountsViewPage.setAdapter(adapter);
 
-        CompositePageTransformer transformer = new CompositePageTransformer();
+        final CompositePageTransformer transformer = new CompositePageTransformer();
         transformer.addTransformer(new MarginPageTransformer(40));
         transformer.addTransformer(new ViewPager2.PageTransformer() {
             @Override
@@ -96,6 +104,22 @@ public class MainActivity extends AppCompatActivity {
             public void onPageSelected(int position) {
                 super.onPageSelected(position);
                 accountIndex = position;
+                if (repositories == null) {
+                    repositories = new ArrayList<>();
+                    for (Account account : accounts.getValue()){
+                        repositories.add(
+                                new TransactionRepository(getApplication(), account.id)
+                        );
+                    }
+                }
+                currentAccTransRepo = repositories.get(position);
+//                currentAccTransRepo = new TransactionRepository(getApplication(), accounts.getValue().get(accountIndex).id);
+                currentAccTransRepo.getTransactions().observeForever(new Observer<List<Transaction>>() {
+                    @Override
+                    public void onChanged(List<Transaction> transactions) {
+                        pieChartManager.update(currentAccTransRepo.getTransactions().getValue());
+                    }
+                });
             }
         });
         accountIndex = 0;
@@ -162,6 +186,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 accountViewModel.delete(accountToDelete);
+                repositories.remove(accountIndex);
                 dialog.dismiss();
             }
         });
@@ -238,11 +263,14 @@ public class MainActivity extends AppCompatActivity {
             float startValue = data.getFloatExtra(AddAccountActivity.EXTRA_START, 0);
             Account account = new Account(UUID.randomUUID(), name, startValue, type);
             accountViewModel.insert(account);
+            repositories.add(
+                    new TransactionRepository(getApplication(), account.id)
+            );
             Toast.makeText(getApplicationContext(), "Account " + account.name + " added", Toast.LENGTH_SHORT).show();
         }
     }
 
     private void createPieChart() {
-
+        pieChartManager = new PieChartManager(true, findViewById(R.id.pieChart));
     }
 }
