@@ -100,7 +100,6 @@ public class MainActivity extends AppCompatActivity {
                 if (repositories.isEmpty())
                     return;
                 currentAccTransRepo = repositories.get(position);
-                currentAccTransRepo.getTransactions().observeForever(listObserver);
                 currentAccTransRepo.getTransactions().observeForever(new Observer<List<Transaction>>() {
                     @Override
                     public void onChanged(List<Transaction> transactions) {
