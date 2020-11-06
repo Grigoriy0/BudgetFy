@@ -62,19 +62,6 @@ public class MainActivity extends AppCompatActivity {
         accounts = accountViewModel.getAllAccounts();
         openAccountsViewPager();
         createPieChart();
-//        if (accounts.getValue() != null && accounts.getValue().size() != 0) {
-//            accountIndex = 0;
-//            try {
-//                currentAccTransRepo = new TransactionRepository(getApplication(), accounts.getValue().get(accountIndex).id);
-//            }catch (Exception unused){
-//                Toast.makeText(getApplicationContext(), "ERRRRR", Toast.LENGTH_LONG).show();
-//                return;
-//            }
-//            pieChartManager = new PieChartManager(true, findViewById(R.id.pieChart));
-//            pieChartManager.update(currentAccTransRepo.getTransactions().getValue());
-//            Toast.makeText(getApplicationContext(), "UPDATED", Toast.LENGTH_LONG).show();
-//        }
-//        else Toast.makeText(getApplicationContext(), "EMPTY", Toast.LENGTH_LONG).show();
     }
 
     public void showAccountDetails(View view) {
@@ -107,13 +94,13 @@ public class MainActivity extends AppCompatActivity {
                 if (repositories == null) {
                     repositories = new ArrayList<>();
                     for (Account account : accounts.getValue()){
-                        repositories.add(
-                                new TransactionRepository(getApplication(), account.id)
-                        );
+                        repositories.add(new TransactionRepository(getApplication(), account.id));
                     }
                 }
+                if (repositories.isEmpty())
+                    return;
                 currentAccTransRepo = repositories.get(position);
-//                currentAccTransRepo = new TransactionRepository(getApplication(), accounts.getValue().get(accountIndex).id);
+                currentAccTransRepo.getTransactions().observeForever(listObserver);
                 currentAccTransRepo.getTransactions().observeForever(new Observer<List<Transaction>>() {
                     @Override
                     public void onChanged(List<Transaction> transactions) {
@@ -263,9 +250,9 @@ public class MainActivity extends AppCompatActivity {
             float startValue = data.getFloatExtra(AddAccountActivity.EXTRA_START, 0);
             Account account = new Account(UUID.randomUUID(), name, startValue, type);
             accountViewModel.insert(account);
-            repositories.add(
-                    new TransactionRepository(getApplication(), account.id)
-            );
+            if (repositories == null)
+                repositories = new ArrayList<>();
+            repositories.add(new TransactionRepository(getApplication(), account.id));
             Toast.makeText(getApplicationContext(), "Account " + account.name + " added", Toast.LENGTH_SHORT).show();
         }
     }
