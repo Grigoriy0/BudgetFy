@@ -17,13 +17,9 @@
 2.2 [Редактирование транзакции](#refactor_transaction_activity) <br>
 2.3 [Добавление счета](#add_account_activity) <br>
 3. [Диаграмма последовательности](#sequence_diagramm) <br>
-4. [Диаграммы состояний](#state_diagramm) <br>
-4.1 [Регистрация](#register_state) <br>
-4.2 [Добавление продукта в корзину](#add_product_state) <br>
-4.3 [Комментирование](#comment_state) <br>
-4.4 [Создание заказа](#create_order_state) <br>
-5. [Диаграмма класов](#classes_diagramm) <br>
-6. [Диаграмма компонентов и развертывания](#mass_diagramm) <br>
+3.1 [Добавление счета](#add_account_seq) <br>
+3.2 [Добавление транзакции](#add_transaction_seq) <br>
+3.3 [Редактирование транзакции](#refactor_transaction_seq) <br>
 
 <a name="precedent_diagramm"/>
 
@@ -145,52 +141,20 @@
 
 <a name="sequence_diagramm"/>
 
-## 3 Диаграмма последовательности
+## 3 Диаграммы последовательностей
 Диаграмма последовательности основных вариантов использования представлена ниже:
-![Диаграмма последовательности](sequence_diagram.png)
 
-<a name="state_diagramm"/>
+<a name="add_account_seq"/>
 
-## 4 Диаграммы состояний
+### 3.1 Добавление счета
+![Диаграмма добавления счета](sequence/add_account_seq.png)
 
-<a name="register_state"/>
+<a name="add_transaction_seq"/>
 
-### 4.1 Регистрация
-![Диаграмма состояния регистрации](State/RegisterState.png)
+### 3.2 Добавление транзакции
+![Диаграмма добавления транзакции](sequence/add_transaction_seq.png)
 
-<a name="add_product_state"/>
+<a name="refactor_transaction_seq"/>
 
-### 4.2 Добавление продукта в корзину
-Окно добавления продукта в корзину: https://github.com/KirillBelitsky/Cafe/blob/master/Documents/Mockups/mockup_breakfastNew.PNG
-![Диаграмма состояния добавления продукта в корзину](State/addProductToBucket.png)
-
-<a name="comment_state"/>
-
-### 4.3 Комментирование
-Пример окна с возможностью комментирования: https://github.com/KirillBelitsky/Cafe/blob/master/Documents/Mockups/mockup_dishUpdate.PNG
-![Диаграмма состояния комментирования](State/CommentState.png)
-
-<a name="create_order_state"/>
-
-### 4.4 Создание заказа
-Пример окна с создание заказа: https://github.com/KirillBelitsky/Cafe/blob/master/Documents/Mockups/mockup_basket.PNG
-![Диаграмма состояния создания заказа](State/CreateOrderState.png)
-
-<a name="classes_diagramm"/>
-
-## 5 Диаграмма классов
-![Диаграмма классов](Class/ClassDiagramm.png)
-
-Схемы диаграммы классов разделена на уровни:
-+ Dto level - классы-сущности, которые используются при взаимодействии контроллеров и фронтенда.
-+ Model level - сущности, представляемые таблицу в базе данных.
-+ Repository level - классы для взаимодествия с базой данных.
-+ Service level - классы, содержащие в себе всю бизнес-логику приложения.
-+ Controller level - классы, предназначенные для принятия и отправления http запроса фронтенду.
-
-
-
-<a name="mass_diagramm"/>
-
-## 6 Диаграмма компонентов и развертывания
-![Диаграмма компонентов и развертывания](Deployment/deployment.png)
+### 3.3 Редактирование транзакции
+![Диаграмма редактирования транзакции](sequence/refactor_transaction_seq.png)
