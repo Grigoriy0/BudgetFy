@@ -18,6 +18,7 @@ import java.util.List;
 
 public class TransactionsAdapter extends ListAdapter<Transaction, TransactionsAdapter.ViewHolder> {
     private final TransactionsFragment fragment;
+
     private static final class DiffCallback extends DiffUtil.ItemCallback<Transaction> {
 
         @Override
@@ -79,7 +80,7 @@ public class TransactionsAdapter extends ListAdapter<Transaction, TransactionsAd
         }
 
         public final void onBind(Transaction transaction) {
-            String sum = String.valueOf((float) transaction.sum / 100);
+            String sum = (transaction.loss ? "-" : "+") + (float) transaction.sum / 100;
             sumView.setText(sum);
             categoryView.setText(transaction.category.toString());
             dateView.setText(transaction.getDateString());

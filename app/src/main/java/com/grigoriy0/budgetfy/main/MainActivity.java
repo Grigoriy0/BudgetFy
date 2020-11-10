@@ -44,6 +44,7 @@ public class MainActivity extends AppCompatActivity {
     private PieChartManager pieChartManager;
     private List<TransactionRepository> repositories;
     private TransactionRepository currentAccTransRepo;
+    private AccountUpdater updater;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,7 +68,9 @@ public class MainActivity extends AppCompatActivity {
     public void showAccountDetails(View view) {
         Intent intent = new Intent(this, AccountActivity.class);
         UUID id = accounts.getValue().get(accountIndex).id;
+        float value = accounts.getValue().get(accountIndex).currentValue;
         intent.putExtra(AccountActivity.EXTRA_ACCOUNT, id.toString());
+        intent.putExtra(AccountActivity.EXTRA_VALUE, value);
         startActivity(intent);
     }
 
@@ -93,7 +96,7 @@ public class MainActivity extends AppCompatActivity {
                 accountIndex = position;
                 if (repositories == null) {
                     repositories = new ArrayList<>();
-                    for (Account account : accounts.getValue()){
+                    for (Account account : accounts.getValue()) {
                         repositories.add(new TransactionRepository(getApplication(), account.id));
                     }
                 }
@@ -106,25 +109,24 @@ public class MainActivity extends AppCompatActivity {
                         pieChartManager.update(currentAccTransRepo.getTransactions().getValue());
                     }
                 });
+                updater = new AccountUpdater(accounts.getValue().get(accountIndex),
+                        accountViewModel, adapter);
             }
         });
         accountIndex = 0;
     }
 
-    public void openAddLossTransactionDialog(View button) {
+    public void openAddTransactionDialog(View button) {
+        boolean loss = button.getId() == R.id.fab_loss_action;
         if (accounts.getValue() == null || accounts.getValue().size() == 0) {
-            Toast.makeText(MainActivity.this, "Add account first", Toast.LENGTH_SHORT).show();
+            Toast.makeText(MainActivity.this, "Add account first", Toast.LENGTH_SHORT)
+                    .show();
             return;
         }
-        new AddTransactionHelper(accounts.getValue().get(accountIndex).id, this, true);
-    }
-
-    public void openAddIncreaseTransactionDialog(View button) {
-        if (accounts.getValue() == null || accounts.getValue().size() == 0) {
-            Toast.makeText(MainActivity.this, "Add account first", Toast.LENGTH_SHORT).show();
-            return;
-        }
-        new AddTransactionHelper(accounts.getValue().get(accountIndex).id, this, false);
+        new AddTransactionHelper(accounts.getValue().get(accountIndex).id,
+                updater,
+                accounts.getValue().get(accountIndex).currentValue,
+                this, loss);
     }
 
     @Override

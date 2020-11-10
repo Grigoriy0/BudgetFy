@@ -19,23 +19,24 @@ import java.util.Calendar;
 import java.util.UUID;
 
 public class AddTransactionHelper {
-    private MainActivity mainActivity;
-    private UUID accountId;
+    private final MainActivity mainActivity;
+    private final UUID accountId;
     final TextView commentView;
     final TextView sumView;
     final RadioGroup radioGroup;
     final View bottomSheetView;
     final BottomSheetDialog dialog;
+    private final float accountCurrentValue;
+    private final AccountUpdater updater;
 
-    private Transaction transactionToAdd;
-
-    public AddTransactionHelper(final UUID accountId, final MainActivity mainActivity, boolean isLoss) {
+    public AddTransactionHelper(final UUID accountId, final AccountUpdater updater, final Float accountCurrentValue, final MainActivity mainActivity, boolean isLoss) {
         this.mainActivity = mainActivity;
         this.accountId = accountId;
+        this.accountCurrentValue = accountCurrentValue;
+        this.updater = updater;
         dialog = new BottomSheetDialog(
                 mainActivity, R.style.BottomSheetDialogTheme);
-        if (isLoss)
-        {
+        if (isLoss) {
             bottomSheetView = LayoutInflater.from(mainActivity.getApplicationContext())
                     .inflate(R.layout.activity_add_loss,
                             (LinearLayout) mainActivity.findViewById(R.id.lossContainer),
@@ -52,8 +53,7 @@ public class AddTransactionHelper {
                     dialog.dismiss();
                 }
             });
-        }
-        else {
+        } else {
             bottomSheetView = LayoutInflater.from(mainActivity.getApplicationContext())
                     .inflate(R.layout.activity_add_increase,
                             (LinearLayout) mainActivity.findViewById(R.id.increaseContainer),
@@ -86,23 +86,43 @@ public class AddTransactionHelper {
             String category = ((RadioButton) bottomSheetView.findViewById(
                     radioGroup.getCheckedRadioButtonId())).getText().toString();
             long sum;
+            boolean isLoss = Category.fromString(category).isLoss();
             try {
                 float value = Float.parseFloat(sumView.getText().toString()) * 100;
-                if (value < 0)
-                    value = -value;
+                if (value == 0) {
+                    Toast.makeText(mainActivity.getApplicationContext(), "Enter non-zero value", Toast.LENGTH_SHORT)
+                            .show();
+                    return;
+                }
+                if (value < 0) {
+                    if (isLoss)
+                        value = -value;
+                    else {
+                        Toast.makeText(mainActivity.getApplicationContext(), "Type positive value", Toast.LENGTH_SHORT)
+                                .show();
+                        return;
+                    }
+                }
+                if (isLoss && (value / 100 > accountCurrentValue)) {
+                    Toast.makeText(mainActivity.getApplicationContext(), "You do not have that much money", Toast.LENGTH_SHORT)
+                            .show();
+                    return;
+                }
                 sum = (long) value;
             } catch (NumberFormatException ex) {
-                Toast.makeText(mainActivity.getApplicationContext(), "Type correct value", Toast.LENGTH_SHORT).show();
+                Toast.makeText(mainActivity.getApplicationContext(), "Type correct value", Toast.LENGTH_SHORT)
+                        .show();
                 return;
             }
-            transactionToAdd = new Transaction(sum, Category.fromString(category), comment, accountId);
+            Transaction transactionToAdd = new Transaction(sum, Category.fromString(category), comment, accountId);
             transactionToAdd.id = UUID.randomUUID();
-            transactionToAdd.loss = transactionToAdd.category.isLoss();
+            transactionToAdd.loss = isLoss;
             transactionToAdd.date = Calendar.getInstance().getTime();
 
             TransactionRepository tr = new TransactionRepository(mainActivity.getApplication(), accountId);
             tr.addTransaction(transactionToAdd);
-            String msg = (transactionToAdd.loss ? "Loss" : "Increase")
+            updater.addTransaction(transactionToAdd);
+            String msg = (isLoss ? "Loss" : "Increase")
                     + " added";
             Toast.makeText(mainActivity, msg, Toast.LENGTH_SHORT).show();
             dialog.dismiss();

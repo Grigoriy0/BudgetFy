@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/transactionDetailsContainer"
     android:layout_width="match_parent"
@@ -36,10 +35,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:inputType="text"
+        android:inputType="date"
+        android:maxLength="@integer/value_len_max"
         android:textAlignment="viewStart"
         android:textSize="18sp"
-        android:maxLength="@integer/value_len_max"
         tools:text="value" />
 
     <EditText
@@ -49,10 +48,10 @@
         android:layout_marginTop="10dp"
         android:hint="@string/comment"
         android:inputType="text"
-        android:textAlignment="viewStart"
         android:maxLength="@integer/comment_len_max"
+        android:textAlignment="viewStart"
         android:textSize="18sp"
-        tools:text="tram" />
+        tools:text="bus" />
 
     <EditText
         android:id="@+id/dateRefactorTransaction"
@@ -73,18 +72,18 @@
         android:orientation="horizontal">
 
         <Button
-            android:id="@+id/okButtonRefactorTransaction"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="30dp"
-            android:text="@string/OK" />
-
-        <Button
             android:id="@+id/cancelButtonRefactorTransaction"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="30dp"
             android:text="@string/cancel" />
+
+        <Button
+            android:id="@+id/okButtonRefactorTransaction"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="30dp"
+            android:text="@string/OK" />
     </LinearLayout>
 
 </LinearLayout>

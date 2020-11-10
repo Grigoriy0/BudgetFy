@@ -49,9 +49,9 @@ public class ViewPagerAdapter extends RecyclerView.Adapter<ViewPagerAdapter.Page
     }
 
     static class PagerVH extends RecyclerView.ViewHolder {
-        private TextView accountName;
-        private TextView currentValue;
-        private ImageView imageView;
+        private final TextView accountName;
+        private final TextView currentValue;
+        private final ImageView imageView;
 
         PagerVH(View view) {
             super(view);

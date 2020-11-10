@@ -13,6 +13,8 @@ import java.util.UUID;
 public class AccountActivity extends AppCompatActivity {
     public static final String EXTRA_ACCOUNT =
             "com.grigoriy0.budgetfy.accountdetails.EXTRA_ACCOUNT";
+    public static final String EXTRA_VALUE =
+            "com.grigoriy0.budgetfy.accountdetails.EXTRA_VALUE";
     private UUID accountId;
 
     @Override
@@ -20,11 +22,12 @@ public class AccountActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.account_activity);
         accountId = UUID.fromString(getIntent().getStringExtra(EXTRA_ACCOUNT));
-        showTransactions();
+        float currentValue = getIntent().getFloatExtra(EXTRA_VALUE, 0);
+        showTransactions(currentValue);
     }
 
-    private void showTransactions() {
-        final Fragment detailsFragment = new TransactionsFragment(accountId);
+    private void showTransactions(float currentValue) {
+        final Fragment detailsFragment = new TransactionsFragment(accountId, currentValue);
         getSupportFragmentManager()
                 .beginTransaction()
                 .replace(R.id.accountActivity, detailsFragment)

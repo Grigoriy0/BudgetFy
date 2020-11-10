@@ -79,8 +79,8 @@
                 android:layout_marginBottom="30dp"
                 android:ems="10"
                 android:gravity="end"
-                android:hint="@string/loss_value"
-                android:inputType="text"
+                android:hint="@string/increase_value"
+                android:inputType="date"
                 android:maxLength="@integer/value_len_max" />
         </LinearLayout>
 

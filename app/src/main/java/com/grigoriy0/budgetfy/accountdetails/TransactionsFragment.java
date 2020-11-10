@@ -1,15 +1,10 @@
 package com.grigoriy0.budgetfy.accountdetails;
 
-import android.app.AlertDialog;
 import android.graphics.Canvas;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -24,10 +19,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.snackbar.Snackbar;
 import com.grigoriy0.budgetfy.R;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -35,9 +26,10 @@ import it.xabaras.android.recyclerview.swipedecorator.RecyclerViewSwipeDecorator
 
 public class TransactionsFragment extends Fragment {
     private TransactionsAdapter adapter;
-    private TransactionViewModel viewModel;
+    TransactionViewModel viewModel;
     private RecyclerView recyclerView;
-    private final UUID accountId;
+    final UUID accountId;
+    private float accountCurrentValue;
 
     @Nullable
     @Override
@@ -61,8 +53,9 @@ public class TransactionsFragment extends Fragment {
         return parentView;
     }
 
-    public TransactionsFragment(UUID accountId) {
+    public TransactionsFragment(UUID accountId, float currentValue) {
         this.accountId = accountId;
+        accountCurrentValue = currentValue;
     }
 
     @Override
@@ -85,12 +78,15 @@ public class TransactionsFragment extends Fragment {
             } catch (Exception ignored) {
             }
             viewModel.delete(deletedTransaction);
-            String msg = String.format("%s(%d) deleted", deletedTransaction.comment, deletedTransaction.sum);
+            accountCurrentValue -= (float) deletedTransaction.sum / 100;
+
+            String msg = String.format("%s %.2f deleted", deletedTransaction.comment, (float) deletedTransaction.sum / 100);
             Snackbar.make(recyclerView, msg, Snackbar.LENGTH_LONG)
                     .setAction("Undo", new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
                             viewModel.insert(deletedTransaction);
+                            accountCurrentValue += (float) deletedTransaction.sum / 100;
                         }
                     }).show();
         }
@@ -107,70 +103,14 @@ public class TransactionsFragment extends Fragment {
         }
     };
 
-    Transaction deletedTransaction = null;
+    private Transaction deletedTransaction = null;
+
     View.OnClickListener transactionItemListener = new View.OnClickListener() {
         @Override
         public void onClick(View transactionView) {
-            UUID id = UUID.fromString(
-                    ((TextView) transactionView.findViewById(R.id.transactionIdTextView)
-                    ).getText().toString());
-            long sum = (long) (Float.parseFloat(((TextView) transactionView.findViewById(R.id.sumTextView)).getText().toString()) * 100);
-            Category category = Category.fromString(((TextView) transactionView.findViewById(R.id.categoryTextView)).getText().toString());
-            String comment = ((TextView) transactionView.findViewById(R.id.transactionCommentTextView)).getText().toString();
-            Date date;
-            try {
-                date = (Transaction.DATE_FORMAT).parse(
-                        ((TextView) transactionView.findViewById(R.id.dateTextView)).getText().toString());
-            } catch (ParseException e) {
-                date = Calendar.getInstance().getTime();
-            }
-
-            final Transaction transaction = new Transaction(sum, category, comment, accountId);
-            transaction.id = id;
-            transaction.date = date;
-            transaction.loss = category.isLoss();
-            AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-            View view = LayoutInflater.from(getContext()).inflate(
-                    R.layout.transaction_details_dialog,
-                    (LinearLayout) getView().findViewById(R.id.transactionDetailsContainer));
-            builder.setView(view);
-
-            final TextView commentView = view.findViewById(R.id.commentRefactorTransaction);
-            final TextView dateView = view.findViewById(R.id.dateRefactorTransaction);
-            ImageView imageView = view.findViewById(R.id.imageViewRefactorTransaction);
-            final TextView categoryTextView = view.findViewById(R.id.categoryRefactorTextView);
-            final TextView sumTextView = view.findViewById(R.id.sumRefactorTransaction);
-
-            commentView.setText(comment);
-            dateView.setText(Transaction.DATE_FORMAT.format(date));
-            imageView.setBackgroundResource(category.getIconResId());
-            categoryTextView.setText(category.toString());
-            sumTextView.setText(String.format("%.2f", ((float) transaction.sum) / 100));
-            final AlertDialog dialog = builder.create();
-            view.findViewById(R.id.okButtonRefactorTransaction).setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Transaction newTransaction = new Transaction(transaction);
-                    newTransaction.category = Category.fromString(categoryTextView.getText().toString());
-                    newTransaction.comment = commentView.getText().toString();
-                    try {
-                        newTransaction.date = Transaction.DATE_FORMAT.parse(dateView.getText().toString());
-                        newTransaction.sum = (long) (Float.parseFloat(sumTextView.getText().toString()) * 100);
-                    } catch (ParseException ignored) {
-                        Toast.makeText(getContext(), "Cannot change data", Toast.LENGTH_SHORT).show();
-                    }
-                    catch (NumberFormatException ignored) {}
-                    viewModel.update(newTransaction);
-                    dialog.dismiss();
-                }
-            });
-            view.findViewById(R.id.cancelButtonRefactorTransaction).setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    dialog.dismiss();
-                }
-            });
-            dialog.show();
+            new RefactorTransactionHelper(TransactionsFragment.this,
+                    transactionView,
+                    accountCurrentValue);
         }
     };
 }

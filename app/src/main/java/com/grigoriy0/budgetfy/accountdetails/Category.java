@@ -1,5 +1,7 @@
 package com.grigoriy0.budgetfy.accountdetails;
 
+import android.graphics.Color;
+
 import com.grigoriy0.budgetfy.R;
 
 public enum Category {
@@ -20,6 +22,25 @@ public enum Category {
 
     Category(String type) {
         this.type = type;
+    }
+
+    private static final int[] colors = new int[]{
+            Color.LTGRAY,
+            Color.BLUE,
+            Color.YELLOW,
+            Color.rgb(255, 165, 0), // orange
+            Color.DKGRAY,
+            Color.rgb(255, 192, 203), //pink
+            Color.GREEN,
+            Color.GRAY,
+
+            Color.rgb(255, 165, 0), // orange
+            Color.RED,
+            Color.rgb(0, 100, 0) // dark green
+    };
+
+    public static int[] getColors() {
+        return colors;
     }
 
     public boolean isLoss() {

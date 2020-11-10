@@ -43,7 +43,7 @@
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:hint="@string/start_value"
-                android:inputType="textPersonName"
+                android:inputType="date"
                 android:maxLength="@integer/value_len_max" />
 
         </LinearLayout>
