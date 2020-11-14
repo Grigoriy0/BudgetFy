@@ -21,7 +21,7 @@ public abstract class AppDatabase extends RoomDatabase {
     public static final String DATABASE_NAME = "com.grigoriy0.budgetfy_db";
     public static final int DATABASE_VERSION = 1;
     private static AppDatabase instance;
-    private static RoomDatabase.Callback roomCallback = new RoomDatabase.Callback() {
+    private static final RoomDatabase.Callback roomCallback = new RoomDatabase.Callback() {
         @Override
         public void onCreate(@NonNull SupportSQLiteDatabase db) {
             super.onCreate(db);
@@ -45,7 +45,7 @@ public abstract class AppDatabase extends RoomDatabase {
     }
 
     private static class PopulateDBAsyncTask extends AsyncTask<Void, Void, Void> {
-        private AccountDAO accountDAO;
+        private final AccountDAO accountDAO;
 
         private PopulateDBAsyncTask(AppDatabase db) {
             accountDAO = db.getAccountDao();

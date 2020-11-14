@@ -6,8 +6,6 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
-import com.grigoriy0.budgetfy.Account;
-
 import java.util.List;
 import java.util.UUID;
 
@@ -33,7 +31,7 @@ public class TransactionViewModel extends AndroidViewModel {
     }
 
     public void delete(Transaction transaction) {
-        repository.removeTransaction(transaction);
+        repository.deleteTransaction(transaction);
     }
 
     public void deleteAll() {

@@ -20,6 +20,10 @@
 3.1 [Добавление счета](#add_account_seq) <br>
 3.2 [Добавление транзакции](#add_transaction_seq) <br>
 3.3 [Редактирование транзакции](#refactor_transaction_seq) <br>
+4. [Диаграмма классов](#class_diagram) <br>
+4.1 [Полная диаграмма классов](#full_class_diagram) <br>
+5. [Диаграмма состояний](#state_diagram) <br>
+6. [Диаграмма компонентов и развертывания](#delpoy_diagram) <br>
 
 <a name="precedent_diagramm"/>
 
@@ -158,3 +162,23 @@
 
 ### 3.3 Редактирование транзакции
 ![Диаграмма редактирования транзакции](sequence/refactor_transaction_seq.png)
+
+<a name="class_diagram"/>
+
+## 4 Диаграмма классов
+![Диаграмма классов](class_diagram.png)
+
+<a name="full_class_diagram"/>
+
+### 4.1 Полная диаграмма классов
+![Полная диаграмма классов](full_class_diagram.png)
+
+<a name="state_diagram"/>
+
+## 5 Диаграмма состояний
+![Диаграмма состояний](state_diagram.png)
+
+<a name="deploy_diagram"/>
+
+## 6 Диаграмма компонентов и развертывания
+![Диаграмма компонентов и развертывания](deploy_diagram.png)

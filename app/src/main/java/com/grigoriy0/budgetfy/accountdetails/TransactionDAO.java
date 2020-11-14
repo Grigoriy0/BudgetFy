@@ -13,16 +13,16 @@ import java.util.UUID;
 @Dao
 public interface TransactionDAO {
     @Insert
-    void insert(Transaction... accounts);
+    void insert(Transaction... transactions);
 
     @Delete
-    void delete(Transaction account);
+    void delete(Transaction transaction);
 
     @Query("DELETE FROM transaction_table WHERE accountId=:id")
     void deleteById(UUID id);
 
     @Update
-    void update(Transaction account);
+    void update(Transaction transaction);
 
     @Query("SELECT * FROM transaction_table WHERE accountId=:id")
     LiveData<List<Transaction>> getByAccountId(UUID id);

@@ -67,7 +67,7 @@ public class TransactionsAdapter extends ListAdapter<Transaction, TransactionsAd
         private final TextView dateView;
         private final ImageView imageView;
         private final TextView idTextView;
-        private final TextView commentTextView;
+        private final TextView commentView;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -76,7 +76,7 @@ public class TransactionsAdapter extends ListAdapter<Transaction, TransactionsAd
             dateView = itemView.findViewById(R.id.dateTextView);
             imageView = itemView.findViewById(R.id.transactionImageView);
             idTextView = itemView.findViewById(R.id.transactionIdTextView);
-            commentTextView = itemView.findViewById(R.id.transactionCommentTextView);
+            commentView = itemView.findViewById(R.id.transactionCommentTextView);
         }
 
         public final void onBind(Transaction transaction) {
@@ -89,7 +89,7 @@ public class TransactionsAdapter extends ListAdapter<Transaction, TransactionsAd
             else
                 imageView.setImageResource(R.drawable.ic_up_90);
             idTextView.setText(String.valueOf(transaction.id));
-            commentTextView.setText(transaction.comment);
+            commentView.setText(transaction.comment);
         }
     }
 }

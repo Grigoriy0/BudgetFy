@@ -113,10 +113,10 @@ public class Transaction {
 
     public static class CategoryConverter {
         @TypeConverter
-        public static Category toCategory(String category) {
-            if (category == null)
+        public static Category toCategory(String string) {
+            if (string == null)
                 return null;
-            switch (category.toString()) {
+            switch (string) {
                 case "Transport":
                     return Category.TRANSPORT;
                 case "University":

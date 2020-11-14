@@ -9,8 +9,8 @@ import androidx.lifecycle.LiveData;
 import java.util.List;
 
 public class AccountViewModel extends AndroidViewModel {
-    private AccountRepository accountRepository;
-    private LiveData<List<Account>> allAccounts;
+    private final AccountRepository accountRepository;
+    private final LiveData<List<Account>> allAccounts;
 
     public AccountViewModel(@NonNull Application application) {
         super(application);

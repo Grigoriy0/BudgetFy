@@ -9,8 +9,8 @@ import androidx.lifecycle.LiveData;
 import java.util.List;
 
 public class AccountRepository {
-    AccountDAO accountDAO;
-    private LiveData<List<Account>> accounts;
+    private final AccountDAO accountDAO;
+    private final LiveData<List<Account>> accounts;
 
     public AccountRepository(@NonNull Application app) {
         AppDatabase db = AppDatabase.getInstance(app.getApplicationContext());
@@ -23,18 +23,18 @@ public class AccountRepository {
     }
 
     public void addAccount(Account account) {
-        new AddAccount().execute(account);
+        new AddAccountTask().execute(account);
     }
 
     public void deleteAccount(Account account) {
-        new DeleteAccount().execute(account);
+        new DeleteAccountTask().execute(account);
     }
 
     public void updateAccount(Account account) {
-        new UpdateAccount().execute(account);
+        new UpdateAccountTask().execute(account);
     }
 
-    private class AddAccount extends AsyncTask<Account, Void, Void> {
+    private class AddAccountTask extends AsyncTask<Account, Void, Void> {
         @Override
         protected Void doInBackground(Account... accounts) {
             accountDAO.insertAll(accounts);
@@ -42,7 +42,7 @@ public class AccountRepository {
         }
     }
 
-    private class UpdateAccount extends AsyncTask<Account, Void, Void> {
+    private class UpdateAccountTask extends AsyncTask<Account, Void, Void> {
         @Override
         protected Void doInBackground(Account... accounts) {
             accountDAO.update(accounts[0]);
@@ -50,7 +50,7 @@ public class AccountRepository {
         }
     }
 
-    private class DeleteAccount extends AsyncTask<Account, Void, Void> {
+    private class DeleteAccountTask extends AsyncTask<Account, Void, Void> {
         @Override
         protected Void doInBackground(Account... accounts) {
             accountDAO.delete(accounts[0]);

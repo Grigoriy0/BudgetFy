@@ -26,7 +26,7 @@ import it.xabaras.android.recyclerview.swipedecorator.RecyclerViewSwipeDecorator
 
 public class TransactionsFragment extends Fragment {
     private TransactionsAdapter adapter;
-    TransactionViewModel viewModel;
+    protected TransactionViewModel viewModel;
     private RecyclerView recyclerView;
     final UUID accountId;
     private float accountCurrentValue;
@@ -63,7 +63,7 @@ public class TransactionsFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
     }
 
-    ItemTouchHelper.SimpleCallback callback = new ItemTouchHelper.SimpleCallback(0,
+    private final ItemTouchHelper.SimpleCallback callback = new ItemTouchHelper.SimpleCallback(0,
             ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
         @Override
         public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
@@ -105,7 +105,7 @@ public class TransactionsFragment extends Fragment {
 
     private Transaction deletedTransaction = null;
 
-    View.OnClickListener transactionItemListener = new View.OnClickListener() {
+    protected final View.OnClickListener transactionItemListener = new View.OnClickListener() {
         @Override
         public void onClick(View transactionView) {
             new RefactorTransactionHelper(TransactionsFragment.this,
