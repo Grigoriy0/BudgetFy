@@ -81,6 +81,6 @@ public class PieChartManager {
 
         PieData pieData = new PieData(dataSet);
         pieChart.setData(pieData);
-        pieChart.animate();
+        pieChart.invalidate();
     }
 }
