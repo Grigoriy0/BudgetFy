@@ -141,11 +141,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.add_credit_card_action:
-                openAddAccountDialog("CREDIT_CARD");
-                break;
-            case R.id.add_wallet_action:
-                openAddAccountDialog("WALLET");
+            case R.id.add_account_action:
+                openAddAccountDialog();
                 break;
             case R.id.remove_account_action:
                 openRemoveAccountDialog(null);
@@ -238,7 +235,7 @@ public class MainActivity extends AppCompatActivity {
         dialog.show();
     }
 
-    private void openAddAccountDialog(final String type){
+    private void openAddAccountDialog(){
         final View view = LayoutInflater.from(MainActivity.this).inflate(
                 R.layout.activity_add_account,
                 (LinearLayout) findViewById(R.id.addAccountContainer));
