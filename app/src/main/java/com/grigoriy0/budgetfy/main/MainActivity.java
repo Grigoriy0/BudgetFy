@@ -69,8 +69,11 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, AccountActivity.class);
         UUID id = accounts.getValue().get(accountIndex).id;
         float value = accounts.getValue().get(accountIndex).currentValue;
+        String name = accounts.getValue().get(accountIndex).name;
         intent.putExtra(AccountActivity.EXTRA_ACCOUNT, id.toString());
         intent.putExtra(AccountActivity.EXTRA_VALUE, value);
+        intent.putExtra(AccountActivity.EXTRA_NAME, name);
+
         startActivity(intent);
     }
 

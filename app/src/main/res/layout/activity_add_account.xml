@@ -24,7 +24,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:hint="@string/account_name"
+                android:hint="@string/name"
                 android:inputType="textPersonName"
                 android:maxLength="@integer/account_len_max" />
 
@@ -51,27 +51,29 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
+            android:gravity="end"
             android:orientation="horizontal">
 
             <Button
                 android:id="@+id/cancelButton"
-                style="@style/Widget.AppCompat.ButtonBar"
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
                 android:onClick="finish"
                 android:text="@string/cancel"
-                android:textSize="18sp"
+                android:textColor="@color/colorAccent"
+                android:textSize="14sp"
                 android:textStyle="bold" />
 
             <Button
                 android:id="@+id/saveButton"
-                style="@style/Widget.AppCompat.ButtonBar"
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
                 android:onClick="saveAccount"
                 android:text="@string/save"
-                android:textSize="18sp"
+                android:textColor="@color/colorAccent"
+                android:textSize="14sp"
                 android:textStyle="bold" />
         </LinearLayout>
     </LinearLayout>

@@ -67,6 +67,7 @@
                 android:layout_marginEnd="30dp"
                 android:gravity="end"
                 android:hint="@string/comment"
+                android:textColorHighlight="@color/colorAccent"
                 android:inputType="text"
                 android:maxLength="@integer/comment_len_max" />
 
@@ -79,6 +80,7 @@
                 android:ems="10"
                 android:gravity="end"
                 android:hint="@string/increase_value"
+                android:textColorHighlight="@color/colorAccent"
                 android:inputType="date"
                 android:maxLength="@integer/value_len_max" />
         </LinearLayout>

@@ -68,7 +68,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
         android:layout_marginTop="10dp"
-        android:gravity="center"
+        android:gravity="end"
         android:orientation="horizontal">
 
         <Button
@@ -76,14 +76,20 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="30dp"
-            android:text="@string/cancel" />
+            android:background="@android:color/transparent"
+            android:text="@string/cancel"
+            android:textColor="@color/colorAccent"
+            android:textStyle="bold" />
 
         <Button
             android:id="@+id/okButtonRefactorTransaction"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="30dp"
-            android:text="@string/OK" />
+            android:background="@android:color/transparent"
+            android:text="@string/OK"
+            android:textColor="@color/colorAccent"
+            android:textStyle="bold" />
     </LinearLayout>
 
 </LinearLayout>

@@ -11,7 +11,6 @@
     <string name="add_account">Add account</string>
     <string name="wallet">wallet</string>
     <string name="credit_card">credit card</string>
-    <string name="account_name">Account name</string>
     <string name="start_value">Start value</string>
     <string name="rub">руб.</string>
     <string name="save">Save</string>
@@ -21,9 +20,9 @@
     <string name="no">No</string>
     <string name="yes">Yes</string>
     <string name="account_removing_title">Account removing</string>
-    <string name="account_removing_text">All transactions also will be deleted</string>
+    <string name="account_removing_text">all transactions also will be deleted</string>
     <string name="rename_account_name">Rename account name</string>
-    <string name="rename_account_name_text">Type new account name</string>
+    <string name="rename_account_name_text">type new account name</string>
     <string name="comment">comment</string>
     <string name="cafe">Cafe</string>
     <string name="other">Other</string>
@@ -36,4 +35,5 @@
     <string name="OK">OK</string>
     <string name="phone">Phone</string>
     <string name="increase_value">Increase value</string>
+    <string name="name">Name</string>
 </resources>

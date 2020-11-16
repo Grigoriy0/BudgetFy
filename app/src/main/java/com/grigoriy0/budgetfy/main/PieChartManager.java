@@ -58,16 +58,15 @@ public class PieChartManager {
         pieChart = (PieChart) pieChartView;
         this.isLoss = isLoss;
 
-//        pieChart.setCenterText(isLoss ? "Loss" : "Increase");
+        pieChart.setRotationEnabled(false);
         pieChart.setHoleRadius(40.0f);
         pieChart.setTransparentCircleAlpha(0);
-        pieChart.setDrawEntryLabels(true);
+//        pieChart.setCenterText(isLoss ? "Loss" : "Increase");
         pieChart.getDescription().setEnabled(false);
-        pieChart.getLegend().setForm(Legend.LegendForm.CIRCLE);
-        pieChart.getLegend().setDrawInside(true);
+        pieChart.getLegend().setEnabled(false);
 //        pieChart.getLegend().setExtra(Category.getColors(), (String[]) parser.categories.toArray());
 //        pieChart.getLegend().setEnabled(false);
-        pieChart.setRotationEnabled(false);
+        pieChart.setDrawEntryLabels(true);
     }
 
     public void update(List<Transaction> transactions) {

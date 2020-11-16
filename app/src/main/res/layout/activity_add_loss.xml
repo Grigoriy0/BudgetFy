@@ -97,7 +97,8 @@
                 android:gravity="end"
                 android:hint="@string/comment"
                 android:inputType="text"
-                android:maxLength="@integer/comment_len_max" />
+                android:maxLength="@integer/comment_len_max"
+                android:textColorHighlight="@color/colorAccent" />
 
             <EditText
                 android:id="@+id/valueEditLoss"
@@ -109,7 +110,8 @@
                 android:gravity="end"
                 android:hint="@string/loss_value"
                 android:inputType="date"
-                android:maxLength="@integer/value_len_max" />
+                android:maxLength="@integer/value_len_max"
+                android:textColorHighlight="@color/colorAccent" />
         </LinearLayout>
 
     </LinearLayout>

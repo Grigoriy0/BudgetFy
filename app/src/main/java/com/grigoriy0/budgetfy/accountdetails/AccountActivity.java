@@ -15,6 +15,8 @@ public class AccountActivity extends AppCompatActivity {
             "com.grigoriy0.budgetfy.accountdetails.EXTRA_ACCOUNT";
     public static final String EXTRA_VALUE =
             "com.grigoriy0.budgetfy.accountdetails.EXTRA_VALUE";
+    public static final String EXTRA_NAME =
+            "com.grigoriy0.budgetfy.accountdetails.EXTRA_NAME";
     private UUID accountId;
 
     @Override
@@ -23,6 +25,8 @@ public class AccountActivity extends AppCompatActivity {
         setContentView(R.layout.account_activity);
         accountId = UUID.fromString(getIntent().getStringExtra(EXTRA_ACCOUNT));
         float currentValue = getIntent().getFloatExtra(EXTRA_VALUE, 0);
+        String name = getIntent().getStringExtra(EXTRA_NAME);
+        setTitle(name);
         showTransactions(currentValue);
     }
 

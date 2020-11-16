@@ -52,7 +52,7 @@ public class RefactorTransactionHelper {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(fragment.getContext());
         View dialogView = LayoutInflater.from(fragment.getContext()).inflate(
-                R.layout.transaction_details_dialog,
+                R.layout.update_transactiog_dialog,
                 (LinearLayout) fragment.getView().findViewById(R.id.transactionDetailsContainer)
         );
         builder.setView(dialogView);
