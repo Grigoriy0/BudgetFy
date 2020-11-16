@@ -1,10 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/addAccountContainer"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".main.AddAccountActivity">
+    android:background="@drawable/dialog_background"
+    android:orientation="vertical"
+    android:padding="20dp">
+
+    <TextView
+        android:id="@+id/titleAddAccount"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:text="Add new account?" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -14,39 +25,48 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <LinearLayout
+        <EditText
+            android:id="@+id/nameAddAccount"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="@string/name"
+            android:inputType="textPersonName"
+            android:maxLength="@integer/account_len_max"
+            android:textSize="16sp" />
+
+        <EditText
+            android:id="@+id/startValueAddAccount"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="@string/start_value"
+            android:inputType="date"
+            android:maxLength="@integer/value_len_max"
+            android:textSize="16sp" />
+
+
+        <RadioGroup
+            android:id="@+id/radioGroupAddAccount"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="start"
             android:orientation="horizontal">
 
-            <EditText
-                android:id="@+id/accountNameEditText"
-                android:layout_width="match_parent"
+            <RadioButton
+                android:id="@+id/creditCardRadioAddAccount"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:ems="10"
-                android:hint="@string/name"
-                android:inputType="textPersonName"
-                android:maxLength="@integer/account_len_max" />
+                android:text="@string/credit_card"
+                android:textSize="14sp" />
 
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            tools:layout_editor_absoluteX="-5dp"
-            tools:layout_editor_absoluteY="239dp">
-
-            <EditText
-                android:id="@+id/startValueEditText"
-                android:layout_width="match_parent"
+            <RadioButton
+                android:id="@+id/walletRadioAddAccount"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:ems="10"
-                android:hint="@string/start_value"
-                android:inputType="date"
-                android:maxLength="@integer/value_len_max" />
-
-        </LinearLayout>
+                android:text="@string/wallet"
+                android:textSize="14sp" />
+        </RadioGroup>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -55,22 +75,20 @@
             android:orientation="horizontal">
 
             <Button
-                android:id="@+id/cancelButton"
-                android:layout_width="200dp"
+                android:id="@+id/noAddAccountButton"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@android:color/transparent"
-                android:onClick="finish"
                 android:text="@string/cancel"
                 android:textColor="@color/colorAccent"
                 android:textSize="14sp"
                 android:textStyle="bold" />
 
             <Button
-                android:id="@+id/saveButton"
-                android:layout_width="200dp"
+                android:id="@+id/yesAddAccountButton"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@android:color/transparent"
-                android:onClick="saveAccount"
                 android:text="@string/save"
                 android:textColor="@color/colorAccent"
                 android:textSize="14sp"
@@ -78,4 +96,4 @@
         </LinearLayout>
     </LinearLayout>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

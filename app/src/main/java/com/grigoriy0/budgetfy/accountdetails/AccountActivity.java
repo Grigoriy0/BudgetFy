@@ -1,5 +1,6 @@
 package com.grigoriy0.budgetfy.accountdetails;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
@@ -28,6 +29,8 @@ public class AccountActivity extends AppCompatActivity {
         String name = getIntent().getStringExtra(EXTRA_NAME);
         setTitle(name);
         showTransactions(currentValue);
+        Intent intent = new Intent();
+        setResult(RESULT_OK, intent);
     }
 
     private void showTransactions(float currentValue) {

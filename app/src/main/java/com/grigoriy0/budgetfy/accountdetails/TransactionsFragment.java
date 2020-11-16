@@ -80,7 +80,7 @@ public class TransactionsFragment extends Fragment {
             viewModel.delete(deletedTransaction);
             accountCurrentValue -= (float) deletedTransaction.sum / 100;
 
-            String msg = String.format("%s %.2f deleted", deletedTransaction.comment, (float) deletedTransaction.sum / 100);
+            String msg = String.format("Transactions with %.2f BYN deleted", (float) deletedTransaction.sum / 100);
             Snackbar.make(recyclerView, msg, Snackbar.LENGTH_LONG)
                     .setAction("Undo", new View.OnClickListener() {
                         @Override

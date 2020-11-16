@@ -5,6 +5,8 @@ import com.grigoriy0.budgetfy.Account;
 import com.grigoriy0.budgetfy.AccountViewModel;
 import com.grigoriy0.budgetfy.accountdetails.Transaction;
 
+import java.util.List;
+
 public class AccountUpdater {
     private final Account account;
     private final AccountViewModel accountViewModel;
@@ -18,6 +20,18 @@ public class AccountUpdater {
         this.accountViewModel = accountViewModel;
     }
 
+    public void applyTransactions(List<Transaction> transactionList) {
+        account.currentValue = account.startValue;
+        for (Transaction transaction : transactionList) {
+            if (transaction.loss)
+                account.currentValue -= (float) transaction.sum / 100;
+            else
+                account.currentValue += (float) transaction.sum / 100;
+        }
+        accountViewModel.update(account);
+        adapter.notifyDataSetChanged();
+    }
+
     public void addTransaction(Transaction transaction) {
         if (transaction.loss)
             account.currentValue -= (float) transaction.sum / 100;
@@ -25,13 +39,5 @@ public class AccountUpdater {
             account.currentValue += (float) transaction.sum / 100;
         accountViewModel.update(account);
         adapter.notifyDataSetChanged();
-    }
-
-    public AccountViewModel getAccountViewModel() {
-        return accountViewModel;
-    }
-
-    public ViewPagerAdapter getAdapter() {
-        return adapter;
     }
 }

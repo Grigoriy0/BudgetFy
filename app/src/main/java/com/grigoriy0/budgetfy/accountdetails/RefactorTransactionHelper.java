@@ -28,7 +28,7 @@ public class RefactorTransactionHelper {
 
 
     public RefactorTransactionHelper(final TransactionsFragment fragment,
-                                     View transactionView,
+                                     final View transactionView,
                                      final Float accountCurrentValue) {
         this.viewModel = fragment.viewModel;
 
@@ -86,7 +86,7 @@ public class RefactorTransactionHelper {
                     if (value < 0) {
                         value = -value;
                     }
-                    if (isLoss && (value / 100 > accountCurrentValue)) {
+                    if (isLoss && (value / 100 > accountCurrentValue + (float) transaction.sum / 100)) {
                         Toast.makeText(fragment.getContext(), "You do not have that much money", Toast.LENGTH_SHORT)
                                 .show();
                         return;

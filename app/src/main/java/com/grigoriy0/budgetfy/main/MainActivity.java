@@ -37,12 +37,12 @@ import java.util.List;
 import java.util.UUID;
 
 public class MainActivity extends AppCompatActivity {
-    private AccountViewModel accountViewModel;
+    protected AccountViewModel accountViewModel;
     private ViewPagerAdapter adapter;
     private LiveData<List<Account>> accounts;
     private int accountIndex;
     private PieChartManager pieChartManager;
-    private List<TransactionRepository> repositories;
+    protected List<TransactionRepository> repositories;
     private TransactionRepository currentAccTransRepo;
     private AccountUpdater updater;
 
@@ -73,8 +73,7 @@ public class MainActivity extends AppCompatActivity {
         intent.putExtra(AccountActivity.EXTRA_ACCOUNT, id.toString());
         intent.putExtra(AccountActivity.EXTRA_VALUE, value);
         intent.putExtra(AccountActivity.EXTRA_NAME, name);
-
-        startActivity(intent);
+        startActivityForResult(intent, 1);
     }
 
     private void openAccountsViewPager() {
@@ -143,10 +142,10 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.add_credit_card_action:
-                openAddAccountActivity("CREDIT_CARD");
+                openAddAccountDialog("CREDIT_CARD");
                 break;
             case R.id.add_wallet_action:
-                openAddAccountActivity("WALLET");
+                openAddAccountDialog("WALLET");
                 break;
             case R.id.remove_account_action:
                 openRemoveAccountDialog(null);
@@ -239,25 +238,20 @@ public class MainActivity extends AppCompatActivity {
         dialog.show();
     }
 
-    private void openAddAccountActivity(String type) {
-        Intent addAccountIntent = new Intent(this, AddAccountActivity.class);
-        addAccountIntent.putExtra(AddAccountActivity.EXTRA_TYPE, type);
-        startActivityForResult(addAccountIntent, 1);
+    private void openAddAccountDialog(final String type){
+        final View view = LayoutInflater.from(MainActivity.this).inflate(
+                R.layout.activity_add_account,
+                (LinearLayout) findViewById(R.id.addAccountContainer));
+        new AddAccountHelper(MainActivity.this, view);
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 1 && resultCode == RESULT_OK) {
-            String name = data.getStringExtra(AddAccountActivity.EXTRA_NAME);
-            String type = data.getStringExtra(AddAccountActivity.EXTRA_TYPE);
-            float startValue = data.getFloatExtra(AddAccountActivity.EXTRA_START, 0);
-            Account account = new Account(UUID.randomUUID(), name, startValue, type);
-            accountViewModel.insert(account);
-            if (repositories == null)
-                repositories = new ArrayList<>();
-            repositories.add(new TransactionRepository(getApplication(), account.id));
-            Toast.makeText(getApplicationContext(), "Account " + account.name + " added", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), "Update", Toast.LENGTH_SHORT)
+                    .show();
+            updater.applyTransactions(currentAccTransRepo.getTransactions().getValue());
         }
     }
 
