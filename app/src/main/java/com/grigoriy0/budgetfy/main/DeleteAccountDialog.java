@@ -38,5 +38,6 @@ public class DeleteAccountDialog extends Dialog implements View.OnClickListener 
     public void onClick(View v) {
         activity.accountViewModel.delete(accountToDelete);
         activity.repositories.remove(accountIndex);
+        dismiss();
     }
 }

@@ -5,6 +5,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -14,6 +15,7 @@ import com.grigoriy0.budgetfy.R;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Locale;
 
 public class ViewPagerAdapter extends RecyclerView.Adapter<ViewPagerAdapter.PagerVH> {
     private List<Account> accounts;
@@ -62,7 +64,8 @@ public class ViewPagerAdapter extends RecyclerView.Adapter<ViewPagerAdapter.Page
 
         public final void onBind(Account account) {
             accountName.setText(account.name);
-            currentValue.setText(account.currentValue.toString() + " BYN");
+            String value = String.format(Locale.getDefault(), "%.2f BYN", account.currentValue);
+            currentValue.setText(value);
             if (account.type.equals(Account.Type.WALLET))
                 imageView.setImageResource(R.drawable.ic_wallet_90);
             else

@@ -55,6 +55,7 @@ public class AddAccountDialog extends Dialog implements View.OnClickListener {
         if (name.isEmpty() || start.getText().toString().isEmpty()) {
             Toast.makeText(activity, "Enter non-empty data", Toast.LENGTH_LONG)
                     .show();
+            return;
         }
         float startValue;
         try {
