@@ -108,9 +108,8 @@ public class TransactionsFragment extends Fragment {
     protected final View.OnClickListener transactionItemListener = new View.OnClickListener() {
         @Override
         public void onClick(View transactionView) {
-            new RefactorTransactionHelper(TransactionsFragment.this,
-                    transactionView,
-                    accountCurrentValue);
+            EditTransactionDialog dialog = new EditTransactionDialog(TransactionsFragment.this, transactionView, accountCurrentValue);
+            dialog.show();
         }
     };
 }
