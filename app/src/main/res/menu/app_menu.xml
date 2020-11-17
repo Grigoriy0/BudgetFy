@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:id="@+id/add_account_action"
+        android:id="@+id/addAccountMenuItem"
         android:title="@string/add_account">
     </item>
     <item
-        android:id="@+id/rename_account_action"
-        android:title="@string/rename_account" />
+        android:id="@+id/editAccountMenuItem"
+        android:title="@string/edit_account" />
     <item
-        android:id="@+id/remove_account_action"
-        android:title="@string/remove_account" />
+        android:id="@+id/deleteAccountMenuItem"
+        android:title="@string/delete_account" />
 </menu>

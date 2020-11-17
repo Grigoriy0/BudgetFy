@@ -20,7 +20,7 @@ import java.util.List;
 import java.util.UUID;
 
 public class AddAccountHelper {
-    AddAccountHelper(MainActivity mainActivity,
+    AddAccountHelper(final MainActivity mainActivity,
                      final View view) {
         final AccountViewModel viewModel = mainActivity.accountViewModel;
         final Context applicationContext = mainActivity.getApplicationContext();
@@ -52,7 +52,7 @@ public class AddAccountHelper {
                             .show();
                     return;
                 }
-                if (start <= 0.0f) {
+                if (start < 0.0f) {
                     Toast.makeText(applicationContext, "Enter positive money value", Toast.LENGTH_SHORT)
                             .show();
                     return;
@@ -69,6 +69,8 @@ public class AddAccountHelper {
                 repositories.add(new TransactionRepository(app, account.id));
                 Toast.makeText(applicationContext, "Account " + account.name + " added", Toast.LENGTH_SHORT)
                         .show();
+                mainActivity.menu.findItem(R.id.deleteAccountMenuItem).setEnabled(true);
+                mainActivity.menu.findItem(R.id.editAccountMenuItem).setEnabled(true);
                 dialog.dismiss();
             }
         });

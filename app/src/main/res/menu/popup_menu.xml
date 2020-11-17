@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/addAccountAction"
+        android:icon="@drawable/ic_add_24"
+        android:title="@string/add_account"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/editAccountAction"
+        android:icon="@drawable/ic_edit_24"
+        android:title="@string/edit_account"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/deleteAccountAction"
+        android:icon="@drawable/ic_delete_24"
+        android:title="@string/delete_account"
+        app:showAsAction="ifRoom" />
+</menu>

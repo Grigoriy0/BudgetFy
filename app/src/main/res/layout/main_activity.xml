@@ -11,26 +11,20 @@
         android:layout_width="100dp"
         android:layout_height="40dp"
         android:orientation="horizontal"
+        android:gravity="end"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@id/accountsViewPager"
         app:layout_constraintTop_toBottomOf="@+id/accountsViewPager"
         app:layout_constraintVertical_bias="0.0">
 
         <ImageView
-            android:id="@+id/icEditImageView"
+            android:id="@+id/moreActionsImageView"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:contentDescription="@string/app_name"
-            android:onClick="openRenameAccountDialog"
-            android:src="@drawable/ic_edit_24" />
+            android:onClick="showPopup"
+            android:src="@drawable/ic_more_40" />
 
-        <ImageView
-            android:id="@+id/icDeleteImageView"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:contentDescription="@string/app_name"
-            android:onClick="openRemoveAccountDialog"
-            android:src="@drawable/ic_delete_24" />
     </LinearLayout>
 
     <androidx.viewpager2.widget.ViewPager2

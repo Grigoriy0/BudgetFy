@@ -9,6 +9,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.PopupMenu;
 import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -45,6 +46,7 @@ public class MainActivity extends AppCompatActivity {
     protected List<TransactionRepository> repositories;
     private TransactionRepository currentAccTransRepo;
     private AccountUpdater updater;
+    protected Menu menu;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -135,27 +137,28 @@ public class MainActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.app_menu, menu);
+        this.menu = menu;
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.add_account_action:
+            case R.id.addAccountMenuItem:
                 openAddAccountDialog();
                 break;
-            case R.id.remove_account_action:
-                openRemoveAccountDialog(null);
+            case R.id.deleteAccountMenuItem:
+                openDeleteAccountDialog();
                 break;
-            case R.id.rename_account_action:
-                openRenameAccountDialog(null);
+            case R.id.editAccountMenuItem:
+                openRenameAccountDialog();
             default:
                 break;
         }
         return true;
     }
 
-    public void openRemoveAccountDialog(View ignored) {
+    public void openDeleteAccountDialog() {
         if (accounts.getValue() == null || accounts.getValue().size() == 0) {
             Toast.makeText(MainActivity.this, "Nothing to delete", Toast.LENGTH_SHORT).show();
             return;
@@ -174,6 +177,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 accountViewModel.delete(accountToDelete);
                 repositories.remove(accountIndex);
+
                 dialog.dismiss();
             }
         });
@@ -188,7 +192,7 @@ public class MainActivity extends AppCompatActivity {
         dialog.show();
     }
 
-    public void openRenameAccountDialog(View ignored) {
+    public void openRenameAccountDialog() {
         if (accounts.getValue() == null ||
                 accounts.getValue().size() == 0) {
             Toast.makeText(MainActivity.this, "Create an account first", Toast.LENGTH_SHORT).show();
@@ -235,10 +239,12 @@ public class MainActivity extends AppCompatActivity {
         dialog.show();
     }
 
-    private void openAddAccountDialog(){
+    private void openAddAccountDialog() {
         final View view = LayoutInflater.from(MainActivity.this).inflate(
                 R.layout.activity_add_account,
                 (LinearLayout) findViewById(R.id.addAccountContainer));
+        if (repositories == null)
+            repositories = new ArrayList<>();
         new AddAccountHelper(MainActivity.this, view);
     }
 
@@ -253,4 +259,37 @@ public class MainActivity extends AppCompatActivity {
     private void createPieChart() {
         pieChartManager = new PieChartManager(true, findViewById(R.id.pieChart));
     }
+
+    public void showPopup(View v) {
+        PopupMenu popupMenu = new PopupMenu(this, v);
+        popupMenu.setOnMenuItemClickListener(listener);
+        popupMenu.inflate(R.menu.popup_menu);
+        if (accounts.getValue().isEmpty()) {
+            popupMenu.getMenu().findItem(R.id.deleteAccountAction).setEnabled(false);
+            popupMenu.getMenu().findItem(R.id.editAccountAction).setEnabled(false);
+            menu.findItem(R.id.deleteAccountMenuItem).setEnabled(false);
+            menu.findItem(R.id.editAccountMenuItem).setEnabled(false);
+        }
+        popupMenu.show();
+    }
+
+    private PopupMenu.OnMenuItemClickListener listener = new PopupMenu.OnMenuItemClickListener() {
+        @Override
+        public boolean onMenuItemClick(MenuItem item) {
+            switch (item.getItemId()) {
+                case R.id.addAccountAction:
+                    openAddAccountDialog();
+                    break;
+                case R.id.editAccountAction:
+                    openRenameAccountDialog();
+                    break;
+                case R.id.deleteAccountAction:
+                    openDeleteAccountDialog();
+                    break;
+                default:
+                    return false;
+            }
+            return true;
+        }
+    };
 }
