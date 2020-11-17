@@ -1,24 +1,17 @@
 package com.grigoriy0.budgetfy.main;
 
 import android.content.Intent;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.LinearLayout;
 import android.widget.PopupMenu;
-import android.widget.RadioButton;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
@@ -163,32 +156,8 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(MainActivity.this, "Nothing to delete", Toast.LENGTH_SHORT).show();
             return;
         }
-        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-        View view = LayoutInflater.from(MainActivity.this).inflate(
-                R.layout.delete_account_dialog,
-                (ConstraintLayout) findViewById(R.id.layoutDeleteDialogContainer));
-        builder.setView(view);
-        final Account accountToDelete = accounts.getValue().get(accountIndex);
-        String title = String.format("Delete %s ?", accountToDelete.name);
-        ((TextView) view.findViewById(R.id.titleDelete)).setText(title);
-        final AlertDialog dialog = builder.create();
-        view.findViewById(R.id.yesDeleteButton).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                accountViewModel.delete(accountToDelete);
-                repositories.remove(accountIndex);
-
-                dialog.dismiss();
-            }
-        });
-        view.findViewById(R.id.noDeleteButton).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialog.dismiss();
-            }
-        });
-        if (dialog.getWindow() != null)
-            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(0));
+        DeleteAccountDialog dialog = new DeleteAccountDialog(MainActivity.this,
+                accounts.getValue().get(accountIndex), accountIndex);
         dialog.show();
     }
 
@@ -198,54 +167,15 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(MainActivity.this, "Create an account first", Toast.LENGTH_SHORT).show();
             return;
         }
-        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-        final Account accountToRename = accounts.getValue().get(accountIndex);
-        final View view = LayoutInflater.from(MainActivity.this).inflate(
-                R.layout.update_account_dialog,
-                (LinearLayout) findViewById(R.id.layoutUpdateDialogContainer));
-        builder.setView(view);
-        String title = String.format("Rename %s ?", accountToRename.name);
-        ((TextView) view.findViewById(R.id.titleRename)).setText(title);
-        if (accountToRename.type.equals(Account.Type.CREDIT_CARD))
-            ((RadioButton) view.findViewById(R.id.creditCardRadioRefactorAccount)).setChecked(true);
-        else
-            ((RadioButton) view.findViewById(R.id.walletRadioRefactorAccount)).setChecked(true);
-
-        final AlertDialog dialog = builder.create();
-        ((TextView) view.findViewById(R.id.inputField)).setText(accountToRename.name);
-        view.findViewById(R.id.yesRenameButton).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String name = ((TextView) view.findViewById(R.id.inputField)).getText().toString();
-                if (name.trim().isEmpty()) {
-                    Toast.makeText(MainActivity.this, "Type non-empty string", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                accountToRename.name = name;
-                accountToRename.type = ((RadioButton) view.findViewById(R.id.walletRadioRefactorAccount)).isChecked() ?
-                        Account.Type.WALLET : Account.Type.CREDIT_CARD;
-                accountViewModel.update(accountToRename);
-                dialog.dismiss();
-            }
-        });
-        view.findViewById(R.id.noRenameButton).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialog.dismiss();
-            }
-        });
-        if (dialog.getWindow() != null)
-            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(0));
+        EditAccountDialog dialog = new EditAccountDialog(MainActivity.this, accounts.getValue().get(accountIndex));
         dialog.show();
     }
 
     private void openAddAccountDialog() {
-        final View view = LayoutInflater.from(MainActivity.this).inflate(
-                R.layout.activity_add_account,
-                (LinearLayout) findViewById(R.id.addAccountContainer));
         if (repositories == null)
             repositories = new ArrayList<>();
-        new AddAccountHelper(MainActivity.this, view);
+        AddAccountDialog dialog = new AddAccountDialog(MainActivity.this);
+        dialog.show();
     }
 
     @Override
