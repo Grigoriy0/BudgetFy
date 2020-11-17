@@ -246,8 +246,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 1 && resultCode == RESULT_OK) {
-            Toast.makeText(getApplicationContext(), "Update", Toast.LENGTH_SHORT)
-                    .show();
             updater.applyTransactions(currentAccTransRepo.getTransactions().getValue());
         }
     }

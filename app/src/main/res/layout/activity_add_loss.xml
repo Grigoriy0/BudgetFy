@@ -30,49 +30,57 @@
                 android:id="@+id/transportRadio"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/transport" />
+                android:text="@string/transport"
+                android:theme="@style/RadioButtonStyle" />
 
             <RadioButton
                 android:id="@+id/phoneRadio"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/phone" />
+                android:text="@string/phone"
+                android:theme="@style/RadioButtonStyle" />
 
             <RadioButton
                 android:id="@+id/foodRadio"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/food" />
+                android:text="@string/food"
+                android:theme="@style/RadioButtonStyle" />
 
             <RadioButton
                 android:id="@+id/universityRadio"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/university" />
+                android:text="@string/university"
+                android:theme="@style/RadioButtonStyle" />
 
             <RadioButton
                 android:id="@+id/rentRadio"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/rent" />
+                android:text="@string/rent"
+                android:theme="@style/RadioButtonStyle" />
 
             <RadioButton
                 android:id="@+id/cafeRadio"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/cafe" />
+                android:text="@string/cafe"
+                android:theme="@style/RadioButtonStyle" />
 
             <RadioButton
                 android:id="@+id/barberRadio"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/barber" />
+                android:text="@string/barber"
+                android:theme="@style/RadioButtonStyle" />
 
             <RadioButton
                 android:id="@+id/otherRadio"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/other" />
+                android:text="@string/other"
+                android:theme="@style/RadioButtonStyle" />
         </RadioGroup>
 
         <LinearLayout
@@ -98,7 +106,7 @@
                 android:hint="@string/comment"
                 android:inputType="text"
                 android:maxLength="@integer/comment_len_max"
-                android:textColorHighlight="@color/colorAccent" />
+                android:theme="@style/RadioButtonStyle" />
 
             <EditText
                 android:id="@+id/valueEditLoss"
@@ -111,7 +119,7 @@
                 android:hint="@string/loss_value"
                 android:inputType="date"
                 android:maxLength="@integer/value_len_max"
-                android:textColorHighlight="@color/colorAccent" />
+                android:theme="@style/RadioButtonStyle" />
         </LinearLayout>
 
     </LinearLayout>
@@ -131,13 +139,21 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/cancel" />
+            android:background="@android:color/transparent"
+            android:text="@string/cancel"
+            android:textColor="@color/colorAccent"
+            android:textSize="14sp"
+            android:textStyle="bold" />
 
         <Button
             android:id="@+id/applyLossButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/apply" />
+            android:background="@android:color/transparent"
+            android:text="@string/apply"
+            android:textColor="@color/colorAccent"
+            android:textSize="14sp"
+            android:textStyle="bold" />
     </LinearLayout>
 </LinearLayout>
