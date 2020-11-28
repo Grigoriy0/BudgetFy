@@ -14,6 +14,7 @@
         android:layout_alignParentTop="true"
         android:ellipsize="end"
         android:paddingStart="15dp"
+        android:paddingEnd="0dp"
         android:paddingTop="15dp"
         android:text=""
         android:textSize="30sp"

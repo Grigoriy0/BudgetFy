@@ -20,6 +20,7 @@ import com.google.android.material.snackbar.Snackbar;
 import com.grigoriy0.budgetfy.R;
 
 import java.util.List;
+import java.util.Locale;
 import java.util.UUID;
 
 import it.xabaras.android.recyclerview.swipedecorator.RecyclerViewSwipeDecorator;
@@ -72,6 +73,8 @@ public class TransactionsFragment extends Fragment {
 
         @Override
         public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+            if (viewModel.getAccountTransactions().getValue() == null)
+                return;
             final int position = viewHolder.getAdapterPosition();
             try {
                 deletedTransaction = new Transaction(viewModel.getAccountTransactions().getValue().get(position));
@@ -80,7 +83,7 @@ public class TransactionsFragment extends Fragment {
             viewModel.delete(deletedTransaction);
             accountCurrentValue -= (float) deletedTransaction.sum / 100;
 
-            String msg = String.format("Transactions with %.2f BYN deleted", (float) deletedTransaction.sum / 100);
+            String msg = String.format(Locale.getDefault(), "Transactions with %.2f BYN deleted", (float) deletedTransaction.sum / 100);
             Snackbar.make(recyclerView, msg, Snackbar.LENGTH_LONG)
                     .setAction("Undo", new View.OnClickListener() {
                         @Override

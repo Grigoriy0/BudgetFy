@@ -61,6 +61,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void showAccountDetails(View view) {
+        if (accounts.getValue() == null)
+            return;
         Intent intent = new Intent(this, AccountActivity.class);
         UUID id = accounts.getValue().get(accountIndex).id;
         float value = accounts.getValue().get(accountIndex).currentValue;
@@ -120,10 +122,12 @@ public class MainActivity extends AppCompatActivity {
                     .show();
             return;
         }
-        new AddTransactionHelper(accounts.getValue().get(accountIndex).id,
+        AddTransactionDialog dialog = new AddTransactionDialog(this,
+                accounts.getValue().get(accountIndex).id,
                 updater,
                 accounts.getValue().get(accountIndex).currentValue,
-                this, loss);
+                loss);
+        dialog.show();
     }
 
     @Override
@@ -136,18 +140,15 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.addAccountMenuItem:
-                openAddAccountDialog();
-                break;
-            case R.id.deleteAccountMenuItem:
-                openDeleteAccountDialog();
-                break;
-            case R.id.editAccountMenuItem:
-                openRenameAccountDialog();
-            default:
-                break;
-        }
+        int id = item.getItemId();
+        if (id == R.id.addAccountMenuItem)
+            openAddAccountDialog();
+        else if (id == R.id.deleteAccountMenuItem)
+            openDeleteAccountDialog();
+        else if (id == R.id.editAccountMenuItem)
+            openEditAccountDialog();
+        else
+            return false;
         return true;
     }
 
@@ -161,7 +162,7 @@ public class MainActivity extends AppCompatActivity {
         dialog.show();
     }
 
-    public void openRenameAccountDialog() {
+    public void openEditAccountDialog() {
         if (accounts.getValue() == null ||
                 accounts.getValue().size() == 0) {
             Toast.makeText(MainActivity.this, "Create an account first", Toast.LENGTH_SHORT).show();
@@ -194,7 +195,7 @@ public class MainActivity extends AppCompatActivity {
         PopupMenu popupMenu = new PopupMenu(this, v);
         popupMenu.setOnMenuItemClickListener(listener);
         popupMenu.inflate(R.menu.popup_menu);
-        if (accounts.getValue().isEmpty()) {
+        if (accounts.getValue() == null || accounts.getValue().isEmpty()) {
             popupMenu.getMenu().findItem(R.id.deleteAccountAction).setEnabled(false);
             popupMenu.getMenu().findItem(R.id.editAccountAction).setEnabled(false);
             menu.findItem(R.id.deleteAccountMenuItem).setEnabled(false);
@@ -203,22 +204,18 @@ public class MainActivity extends AppCompatActivity {
         popupMenu.show();
     }
 
-    private PopupMenu.OnMenuItemClickListener listener = new PopupMenu.OnMenuItemClickListener() {
+    private final PopupMenu.OnMenuItemClickListener listener = new PopupMenu.OnMenuItemClickListener() {
         @Override
         public boolean onMenuItemClick(MenuItem item) {
-            switch (item.getItemId()) {
-                case R.id.addAccountAction:
-                    openAddAccountDialog();
-                    break;
-                case R.id.editAccountAction:
-                    openRenameAccountDialog();
-                    break;
-                case R.id.deleteAccountAction:
-                    openDeleteAccountDialog();
-                    break;
-                default:
-                    return false;
-            }
+            int id = item.getItemId();
+            if (id == R.id.addAccountAction)
+                openAddAccountDialog();
+            else if (id == R.id.editAccountAction)
+                openEditAccountDialog();
+            else if (id == R.id.deleteAccountAction)
+                openDeleteAccountDialog();
+            else
+                return false;
             return true;
         }
     };

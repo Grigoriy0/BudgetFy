@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.grigoriy0.budgetfy.R;
 
 import java.util.List;
+import java.util.Locale;
 
 public class TransactionsAdapter extends ListAdapter<Transaction, TransactionsAdapter.ViewHolder> {
     private final TransactionsFragment fragment;
@@ -80,7 +81,8 @@ public class TransactionsAdapter extends ListAdapter<Transaction, TransactionsAd
         }
 
         public final void onBind(Transaction transaction) {
-            String sum = (transaction.loss ? "-" : "+") + (float) transaction.sum / 100;
+            float value = (float) transaction.sum / 100;
+            String sum = String.format(Locale.getDefault(), "%c%.2f", transaction.loss ? '-' : '+', value);
             sumView.setText(sum);
             categoryView.setText(transaction.category.toString());
             dateView.setText(transaction.getDateString());

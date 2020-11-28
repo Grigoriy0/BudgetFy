@@ -10,8 +10,8 @@ import com.grigoriy0.budgetfy.Account;
 import com.grigoriy0.budgetfy.R;
 
 public class DeleteAccountDialog extends Dialog implements View.OnClickListener {
-    private MainActivity activity;
-    private Account accountToDelete;
+    private final MainActivity activity;
+    private final Account accountToDelete;
     private final int accountIndex;
 
     public DeleteAccountDialog(@NonNull MainActivity mainActivity, Account account, int accountIndex) {

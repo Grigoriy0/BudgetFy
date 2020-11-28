@@ -55,7 +55,7 @@ public enum Category {
             case "Transport":
                 return R.drawable.ic_transport_90;
             case "University":
-                return R.drawable.ic_salary_90; // TODO add later
+                return R.drawable.ic_university_90;
             case "Food":
                 return R.drawable.ic_food_90;
             case "Cafe":
@@ -67,12 +67,11 @@ public enum Category {
             case "Rent":
                 return R.drawable.ic_rent_90;
             case "Other":
-                return R.drawable.ic_food_90; // TODO add later
-            case "Stipend":
-                return R.drawable.ic_salary_90; // TODO add later
+                return R.drawable.ic_other_90;
             case "Gift":
                 return R.drawable.ic_gift_90;
             case "Salary":
+            case "Stipend":
                 return R.drawable.ic_salary_90;
             default:
                 return R.drawable.ic_food_90;
@@ -85,35 +84,10 @@ public enum Category {
     }
 
     public static Category fromString(String string) {
-//        for (Category cat : Category.values()) {
-//            if (cat.type.equals(string))
-//                return cat;
-//        }
-//        return null;
-        switch (string) {
-            case "Transport":
-                return TRANSPORT;
-            case "University":
-                return UNIVERSITY; // TODO add later
-            case "Food":
-                return FOOD;
-            case "Cafe":
-                return CAFE;
-            case "Phone":
-                return PHONE;
-            case "Barber":
-                return BARBER;
-            case "Rent":
-                return RENT;
-            case "Stipend":
-                return STIPEND;
-            case "Gift":
-                return GIFT;
-            case "Salary":
-                return SALARY;
-            case "Other":
-            default:
-                return OTHER;
+        for (Category cat : Category.values()) {
+            if (cat.type.equals(string))
+                return cat;
         }
+        return Category.OTHER;
     }
 }

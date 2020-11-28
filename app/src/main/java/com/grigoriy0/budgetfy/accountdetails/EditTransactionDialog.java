@@ -11,16 +11,18 @@ import com.grigoriy0.budgetfy.R;
 import java.text.ParseException;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 import java.util.UUID;
 
 public class EditTransactionDialog extends Dialog implements View.OnClickListener {
-    private Transaction transactionToEdit;
+    private final Transaction transactionToEdit;
     private final TextView commentView;
     private final TextView categoryView;
     private final TextView sumView;
     private final TextView dateView;
     private final boolean isLoss;
     private final TransactionsFragment fragment;
+    private final float oldValue;
     private final Float accountCurrentValue;
 
     public EditTransactionDialog(TransactionsFragment fragment,
@@ -33,7 +35,16 @@ public class EditTransactionDialog extends Dialog implements View.OnClickListene
         UUID id = UUID.fromString(
                 ((TextView) transactionView.findViewById(R.id.transactionIdTextView)
                 ).getText().toString());
-        long sum = (long) (Float.parseFloat(((TextView) transactionView.findViewById(R.id.sumTextView)).getText().toString()) * 100);
+        float value;
+        try{
+            String str = ((TextView) transactionView.findViewById(R.id.sumTextView)).getText().toString();
+            value = Float.parseFloat(str.substring(1).replace(',', '.'));
+        } catch (Exception e) {
+            Toast.makeText(fragment.getContext(), "Error. Default value will be 0", Toast.LENGTH_LONG)
+                    .show();
+            value = 0;
+        }
+        oldValue = value;
         Category category = Category.fromString(((TextView) transactionView.findViewById(R.id.categoryTextView)).getText().toString());
         String comment = ((TextView) transactionView.findViewById(R.id.transactionCommentTextView)).getText().toString();
         Date date;
@@ -43,7 +54,7 @@ public class EditTransactionDialog extends Dialog implements View.OnClickListene
         } catch (ParseException e) {
             date = Calendar.getInstance().getTime();
         }
-        transactionToEdit = new Transaction(sum, category, comment, fragment.accountId);
+        transactionToEdit = new Transaction(0, category, comment, fragment.accountId);
         transactionToEdit.id = id;
         transactionToEdit.date = date;
         transactionToEdit.loss = category.isLoss();
@@ -57,7 +68,7 @@ public class EditTransactionDialog extends Dialog implements View.OnClickListene
         dateView.setText(Transaction.DATE_FORMAT.format(date));
         imageView.setBackgroundResource(category.getIconResId());
         categoryView.setText(category.toString());
-        sumView.setText(String.format("%.2f", Math.abs((float) transactionToEdit.sum) / 100));
+        sumView.setText(String.format(Locale.getDefault(), "%.2f", Math.abs(oldValue)));
         isLoss = category.isLoss();
         findViewById(R.id.yesEditTransaction).setOnClickListener(this);
         findViewById(R.id.noEditTransaction).setOnClickListener(new View.OnClickListener() {
@@ -75,7 +86,7 @@ public class EditTransactionDialog extends Dialog implements View.OnClickListene
         newTransaction.comment = commentView.getText().toString();
         try {
             newTransaction.date = Transaction.DATE_FORMAT.parse(dateView.getText().toString());
-            float value = Float.parseFloat(sumView.getText().toString()) * 100;
+            float value = Float.parseFloat(sumView.getText().toString().replace(',', '.'));
             if (value == 0) {
                 Toast.makeText(fragment.getContext(), "Enter non-zero value", Toast.LENGTH_SHORT)
                         .show();
@@ -84,17 +95,21 @@ public class EditTransactionDialog extends Dialog implements View.OnClickListene
             if (value < 0) {
                 value = -value;
             }
-            if (isLoss && (value / 100 > +(float) transactionToEdit.sum / 100)) {
-                Toast.makeText(fragment.getContext(), "You do not have that much money", Toast.LENGTH_SHORT)
+
+            if (isLoss && (accountCurrentValue + oldValue < value)) {
+                Toast.makeText(fragment.getContext(), "You do not have much money", Toast.LENGTH_SHORT)
                         .show();
                 return;
             }
+            value *= 100f;
             newTransaction.sum = (long) value;
         } catch (ParseException ignored) {
             Toast.makeText(fragment.getContext(), "Cannot change data", Toast.LENGTH_SHORT)
                     .show();
+            return;
         } catch (NumberFormatException ignored) {
         }
         fragment.viewModel.update(newTransaction);
+        dismiss();
     }
 }

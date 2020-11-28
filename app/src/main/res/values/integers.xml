@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <integer name="account_len_max">10</integer>
+    <integer name="account_len_max">15</integer>
     <integer name="comment_len_max">30</integer>
     <integer name="value_len_max">15</integer>
 </resources>

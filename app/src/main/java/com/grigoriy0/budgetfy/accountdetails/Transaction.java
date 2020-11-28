@@ -12,6 +12,7 @@ import com.grigoriy0.budgetfy.Account;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -26,7 +27,7 @@ import java.util.UUID;
 @TypeConverters({Transaction.DateConverter.class, Transaction.CategoryConverter.class, Account.UUIDConverter.class})
 public class Transaction {
 
-    public static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("dd.MM.yyyy");
+    public static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("dd.MM.yyyy", Locale.getDefault());
 
     @NonNull
     @PrimaryKey

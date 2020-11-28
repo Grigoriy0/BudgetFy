@@ -16,11 +16,8 @@ import com.grigoriy0.budgetfy.Account;
 import com.grigoriy0.budgetfy.R;
 
 public class EditAccountDialog extends Dialog implements View.OnClickListener {
-    private EditText nameText;
-    private EditText start;
-    private RadioGroup radioGroup;
     public MainActivity activity;
-    private Account accountToRename;
+    private final Account accountToRename;
 
     public EditAccountDialog(@NonNull MainActivity mainActivity, Account account) {
         super(mainActivity);
@@ -42,10 +39,10 @@ public class EditAccountDialog extends Dialog implements View.OnClickListener {
                 dismiss();
             }
         });
-        nameText = findViewById(R.id.nameEditAccount);
+        EditText nameText = findViewById(R.id.nameEditAccount);
         nameText.setText(accountToRename.name);
-        start = findViewById(R.id.startValueAddAccount);
-        radioGroup = findViewById(R.id.radioGroupAddAccount);
+        EditText start = findViewById(R.id.startValueAddAccount);
+        RadioGroup radioGroup = findViewById(R.id.radioGroupAddAccount);
     }
 
     @Override
