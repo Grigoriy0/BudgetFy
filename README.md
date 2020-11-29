@@ -1,8 +1,12 @@
 # BudgetFy
 
+![](https://github.com/Grigoriy0/BudgetFy/workflows/Java_CI_Gradle/badge.svg?branch=master)
+![](https://img.shields.io/github/v/release/Grigoriy0/BudgetFy?color=darkgreen&cacheSeconds=36000)
+[![Android](https://img.shields.io/badge/platform-android-green.svg)](https://developer.android.com/develop/index.html)
+[![CodeFactor](https://www.codefactor.io/repository/github/Grigoriy0/BudgetFy/badge)](https://www.codefactor.io/repository/github/Grigoriy0/BudgetFy)
+
 Simple Android application for managing a personal budget.
 
-<img src="https://github.com/Grigoriy0/BudgetFy/workflows/Java_CI_Gradle/badge.svg?branch=master"><img src="https://img.shields.io/github/v/release/Grigoriy0/BudgetFy?color=darkgreen&cacheSeconds=36000"><br>
 ### Description
 
 The app is designed to track the expenditure of funds. You can see statistics on the use of funds for transactions for each account separately.
