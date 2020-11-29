@@ -1,9 +1,38 @@
 # BudgetFy
-BudgetFy is a simple android application for managing a personal budget
 
-Status of last build and test: <img src="https://github.com/Grigoriy0/BudgetFy/workflows/Java_CI_Gradle/badge.svg?branch=master"><br>
+Simple Android application for managing a personal budget.
+
+<img src="https://github.com/Grigoriy0/BudgetFy/workflows/Java_CI_Gradle/badge.svg?branch=master"><img src="https://img.shields.io/github/v/release/Grigoriy0/BudgetFy?color=darkgreen&cacheSeconds=36000"><br>
+### Description
+
+The app is designed to track the expenditure of funds. You can see statistics on the use of funds for transactions for each account separately.
+Swipe to change current account to work with it: edit and add transactions. When you change current account on the screen you see new pie chart with statistic
+
+|   |   |
+| --- | --- |
+|<img src="https://github.com/Grigoriy0/BudgetFy/raw/master/docs/screenshots/budgetfy_account.jpg" width="150" height="267"> | <img src="https://github.com/Grigoriy0/BudgetFy/raw/master/docs/screenshots/budgetfy_transaction.jpg" width="150" height="267">  |
+|<img src="https://github.com/Grigoriy0/BudgetFy/raw/master/docs/screenshots/budgetfy_main.jpg" width="150" height="267">    |  <img src="https://github.com/Grigoriy0/BudgetFy/raw/master/docs/screenshots/budgetfy_list.jpg" width="150" height="267"> |
 
 
-### [src](/app/src/main/java/com/grigoriy0/budgetfy)
-### [wiki](https://github.com/Grigoriy0/BudgetFy/wiki)
-### [mockups](/docs/mockups/README.md)
+Source [code](/app/src/main/java/com/grigoriy0/budgetfy)<br>
+
+See the [wiki](https://github.com/Grigoriy0/BudgetFy/wiki) and [mockups](/docs/mockups/README.md) for requirements, diagrams and test results
+
+
+
+### Contributing
+
+#### Prerequisites
+
+- Familiarity with Git, GitHub [Pull Requests](https://docs.github.com/en/free-pro-team@latest/github/collaborating-with-issues-and-pull-requests/about-pull-requests)
+- Basic knowledge about software development in general, Java, and related tools.
+
+#### A few rules
+
+- Keep commits atomic and messages as short and concise as possible
+- Write unit tests if possible
+- For complex functions, comments should be added
+
+#### Contact
+If you have any ideas to improve app, please contact [me](mailto://grisha.konoplich0@gmail.com)
+or open an [issue](https://github.com/Grigoriy0/BudgetFy/issues/new/choose)
