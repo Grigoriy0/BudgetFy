@@ -6,7 +6,7 @@ import com.grigoriy0.budgetfy.R;
 
 public enum Category {
     TRANSPORT("Transport"),
-    UNIVERSITY("University"),
+    EDUCATION("Education"),
     FOOD("Food"),
     CAFE("Cafe"),
     PHONE("Phone"),
@@ -54,8 +54,8 @@ public enum Category {
         switch (type) {
             case "Transport":
                 return R.drawable.ic_transport_90;
-            case "University":
-                return R.drawable.ic_university_90;
+            case "Education":
+                return R.drawable.ic_education_90;
             case "Food":
                 return R.drawable.ic_food_90;
             case "Cafe":

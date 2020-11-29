@@ -120,8 +120,8 @@ public class Transaction {
             switch (string) {
                 case "Transport":
                     return Category.TRANSPORT;
-                case "University":
-                    return Category.UNIVERSITY;
+                case "Education":
+                    return Category.EDUCATION;
                 case "Food":
                     return Category.FOOD;
                 case "Cafe":

@@ -48,10 +48,10 @@
                 android:theme="@style/RadioButtonStyle" />
 
             <RadioButton
-                android:id="@+id/universityRadio"
+                android:id="@+id/educationRadio"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/university"
+                android:text="@string/education"
                 android:theme="@style/RadioButtonStyle" />
 
             <RadioButton
