@@ -85,14 +85,13 @@ public class EditTransactionDialog extends Dialog implements View.OnClickListene
         Transaction newTransaction = new Transaction(transactionToEdit);
         newTransaction.category = Category.fromString(categoryView.getText().toString());
         newTransaction.comment = commentView.getText().toString();
-        Date now = Calendar.getInstance().getTime();
         try {
             newTransaction.date = Transaction.DATE_FORMAT.parse(dateView.getText().toString());
+            if (newTransaction.date.after(new Date())) {
+                throw new ParseException("Invalid date", 0);
+            }
             float value = Float.parseFloat(sumView.getText().toString().replace(',', '.'));
-            if (newTransaction.date.getYear() > now.getYear()
-                    || newTransaction.date.getMonth() > now.getMonth()
-                    || newTransaction.date.getDay() > now.getDay())
-                throw new ParseException("", 0);
+
             if (value == 0) {
                 Toast.makeText(fragment.getContext(), "Enter non-zero value", Toast.LENGTH_SHORT)
                         .show();
@@ -117,5 +116,10 @@ public class EditTransactionDialog extends Dialog implements View.OnClickListene
         }
         fragment.viewModel.update(newTransaction);
         dismiss();
+    }
+
+    private static boolean isValidDate(String pDateString) throws ParseException {
+        Date date = Transaction.DATE_FORMAT.parse(pDateString);
+        return new Date().before(date);
     }
 }
