@@ -24,6 +24,6 @@ public interface TransactionDAO {
     @Update
     void update(Transaction transaction);
 
-    @Query("SELECT * FROM transaction_table WHERE accountId=:id")
+    @Query("SELECT * FROM transaction_table WHERE accountId=:id ORDER BY date DESC")
     LiveData<List<Transaction>> getByAccountId(UUID id);
 }
