@@ -9,6 +9,7 @@ import android.widget.Toast;
 import com.grigoriy0.budgetfy.R;
 
 import java.text.ParseException;
+import java.time.DateTimeException;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
@@ -36,7 +37,7 @@ public class EditTransactionDialog extends Dialog implements View.OnClickListene
                 ((TextView) transactionView.findViewById(R.id.transactionIdTextView)
                 ).getText().toString());
         float value;
-        try{
+        try {
             String str = ((TextView) transactionView.findViewById(R.id.sumTextView)).getText().toString();
             value = Float.parseFloat(str.substring(1).replace(',', '.'));
         } catch (Exception e) {
@@ -84,9 +85,14 @@ public class EditTransactionDialog extends Dialog implements View.OnClickListene
         Transaction newTransaction = new Transaction(transactionToEdit);
         newTransaction.category = Category.fromString(categoryView.getText().toString());
         newTransaction.comment = commentView.getText().toString();
+        Date now = Calendar.getInstance().getTime();
         try {
             newTransaction.date = Transaction.DATE_FORMAT.parse(dateView.getText().toString());
             float value = Float.parseFloat(sumView.getText().toString().replace(',', '.'));
+            if (newTransaction.date.getYear() > now.getYear()
+                    || newTransaction.date.getMonth() > now.getMonth()
+                    || newTransaction.date.getDay() > now.getDay())
+                throw new ParseException("", 0);
             if (value == 0) {
                 Toast.makeText(fragment.getContext(), "Enter non-zero value", Toast.LENGTH_SHORT)
                         .show();
@@ -104,7 +110,7 @@ public class EditTransactionDialog extends Dialog implements View.OnClickListene
             value *= 100f;
             newTransaction.sum = (long) value;
         } catch (ParseException ignored) {
-            Toast.makeText(fragment.getContext(), "Cannot change data", Toast.LENGTH_SHORT)
+            Toast.makeText(fragment.getContext(), "Invalid date value", Toast.LENGTH_SHORT)
                     .show();
             return;
         } catch (NumberFormatException ignored) {
