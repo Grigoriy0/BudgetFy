@@ -29,11 +29,14 @@ public class Account implements Serializable {
 
     public String type; // WALLET or CREDIT_CARD
 
-    public Account(UUID id, String name, float startValue, String type) {
+    public String currency;
+
+    public Account(UUID id, String name, float startValue, String type, String currency) {
         this.id = id;
         this.currentValue = this.startValue = startValue;
         this.name = name;
         this.type = type;
+        this.currency = currency;
     }
 
     public static class UUIDConverter {

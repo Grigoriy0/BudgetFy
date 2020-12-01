@@ -19,7 +19,7 @@ import java.util.UUID;
 @TypeConverters({Account.UUIDConverter.class, Transaction.DateConverter.class, Transaction.CategoryConverter.class})
 public abstract class AppDatabase extends RoomDatabase {
     public static final String DATABASE_NAME = "com.grigoriy0.budgetfy_db";
-    public static final int DATABASE_VERSION = 1;
+    public static final int DATABASE_VERSION = 2;
     private static AppDatabase instance;
     private static final RoomDatabase.Callback roomCallback = new RoomDatabase.Callback() {
         @Override
@@ -53,7 +53,7 @@ public abstract class AppDatabase extends RoomDatabase {
 
         @Override
         protected Void doInBackground(Void... voids) {
-            accountDAO.insertAll(new Account(UUID.randomUUID(), "Cache", 0, Account.Type.WALLET));
+            accountDAO.insertAll(new Account(UUID.randomUUID(), "Cache", 0, Account.Type.WALLET, "USD"));
             return null;
         }
     }

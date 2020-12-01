@@ -7,6 +7,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -21,6 +22,7 @@ public class AddAccountDialog extends Dialog implements View.OnClickListener {
     private EditText nameText;
     private EditText start;
     private RadioGroup radioGroup;
+    private Spinner currencySpinner;
     public MainActivity activity;
 
     public AddAccountDialog(@NonNull MainActivity activity) {
@@ -44,6 +46,7 @@ public class AddAccountDialog extends Dialog implements View.OnClickListener {
         nameText = findViewById(R.id.nameAddAccount);
         start = findViewById(R.id.startValueAddAccount);
         radioGroup = findViewById(R.id.radioGroupAddAccount);
+        currencySpinner = findViewById(R.id.spinnerAddAccount);
     }
 
     @Override
@@ -57,6 +60,7 @@ public class AddAccountDialog extends Dialog implements View.OnClickListener {
                     .show();
             return;
         }
+        String currency = currencySpinner.getSelectedItem().toString();
         float startValue;
         try {
             startValue = Float.parseFloat(start.getText().toString());
@@ -75,7 +79,7 @@ public class AddAccountDialog extends Dialog implements View.OnClickListener {
         if (type.equals("wallet")) {
             type = Account.Type.WALLET;
         } else type = Account.Type.CREDIT_CARD;
-        Account account = new Account(UUID.randomUUID(), name, startValue, type);
+        Account account = new Account(UUID.randomUUID(), name, startValue, type, currency);
         account.currentValue = startValue;
         activity.accountViewModel.insert(account);
         activity.repositories.add(new TransactionRepository(activity.getApplication(), account.id));

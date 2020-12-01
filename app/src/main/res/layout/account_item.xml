@@ -32,7 +32,7 @@
         android:layout_toStartOf="@+id/categoryImage"
         android:text=""
         android:textSize="30sp"
-        tools:text="300 BYN" />
+        tools:text="300 USD" />
 
     <ImageView
         android:id="@+id/categoryImage"

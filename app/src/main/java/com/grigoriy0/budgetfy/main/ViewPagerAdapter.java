@@ -63,7 +63,7 @@ public class ViewPagerAdapter extends RecyclerView.Adapter<ViewPagerAdapter.Page
 
         public final void onBind(Account account) {
             accountName.setText(account.name);
-            String value = String.format(Locale.getDefault(), "%.2f BYN", account.currentValue);
+            String value = String.format(Locale.getDefault(), "%.2f %s", account.currentValue, account.currency);
             currentValue.setText(value);
             if (account.type.equals(Account.Type.WALLET))
                 imageView.setImageResource(R.drawable.ic_wallet_90);

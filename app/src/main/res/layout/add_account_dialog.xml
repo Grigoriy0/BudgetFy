@@ -13,8 +13,8 @@
         android:id="@+id/titleAddAccount"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/add_new_account_question"
         android:layout_marginBottom="5dp"
+        android:text="@string/add_new_account_question"
         android:textColor="@color/black"
         android:textSize="20sp"
         android:textStyle="bold" />
@@ -43,16 +43,28 @@
             android:maxLength="@integer/account_len_max"
             android:textSize="16sp" />
 
-        <EditText
-            android:id="@+id/startValueAddAccount"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="@string/start_value"
-            android:inputType="date"
-            android:maxLength="@integer/value_len_max"
-            android:textSize="16sp" />
+            android:orientation="horizontal">
 
+            <EditText
+                android:id="@+id/startValueAddAccount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="@string/start_value"
+                android:inputType="date"
+                android:maxLength="@integer/value_len_max"
+                android:textSize="16sp" />
+
+            <Spinner
+                android:id="@+id/spinnerAddAccount"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="end"
+                android:entries="@array/currencies" />
+        </LinearLayout>
 
         <RadioGroup
             android:id="@+id/radioGroupAddAccount"
