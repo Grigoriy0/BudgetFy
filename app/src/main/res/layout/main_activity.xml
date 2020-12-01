@@ -50,7 +50,7 @@
         app:layout_constraintTop_toBottomOf="@id/accountsViewPager" />
 
     <com.getbase.floatingactionbutton.FloatingActionsMenu
-        android:id="@+id/floatingActionButton"
+        android:id="@+id/floatingActionMenu"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:fab_addButtonColorNormal="@color/colorPrimaryDark"
@@ -59,6 +59,7 @@
         app:fab_labelStyle="@style/fab"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+
         app:srcCompat="@android:drawable/ic_menu_add">
 
         <com.getbase.floatingactionbutton.FloatingActionButton
@@ -68,7 +69,7 @@
             android:onClick="openAddTransactionDialog"
             app:fab_colorNormal="@color/colorAccentDark"
             app:fab_colorPressed="@color/colorAccent"
-            app:fab_icon="@drawable/ic_add_24"
+            app:fab_icon="@drawable/ic_down_white_24"
             app:fab_size="mini"
             app:fab_title="Loss" />
 
@@ -79,7 +80,7 @@
             android:onClick="openAddTransactionDialog"
             app:fab_colorNormal="@color/colorAccentDark"
             app:fab_colorPressed="@color/colorAccent"
-            app:fab_icon="@drawable/ic_add_24"
+            app:fab_icon="@drawable/ic_up_white_24"
             app:fab_size="mini"
             app:fab_title="Increase" />
     </com.getbase.floatingactionbutton.FloatingActionsMenu>

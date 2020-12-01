@@ -61,6 +61,7 @@ public class PieChartManager {
         pieChart.setHoleRadius(40.0f);
         pieChart.setTransparentCircleAlpha(0);
         pieChart.setCenterText(isLoss ? "Loss" : "Increase");
+        pieChart.setCenterTextSize(18);
         pieChart.getDescription().setEnabled(false);
         pieChart.getLegend().setEnabled(false);
 //        pieChart.getLegend().setExtra(Category.getColors(), (String[]) parser.categories.toArray());

@@ -19,6 +19,7 @@ import androidx.viewpager2.widget.CompositePageTransformer;
 import androidx.viewpager2.widget.MarginPageTransformer;
 import androidx.viewpager2.widget.ViewPager2;
 
+import com.getbase.floatingactionbutton.FloatingActionsMenu;
 import com.grigoriy0.budgetfy.Account;
 import com.grigoriy0.budgetfy.AccountViewModel;
 import com.grigoriy0.budgetfy.R;
@@ -40,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
     private TransactionRepository currentAccTransRepo;
     private AccountUpdater updater;
     protected Menu menu;
+    private FloatingActionsMenu fabMenu;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +60,8 @@ public class MainActivity extends AppCompatActivity {
         accounts = accountViewModel.getAllAccounts();
         openAccountsViewPager();
         createPieChart();
+        fabMenu = findViewById(R.id.floatingActionMenu);
+
     }
 
     public void showAccountDetails(View view) {
@@ -70,6 +74,7 @@ public class MainActivity extends AppCompatActivity {
         intent.putExtra(AccountActivity.EXTRA_ACCOUNT, id.toString());
         intent.putExtra(AccountActivity.EXTRA_VALUE, value);
         intent.putExtra(AccountActivity.EXTRA_NAME, name);
+        fabMenu.collapse();
         startActivityForResult(intent, 1);
     }
 
@@ -127,6 +132,7 @@ public class MainActivity extends AppCompatActivity {
                 updater,
                 accounts.getValue().get(accountIndex).currentValue,
                 loss);
+        fabMenu.collapse();
         dialog.show();
     }
 
@@ -159,6 +165,7 @@ public class MainActivity extends AppCompatActivity {
         }
         DeleteAccountDialog dialog = new DeleteAccountDialog(MainActivity.this,
                 accounts.getValue().get(accountIndex), accountIndex);
+        fabMenu.collapse();
         dialog.show();
     }
 
@@ -169,6 +176,7 @@ public class MainActivity extends AppCompatActivity {
             return;
         }
         EditAccountDialog dialog = new EditAccountDialog(MainActivity.this, accounts.getValue().get(accountIndex));
+        fabMenu.collapse();
         dialog.show();
     }
 
@@ -176,6 +184,7 @@ public class MainActivity extends AppCompatActivity {
         if (repositories == null)
             repositories = new ArrayList<>();
         AddAccountDialog dialog = new AddAccountDialog(MainActivity.this);
+        fabMenu.collapse();
         dialog.show();
     }
 
@@ -201,6 +210,7 @@ public class MainActivity extends AppCompatActivity {
             menu.findItem(R.id.deleteAccountMenuItem).setEnabled(false);
             menu.findItem(R.id.editAccountMenuItem).setEnabled(false);
         }
+        fabMenu.collapse();
         popupMenu.show();
     }
 

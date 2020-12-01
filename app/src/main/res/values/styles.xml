@@ -2,15 +2,16 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorPrimary">@color/gray_34</item>
+        <item name="colorPrimaryDark">@color/gray_34</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
     <style name="fab">
 <!--        <item name="background">@drawable/fab_lable_background</item>-->
-        <item name="android:textColor">@color/black</item>
-
+        <item name="android:textColor">@color/white</item>
+        <item name="android:background">@color/black</item>
+        <item name="android:textStyle">bold</item>
     </style>
 
     <style name="BottomSheetDialogTheme" parent="Theme.Design.BottomSheetDialog">
