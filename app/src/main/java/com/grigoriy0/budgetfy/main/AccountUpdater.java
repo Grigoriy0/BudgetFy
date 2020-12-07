@@ -23,20 +23,16 @@ public class AccountUpdater {
     public void applyTransactions(List<Transaction> transactionList) {
         account.currentValue = account.startValue;
         for (Transaction transaction : transactionList) {
-            if (transaction.loss)
-                account.currentValue -= (float) transaction.sum / 100;
-            else
-                account.currentValue += (float) transaction.sum / 100;
+            if (transaction.loss) account.currentValue -= (float) transaction.sum / 100;
+            else account.currentValue += (float) transaction.sum / 100;
         }
         accountViewModel.update(account);
         adapter.notifyDataSetChanged();
     }
 
     public void addTransaction(Transaction transaction) {
-        if (transaction.loss)
-            account.currentValue -= (float) transaction.sum / 100;
-        else
-            account.currentValue += (float) transaction.sum / 100;
+        if (transaction.loss) account.currentValue -= (float) transaction.sum / 100;
+        else account.currentValue += (float) transaction.sum / 100;
         accountViewModel.update(account);
         adapter.notifyDataSetChanged();
     }
