@@ -20,16 +20,15 @@ public class ViewPagerAdapter extends RecyclerView.Adapter<ViewPagerAdapter.Page
     private List<Account> accounts;
 
     ViewPagerAdapter(List<Account> accounts) {
-        if (accounts == null) {
-            accounts = new LinkedList<>();
-        }
+        if (accounts == null) accounts = new LinkedList<>();
         this.accounts = accounts;
     }
 
     @NonNull
     @Override
     public PagerVH onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new PagerVH(LayoutInflater.from(parent.getContext()).inflate(R.layout.account_item, parent, false));
+        return new PagerVH(LayoutInflater.from(parent.getContext())
+                           .inflate(R.layout.account_item, parent, false));
     }
 
     @Override
@@ -39,8 +38,7 @@ public class ViewPagerAdapter extends RecyclerView.Adapter<ViewPagerAdapter.Page
 
     @Override
     public int getItemCount() {
-        if (accounts == null)
-            return 0;
+        if (accounts == null) return 0;
         return accounts.size();
     }
 
@@ -63,9 +61,10 @@ public class ViewPagerAdapter extends RecyclerView.Adapter<ViewPagerAdapter.Page
 
         public final void onBind(Account account) {
             accountName.setText(account.name);
-            String value = String.format(Locale.getDefault(), "%.2f %s", account.currentValue, account.currency);
+            String value = 
+                String.format(Locale.getDefault(), "%.2f %s", account.currentValue, account.currency);
             currentValue.setText(value);
-            if (account.type.equals(Account.Type.WALLET))
+            if (account.type.equals(Account.Type.WALLET)) 
                 imageView.setImageResource(R.drawable.ic_wallet_90);
             else
                 imageView.setImageResource(R.drawable.ic_credit_card_90);

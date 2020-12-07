@@ -14,7 +14,8 @@ public class DeleteAccountDialog extends Dialog implements View.OnClickListener 
     private final Account accountToDelete;
     private final int accountIndex;
 
-    public DeleteAccountDialog(@NonNull MainActivity mainActivity, Account account, int accountIndex) {
+    public DeleteAccountDialog(@NonNull MainActivity mainActivity, 
+                               Account account, int accountIndex) {
         super(mainActivity);
         this.activity = mainActivity;
         this.accountToDelete = account;

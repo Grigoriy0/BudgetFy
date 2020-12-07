@@ -23,12 +23,14 @@ public class TransactionsAdapter extends ListAdapter<Transaction, TransactionsAd
     private static final class DiffCallback extends DiffUtil.ItemCallback<Transaction> {
 
         @Override
-        public boolean areItemsTheSame(@NonNull Transaction oldItem, @NonNull Transaction newItem) {
+        public boolean areItemsTheSame(@NonNull Transaction oldItem, 
+                                       @NonNull Transaction newItem) {
             return oldItem == newItem;
         }
 
         @Override
-        public boolean areContentsTheSame(@NonNull Transaction oldItem, @NonNull Transaction newItem) {
+        public boolean areContentsTheSame(@NonNull Transaction oldItem, 
+                                          @NonNull Transaction newItem) {
             return oldItem.equals(newItem);
         }
     }
@@ -44,10 +46,8 @@ public class TransactionsAdapter extends ListAdapter<Transaction, TransactionsAd
         final LayoutInflater layoutInflater = (LayoutInflater)
                 parent.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
-        final View view = layoutInflater.inflate(
-                R.layout.transaction_item,
-                parent,
-                false);
+        final View view = 
+            layoutInflater.inflate(R.layout.transaction_item, parent, false);
         view.setOnClickListener(fragment.transactionItemListener);
         return new ViewHolder(view);
     }
@@ -82,14 +82,14 @@ public class TransactionsAdapter extends ListAdapter<Transaction, TransactionsAd
 
         public final void onBind(Transaction transaction) {
             float value = (float) transaction.sum / 100;
-            String sum = String.format(Locale.getDefault(), "%c%.2f", transaction.loss ? '-' : '+', value);
+            String sum = 
+                String.format(Locale.getDefault(), "%c%.2f", transaction.loss ? '-' : '+', value);
             sumView.setText(sum);
             categoryView.setText(transaction.category.toString());
             dateView.setText(transaction.getDateString());
-            if (transaction.loss)
-                imageView.setImageResource(R.drawable.ic_down_90);
-            else
-                imageView.setImageResource(R.drawable.ic_up_90);
+            if (transaction.loss) imageView.setImageResource(R.drawable.ic_down_90);
+            else imageView.setImageResource(R.drawable.ic_up_90);
+            
             idTextView.setText(String.valueOf(transaction.id));
             commentView.setText(transaction.comment);
         }

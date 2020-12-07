@@ -38,16 +38,21 @@ public class EditTransactionDialog extends Dialog implements View.OnClickListene
                 ).getText().toString());
         float value;
         try {
-            String str = ((TextView) transactionView.findViewById(R.id.sumTextView)).getText().toString();
-            value = Float.parseFloat(str.substring(1).replace(',', '.'));
+            String str = 
+                ((TextView) transactionView.findViewById(R.id.sumTextView)).getText().toString();
+            value = 
+                Float.parseFloat(str.substring(1).replace(',', '.'));
         } catch (Exception e) {
             Toast.makeText(fragment.getContext(), "Error. Default value will be 0", Toast.LENGTH_LONG)
                     .show();
             value = 0;
         }
         oldValue = value;
-        Category category = Category.fromString(((TextView) transactionView.findViewById(R.id.categoryTextView)).getText().toString());
-        String comment = ((TextView) transactionView.findViewById(R.id.transactionCommentTextView)).getText().toString();
+        Category category = 
+            Category.fromString(((TextView) transactionView.findViewById(R.id.categoryTextView)).
+                                getText().toString());
+        String comment = 
+            ((TextView) transactionView.findViewById(R.id.transactionCommentTextView)).getText().toString();
         Date date;
         try {
             date = (Transaction.DATE_FORMAT).parse(

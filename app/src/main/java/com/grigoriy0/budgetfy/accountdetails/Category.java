@@ -45,36 +45,22 @@ public enum Category {
 
     public boolean isLoss() {
         final Category category = this;
-        return category != STIPEND &&
-                category != GIFT &&
-                category != SALARY;
+        return category != STIPEND && category != GIFT && category != SALARY;
     }
 
     public int getIconResId() {
         switch (type) {
-            case "Transport":
-                return R.drawable.ic_transport_90;
-            case "Education":
-                return R.drawable.ic_education_90;
-            case "Food":
-                return R.drawable.ic_food_90;
-            case "Cafe":
-                return R.drawable.ic_cafe_90;
-            case "Phone":
-                return R.drawable.ic_phone_90;
-            case "Barber":
-                return R.drawable.ic_barber_90;
-            case "Rent":
-                return R.drawable.ic_rent_90;
-            case "Other":
-                return R.drawable.ic_other_90;
-            case "Gift":
-                return R.drawable.ic_gift_90;
-            case "Salary":
-            case "Stipend":
-                return R.drawable.ic_salary_90;
-            default:
-                return R.drawable.ic_food_90;
+            case "Transport": return R.drawable.ic_transport_90;
+            case "Education": return R.drawable.ic_education_90;
+            case "Food": return R.drawable.ic_food_90;
+            case "Cafe": return R.drawable.ic_cafe_90;
+            case "Phone": return R.drawable.ic_phone_90;
+            case "Barber": return R.drawable.ic_barber_90;
+            case "Rent": return R.drawable.ic_rent_90;
+            case "Other": return R.drawable.ic_other_90;
+            case "Gift": return R.drawable.ic_gift_90;
+            case "Salary": case "Stipend": return R.drawable.ic_salary_90;
+            default: return R.drawable.ic_food_90;
         }
     }
 
@@ -84,10 +70,9 @@ public enum Category {
     }
 
     public static Category fromString(String string) {
-        for (Category cat : Category.values()) {
-            if (cat.type.equals(string))
-                return cat;
-        }
+        for (Category cat : Category.values())
+            if (cat.type.equals(string)) return cat;
+      
         return Category.OTHER;
     }
 }
