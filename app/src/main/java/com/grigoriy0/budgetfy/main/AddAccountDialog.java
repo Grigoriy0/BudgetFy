@@ -51,9 +51,7 @@ public class AddAccountDialog extends Dialog implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
-        if (findViewById(radioGroup.getCheckedRadioButtonId()) == null) {
-            return;
-        }
+        if (findViewById(radioGroup.getCheckedRadioButtonId()) == null) return;
         String name = nameText.getText().toString().trim();
         if (name.isEmpty() || start.getText().toString().isEmpty()) {
             Toast.makeText(activity, "Enter non-empty data", Toast.LENGTH_LONG)
@@ -65,8 +63,7 @@ public class AddAccountDialog extends Dialog implements View.OnClickListener {
         try {
             startValue = Float.parseFloat(start.getText().toString());
         } catch (NumberFormatException ignored) {
-            Toast.makeText(activity, "Enter correct value", Toast.LENGTH_LONG)
-                    .show();
+            Toast.makeText(activity, "Enter correct value", Toast.LENGTH_LONG).show();
             return;
         }
         if (startValue < 0.0f) {
@@ -76,9 +73,8 @@ public class AddAccountDialog extends Dialog implements View.OnClickListener {
         }
         String type = ((RadioButton) findViewById(
                 radioGroup.getCheckedRadioButtonId())).getText().toString();
-        if (type.equals("wallet")) {
-            type = Account.Type.WALLET;
-        } else type = Account.Type.CREDIT_CARD;
+        if (type.equals("wallet")) type = Account.Type.WALLET;
+        else type = Account.Type.CREDIT_CARD;
         Account account = new Account(UUID.randomUUID(), name, startValue, type, currency);
         account.currentValue = startValue;
         activity.accountViewModel.insert(account);
