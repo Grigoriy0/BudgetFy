@@ -24,10 +24,12 @@ import java.util.UUID;
 ),
         indices = {@Index(value = {"accountId"})}
 )
-@TypeConverters({Transaction.DateConverter.class, Transaction.CategoryConverter.class, Account.UUIDConverter.class})
+@TypeConverters({Transaction.DateConverter.class, 
+                 Transaction.CategoryConverter.class, Account.UUIDConverter.class})
 public class Transaction {
 
-    public static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("dd.MM.yyyy", Locale.getDefault());
+    public static final SimpleDateFormat DATE_FORMAT = 
+            new SimpleDateFormat("dd.MM.yyyy", Locale.getDefault());
 
     @NonNull
     @PrimaryKey
@@ -60,7 +62,8 @@ public class Transaction {
         comment = other.comment;
     }
 
-    public Transaction(long sum, @NonNull Category category, String comment, @NonNull UUID accountId) {
+    public Transaction(long sum, @NonNull Category category, 
+                       String comment, @NonNull UUID accountId) {
         this.sum = sum;
         this.accountId = accountId;
         this.category = category;
@@ -79,20 +82,14 @@ public class Transaction {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Transaction that = (Transaction) o;
-        return Float.compare(that.sum, sum) == 0 &&
-                Objects.equals(id, that.id) &&
-                Objects.equals(date, that.date) &&
-                category == that.category;
+        return Float.compare(that.sum, sum) == 0 && Objects.equals(id, that.id) &&
+                Objects.equals(date, that.date) && category == that.category;
     }
 
     @Override
     public String toString() {
-        return "Transaction{" +
-                "id=" + id +
-                ", sum=" + sum +
-                ", date=" + date +
-                ", category=" + category +
-                '}';
+        return "Transaction{" + "id=" + id + ", sum=" + sum +
+                ", date=" + date + ", category=" + category + '}';
     }
 
     @Override
@@ -115,32 +112,20 @@ public class Transaction {
     public static class CategoryConverter {
         @TypeConverter
         public static Category toCategory(String string) {
-            if (string == null)
-                return null;
+            if (string == null) return null;
+                
             switch (string) {
-                case "Transport":
-                    return Category.TRANSPORT;
-                case "Education":
-                    return Category.EDUCATION;
-                case "Food":
-                    return Category.FOOD;
-                case "Cafe":
-                    return Category.CAFE;
-                case "Phone":
-                    return Category.PHONE;
-                case "Barber":
-                    return Category.BARBER;
-                case "Rent":
-                    return Category.RENT;
-                case "Stipend":
-                    return Category.STIPEND;
-                case "Gift":
-                    return Category.GIFT;
-                case "Salary":
-                    return Category.SALARY;
-                case "Other":
-                default:
-                    return Category.OTHER;
+                case "Transport": return Category.TRANSPORT;
+                case "Education": return Category.EDUCATION;
+                case "Food": return Category.FOOD;
+                case "Cafe": return Category.CAFE;
+                case "Phone": return Category.PHONE;
+                case "Barber": return Category.BARBER;
+                case "Rent": return Category.RENT;
+                case "Stipend": return Category.STIPEND;
+                case "Gift": return Category.GIFT;
+                case "Salary": return Category.SALARY;
+                default: return Category.OTHER;
             }
         }
 
