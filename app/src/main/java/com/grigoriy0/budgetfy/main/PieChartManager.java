@@ -23,24 +23,19 @@ public class PieChartManager {
 
         DataParser(boolean isLoss) {
             categories = new ArrayList<>();
-            for (Category cat :
-                    Category.values()) {
-                if (cat.isLoss() == isLoss)
-                    categories.add(cat.toString());
-            }
+            for (Category cat : Category.values())
+                if (cat.isLoss() == isLoss) categories.add(cat.toString());
         }
 
         public List<PieEntry> parse(List<Transaction> transactions) {
-            if (transactions == null) {
-                // return last saved data;
-                return pieEntries;
-            }
+            // return last saved data;
+            if (transactions == null) return pieEntries;
             pieEntries = new ArrayList<>();
             List<Float> percents = new ArrayList<>();
             for (int i = 0; i < categories.size(); i++) {
                 float value = 0f;
                 for (Transaction trans : transactions) {
-                    if (trans.category.toString().equals(categories.get(i)))
+                    if (trans.category.toString().equals(categories.get(i))) 
                         value += (float) trans.sum / 100;
                 }
                 percents.add(value);
@@ -70,8 +65,7 @@ public class PieChartManager {
     }
 
     public void update(List<Transaction> transactions) {
-        if (parser == null)
-            parser = new DataParser(isLoss);
+        if (parser == null) parser = new DataParser(isLoss);
 
         PieDataSet dataSet = new PieDataSet(parser.parse(transactions), "Categories usage");
         dataSet.setSliceSpace(2);
