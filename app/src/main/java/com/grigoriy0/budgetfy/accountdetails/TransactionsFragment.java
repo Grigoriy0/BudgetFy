@@ -34,7 +34,8 @@ public class TransactionsFragment extends Fragment {
 
     @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, 
+                             @Nullable Bundle savedInstanceState) {
         final View parentView = inflater.inflate(R.layout.fragment_transaction, container, false);
         recyclerView = parentView.findViewById(R.id.transactionsView);
         viewModel = ViewModelProviders.of(this).get(TransactionViewModel.class);
@@ -67,23 +68,26 @@ public class TransactionsFragment extends Fragment {
     private final ItemTouchHelper.SimpleCallback callback = new ItemTouchHelper.SimpleCallback(0,
             ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
         @Override
-        public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+        public boolean onMove(@NonNull RecyclerView recyclerView, 
+                              @NonNull RecyclerView.ViewHolder viewHolder, 
+                              @NonNull RecyclerView.ViewHolder target) {
             return false;
         }
 
         @Override
         public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
-            if (viewModel.getAccountTransactions().getValue() == null)
-                return;
+            if (viewModel.getAccountTransactions().getValue() == null) return;
             final int position = viewHolder.getAdapterPosition();
             try {
-                deletedTransaction = new Transaction(viewModel.getAccountTransactions().getValue().get(position));
+                deletedTransaction = 
+                    new Transaction(viewModel.getAccountTransactions().getValue().get(position));
             } catch (Exception ignored) {
             }
             viewModel.delete(deletedTransaction);
             accountCurrentValue -= (float) deletedTransaction.sum / 100;
 
-            String msg = String.format(Locale.getDefault(), "Transactions with %.2f BYN deleted", (float) deletedTransaction.sum / 100);
+            String msg = 
+                String.format(Locale.getDefault(), "Transactions with %.2f BYN deleted", (float) deletedTransaction.sum / 100);
             Snackbar.make(recyclerView, msg, Snackbar.LENGTH_LONG)
                     .setAction("Undo", new View.OnClickListener() {
                         @Override
@@ -95,8 +99,11 @@ public class TransactionsFragment extends Fragment {
         }
 
         @Override
-        public void onChildDraw(@NonNull Canvas c, @NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, float dX, float dY, int actionState, boolean isCurrentlyActive) {
-            new RecyclerViewSwipeDecorator.Builder(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive)
+        public void onChildDraw(@NonNull Canvas c, @NonNull RecyclerView recyclerView, 
+                                @NonNull RecyclerView.ViewHolder viewHolder, float dX, 
+                                float dY, int actionState, boolean isCurrentlyActive) {
+            new RecyclerViewSwipeDecorator
+                    .Builder(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive)
                     .addBackgroundColor(ContextCompat.getColor(getContext(), R.color.red))
                     .addActionIcon(R.drawable.ic_delete_24)
                     .create()
@@ -111,7 +118,8 @@ public class TransactionsFragment extends Fragment {
     protected final View.OnClickListener transactionItemListener = new View.OnClickListener() {
         @Override
         public void onClick(View transactionView) {
-            EditTransactionDialog dialog = new EditTransactionDialog(TransactionsFragment.this, transactionView, accountCurrentValue);
+            EditTransactionDialog dialog = 
+                new EditTransactionDialog(TransactionsFragment.this, transactionView, accountCurrentValue);
             dialog.show();
         }
     };
