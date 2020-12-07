@@ -31,7 +31,9 @@ public class AddTransactionDialog extends BottomSheetDialog implements View.OnCl
     private final float accountCurrentValue;
     private final AccountUpdater updater;
 
-    public AddTransactionDialog(@NonNull MainActivity activity, final UUID accountId, final AccountUpdater updater, final Float accountCurrentValue, boolean isLoss) {
+    public AddTransactionDialog(@NonNull MainActivity activity, final UUID accountId, 
+                                final AccountUpdater updater, final Float accountCurrentValue, 
+                                boolean isLoss) {
         super(activity, R.style.BottomSheetDialogTheme);
         this.activity = activity;
         this.accountId = accountId;
@@ -48,7 +50,8 @@ public class AddTransactionDialog extends BottomSheetDialog implements View.OnCl
             sumView = bottomSheetView.findViewById(R.id.valueEditLoss);
             radioGroup = bottomSheetView.findViewById(R.id.radioGroupLoss);
             bottomSheetView.findViewById(R.id.applyLossButton).setOnClickListener(this);
-            bottomSheetView.findViewById(R.id.cancelLossButton).setOnClickListener(new View.OnClickListener() {
+            bottomSheetView.findViewById(R.id.cancelLossButton)
+                .setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     dismiss();
@@ -65,7 +68,8 @@ public class AddTransactionDialog extends BottomSheetDialog implements View.OnCl
             sumView = bottomSheetView.findViewById(R.id.valueEditIncrease);
             radioGroup = bottomSheetView.findViewById(R.id.radioGroupIncrease);
             bottomSheetView.findViewById(R.id.applyIncreaseButton).setOnClickListener(this);
-            bottomSheetView.findViewById(R.id.cancelIncreaseButton).setOnClickListener(new View.OnClickListener() {
+            bottomSheetView.findViewById(R.id.cancelIncreaseButton)
+                .setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     dismiss();
@@ -79,9 +83,7 @@ public class AddTransactionDialog extends BottomSheetDialog implements View.OnCl
     @Override
     public void onClick(View v) {
         String comment = commentView.getText().toString();
-        if (bottomSheetView.findViewById(radioGroup.getCheckedRadioButtonId()) == null) {
-            return;
-        }
+        if (bottomSheetView.findViewById(radioGroup.getCheckedRadioButtonId()) == null) return;
         String category = ((RadioButton) bottomSheetView.findViewById(
                 radioGroup.getCheckedRadioButtonId())).getText().toString();
         long sum;
@@ -94,8 +96,7 @@ public class AddTransactionDialog extends BottomSheetDialog implements View.OnCl
                 return;
             }
             if (value < 0) {
-                if (isLoss)
-                    value = -value;
+                if (isLoss) value = -value;
                 else {
                     Toast.makeText(activity.getApplicationContext(), "Type positive value", Toast.LENGTH_SHORT)
                             .show();
@@ -121,8 +122,7 @@ public class AddTransactionDialog extends BottomSheetDialog implements View.OnCl
         TransactionRepository tr = new TransactionRepository(activity.getApplication(), accountId);
         tr.addTransaction(transactionToAdd);
         updater.addTransaction(transactionToAdd);
-        String msg = (isLoss ? "Loss" : "Increase")
-                + " added";
+        String msg = (isLoss ? "Loss" : "Increase") + " added";
         Toast.makeText(activity, msg, Toast.LENGTH_SHORT).show();
         dismiss();
     }
