@@ -24,25 +24,6 @@ public enum Category {
         this.type = type;
     }
 
-    private static final int[] colors = new int[]{
-            Color.LTGRAY,
-            Color.BLUE,
-            Color.YELLOW,
-            Color.rgb(255, 165, 0), // orange
-            Color.DKGRAY,
-            Color.rgb(255, 192, 203), //pink
-            Color.GREEN,
-            Color.GRAY,
-
-            Color.rgb(255, 165, 0), // orange
-            Color.RED,
-            Color.rgb(0, 100, 0) // dark green
-    };
-
-    public static int[] getColors() {
-        return colors;
-    }
-
     public boolean isLoss() {
         final Category category = this;
         return category != STIPEND && category != GIFT && category != SALARY;
@@ -64,6 +45,23 @@ public enum Category {
         }
     }
 
+    public Integer getColor() {
+        switch (type){
+            case "Transport": return Color.LTGRAY;
+            case "Education": return Color.BLUE;
+            case "Food": return Color.YELLOW;
+            case "Cafe": return Color.rgb(255, 165, 0); // orange
+            case "Phone": return Color.MAGENTA;
+            case "Barber": return Color.rgb(255, 192, 203); //pink
+            case "Rent": return Color.GREEN;
+            case "Other": return Color.GRAY;
+            case "Gift": return Color.rgb(255, 165, 0); // orange
+            case "Salary": return Color.RED;
+            case "Stipend": return Color.rgb(0, 100, 0); // dark green
+            default: return Color.rgb(255, 255, 255);
+        }
+    }
+
     @Override
     public String toString() {
         return type;
@@ -72,7 +70,7 @@ public enum Category {
     public static Category fromString(String string) {
         for (Category cat : Category.values())
             if (cat.type.equals(string)) return cat;
-      
+
         return Category.OTHER;
     }
 }
