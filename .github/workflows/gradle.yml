@@ -27,3 +27,7 @@ jobs:
     
     - name: Test with Gradle
       run: ./gradlew test
+    - name: Download a single artifact
+      uses: actions/download-artifact@v2
+      with:
+        name: app/build/outputs/
