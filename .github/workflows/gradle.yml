@@ -29,7 +29,7 @@ jobs:
       run: ./gradlew test
 
     - name: About directory
-      run: pwd && ls -l
+      run: pwd && ls -l /home/runner/work/BudgetFy/BudgetFy/app/build/outputs/apk/debug/
 
     - name: Download a single artifact
       uses: actions/download-artifact@v2
