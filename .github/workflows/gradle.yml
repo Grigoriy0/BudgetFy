@@ -34,4 +34,4 @@ jobs:
     - name: Download a single artifact
       uses: actions/upload-artifact@v2
       with:
-        name: app/build/outputs/apk/debug/app-debug.apk
+        path: app/build/outputs/apk/debug/app-debug.apk
