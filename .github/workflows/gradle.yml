@@ -34,4 +34,5 @@ jobs:
     - name: Create an apk artifact
       uses: actions/upload-artifact@v2
       with:
+        name: budgetfy
         path: app/build/outputs/apk/debug/app-debug.apk
