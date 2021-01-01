@@ -87,7 +87,7 @@ public class TransactionsFragment extends Fragment {
             accountCurrentValue -= (float) deletedTransaction.sum / 100;
 
             String msg = 
-                String.format(Locale.getDefault(), "Transactions with %.2f BYN deleted", (float) deletedTransaction.sum / 100);
+                String.format(Locale.getDefault(), "Transactions with %.2f BYR deleted", (float) deletedTransaction.sum / 100);
             Snackbar.make(recyclerView, msg, Snackbar.LENGTH_LONG)
                     .setAction("Undo", new View.OnClickListener() {
                         @Override

@@ -39,7 +39,7 @@
     <string name="add_new_account_question">Add new account?</string>
     <string name="delete">delete</string>
     <string-array name="currencies">
-        <item>BYN</item>
+        <item>BYR</item>
         <item>USD</item>
     </string-array>
 </resources>
